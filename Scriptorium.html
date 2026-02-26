@@ -7,14 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --bg-deep: #1a1612;
             --bg-primary: #f4ede4;
             --bg-secondary: #e8dfd3;
-            --bg-card: rgba(244, 237, 228, 0.85);
-            --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(248, 243, 236, 0.8) 100%);
+            --bg-card: rgba(244, 237, 228, 0.9);
+            --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%);
             --fg-primary: #2c2418;
             --fg-secondary: #5c4f3d;
             --fg-muted: #8b7d68;
@@ -23,25 +21,27 @@
             --accent-sepia: #8b6914;
             --border-light: rgba(44, 36, 24, 0.12);
             --border-medium: rgba(44, 36, 24, 0.25);
-            --shadow-warm: rgba(139, 105, 20, 0.15);
+            --shadow-warm: rgba(139, 105, 20, 0.12);
             --sidebar-bg: #231d15;
             --sidebar-fg: #e8dfd3;
-            --input-bg: rgba(255, 255, 255, 0.7);
-            --input-focus-bg: rgba(255, 255, 255, 0.9);
+            --input-bg: rgba(255, 255, 255, 0.75);
             --cat-intrigue: #8b3a3a;
             --cat-intrigue-bg: rgba(139, 58, 58, 0.12);
             --cat-lore: #2d5a4a;
             --cat-lore-bg: rgba(45, 90, 74, 0.12);
             --cat-idee: #6b5b95;
             --cat-idee-bg: rgba(107, 91, 149, 0.12);
+            --cat-race: #7a5c3e;
+            --cat-race-bg: rgba(122, 92, 62, 0.12);
+            --cat-langue: #3e5c7a;
+            --cat-langue-bg: rgba(62, 92, 122, 0.12);
         }
 
         [data-theme="dark"] {
-            --bg-deep: #0d0b09;
             --bg-primary: #1a1714;
             --bg-secondary: #252019;
-            --bg-card: rgba(35, 30, 24, 0.9);
-            --bg-form: linear-gradient(135deg, rgba(40, 35, 28, 0.8) 0%, rgba(30, 26, 20, 0.9) 100%);
+            --bg-card: rgba(35, 30, 24, 0.92);
+            --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%);
             --fg-primary: #e8dfd3;
             --fg-secondary: #c4b8a4;
             --fg-muted: #8a7d6a;
@@ -49,16 +49,19 @@
             --accent-copper: #cd8c4a;
             --border-light: rgba(232, 223, 211, 0.1);
             --border-medium: rgba(232, 223, 211, 0.2);
-            --shadow-warm: rgba(0, 0, 0, 0.4);
+            --shadow-warm: rgba(0, 0, 0, 0.35);
             --sidebar-bg: #0f0d0a;
-            --input-bg: rgba(50, 45, 38, 0.6);
-            --input-focus-bg: rgba(60, 55, 48, 0.8);
+            --input-bg: rgba(55, 50, 43, 0.65);
             --cat-intrigue: #c45c5c;
             --cat-intrigue-bg: rgba(196, 92, 92, 0.15);
             --cat-lore: #4a9a7a;
             --cat-lore-bg: rgba(74, 154, 122, 0.15);
             --cat-idee: #9a8ac4;
             --cat-idee-bg: rgba(154, 138, 196, 0.15);
+            --cat-race: #b8966a;
+            --cat-race-bg: rgba(184, 150, 106, 0.15);
+            --cat-langue: #6a8ab8;
+            --cat-langue-bg: rgba(106, 138, 184, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -76,20 +79,19 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.025;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.022;
             pointer-events: none;
             z-index: 0;
         }
 
+        /* Sidebar */
         .sidebar {
             position: fixed;
-            left: 0;
-            top: 0;
-            width: 260px;
-            height: 100vh;
+            left: 0; top: 0;
+            width: 250px; height: 100vh;
             background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%);
-            border-right: 1px solid rgba(201, 162, 39, 0.2);
+            border-right: 1px solid rgba(201, 162, 39, 0.18);
             z-index: 100;
             display: flex;
             flex-direction: column;
@@ -100,13 +102,13 @@
         .sidebar.hidden { transform: translateX(-100%); }
 
         .sidebar-header {
-            padding: 1.5rem 1.25rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+            padding: 1.4rem 1.2rem;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.12);
         }
 
         .logo {
             font-family: 'Spectral', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--accent-gold);
             letter-spacing: 0.08em;
@@ -114,112 +116,111 @@
         }
 
         .logo-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--fg-muted);
             font-style: italic;
-            margin-top: 0.2rem;
+            margin-top: 0.15rem;
         }
 
         .sidebar-actions {
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 1rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.4rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+            gap: 0.35rem;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.08);
         }
 
         .sidebar-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.3rem;
-            padding: 0.5rem 0.6rem;
-            background: rgba(201, 162, 39, 0.08);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            border-radius: 6px;
+            gap: 0.25rem;
+            padding: 0.45rem 0.5rem;
+            background: rgba(201, 162, 39, 0.06);
+            border: 1px solid rgba(201, 162, 39, 0.18);
+            border-radius: 5px;
             color: var(--sidebar-fg);
             font-family: inherit;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
         .sidebar-btn:hover {
-            background: rgba(201, 162, 39, 0.15);
+            background: rgba(201, 162, 39, 0.12);
             color: var(--accent-gold);
         }
 
-        .sidebar-btn svg { width: 12px; height: 12px; }
+        .sidebar-btn svg { width: 11px; height: 11px; }
         .sidebar-btn.full-width { grid-column: 1 / -1; }
 
-        .nav-section { padding: 0.75rem 0; flex: 1; }
+        .nav-section { padding: 0.6rem 0; flex: 1; }
         
         .nav-label {
-            padding: 0.4rem 1.25rem;
-            font-size: 0.6rem;
+            padding: 0.35rem 1.2rem;
+            font-size: 0.58rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.14em;
             color: var(--fg-muted);
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1.25rem;
+            gap: 0.55rem;
+            padding: 0.55rem 1.2rem;
             color: var(--sidebar-fg);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
             position: relative;
             border: none;
             background: transparent;
             width: 100%;
             text-align: left;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .nav-item::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            left: 0; top: 0; bottom: 0;
             width: 3px;
             background: var(--accent-gold);
             transform: scaleY(0);
-            transition: transform 0.25s ease;
+            transition: transform 0.22s ease;
         }
 
-        .nav-item:hover { background: rgba(201, 162, 39, 0.08); color: var(--accent-gold); }
-        .nav-item.active { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); }
+        .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
+        .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
         .nav-item.active::before { transform: scaleY(1); }
 
-        .nav-icon { width: 16px; height: 16px; opacity: 0.7; transition: opacity 0.25s ease; }
+        .nav-icon { width: 15px; height: 15px; opacity: 0.65; transition: opacity 0.22s ease; }
         .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
 
         .sidebar-stats {
-            padding: 0.75rem 1.25rem;
-            border-top: 1px solid rgba(201, 162, 39, 0.15);
-            background: rgba(0, 0, 0, 0.25);
+            padding: 0.65rem 1.2rem;
+            border-top: 1px solid rgba(201, 162, 39, 0.12);
+            background: rgba(0, 0, 0, 0.22);
         }
 
         .stat-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.3rem 0;
+            padding: 0.25rem 0;
             color: var(--fg-muted);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
 
         .stat-value { color: var(--accent-gold); font-weight: 600; font-family: 'Spectral', serif; }
-        .stat-item.highlight { padding: 0.5rem 0; margin-top: 0.4rem; border-top: 1px solid rgba(201, 162, 39, 0.1); }
-        .stat-item.highlight .stat-value { font-size: 1rem; }
+        .stat-item.highlight { padding: 0.4rem 0; margin-top: 0.35rem; border-top: 1px solid rgba(201, 162, 39, 0.08); }
+        .stat-item.highlight .stat-value { font-size: 0.95rem; }
 
+        /* Main */
         .main-content {
-            margin-left: 260px;
+            margin-left: 250px;
             min-height: 100vh;
             background: var(--bg-primary);
             position: relative;
@@ -234,169 +235,181 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 1.5rem;
+            padding: 0.65rem 1.4rem;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-light);
             backdrop-filter: blur(10px);
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
-        .search-container { position: relative; flex: 1; max-width: 350px; }
+        .search-container { position: relative; flex: 1; max-width: 320px; }
         
         .search-input {
             width: 100%;
-            padding: 0.5rem 0.85rem 0.5rem 2.2rem;
+            padding: 0.45rem 0.75rem 0.45rem 2rem;
             background: var(--input-bg);
             border: 1px solid var(--border-medium);
-            border-radius: 6px;
+            border-radius: 5px;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--fg-primary);
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
         .search-input:focus {
             outline: none;
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.1);
+            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08);
         }
         .search-input::placeholder { color: var(--fg-muted); font-style: italic; }
 
         .search-icon {
             position: absolute;
-            left: 0.75rem;
+            left: 0.7rem;
             top: 50%;
             transform: translateY(-50%);
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             color: var(--fg-muted);
         }
 
-        .top-actions { display: flex; gap: 0.4rem; }
+        .top-actions { display: flex; gap: 0.35rem; }
 
         .icon-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             background: var(--input-bg);
             border: 1px solid var(--border-medium);
-            border-radius: 6px;
+            border-radius: 5px;
             color: var(--fg-secondary);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
-        .icon-btn:hover { background: rgba(201, 162, 39, 0.1); border-color: var(--accent-gold); color: var(--accent-gold); }
-        .icon-btn.active { background: rgba(201, 162, 39, 0.15); border-color: var(--accent-gold); color: var(--accent-gold); }
-        .icon-btn svg { width: 16px; height: 16px; }
+        .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn.active { background: rgba(201, 162, 39, 0.12); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn svg { width: 15px; height: 15px; }
 
         .content-header {
-            padding: 1.5rem 1.75rem;
+            padding: 1.35rem 1.6rem;
             border-bottom: 1px solid var(--border-light);
             background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
         }
 
-        .page-title { font-family: 'Spectral', serif; font-size: 1.75rem; font-weight: 700; color: var(--fg-primary); }
-        .page-subtitle { color: var(--fg-secondary); font-size: 0.95rem; margin-top: 0.3rem; font-style: italic; }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.65rem; font-weight: 700; color: var(--fg-primary); }
+        .page-subtitle { color: var(--fg-secondary); font-size: 0.92rem; margin-top: 0.25rem; font-style: italic; }
 
-        .content-body { padding: 1.5rem 1.75rem; position: relative; z-index: 1; }
+        .content-body { padding: 1.35rem 1.6rem; position: relative; z-index: 1; }
 
+        /* Forms */
         .form-container {
             background: var(--bg-form);
             border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.75rem;
-            box-shadow: 0 4px 15px var(--shadow-warm);
+            border-radius: 9px;
+            padding: 1.35rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 12px var(--shadow-warm);
             backdrop-filter: blur(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.28s ease, transform 0.28s ease;
             overflow: hidden;
         }
 
-        .form-container.hidden { opacity: 0; transform: translateY(-10px); height: 0; padding: 0; margin: 0; border-width: 0; }
+        .form-container.hidden { opacity: 0; transform: translateY(-8px); height: 0; padding: 0; margin: 0; border-width: 0; }
 
         .form-title {
             font-family: 'Spectral', serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--fg-primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.45rem;
             border-bottom: 1px solid var(--border-light);
         }
 
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.85rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
         .form-group.full-width { grid-column: 1 / -1; }
 
-        .form-label { font-size: 0.7rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.08em; }
+        .form-label { font-size: 0.68rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
 
         .form-input, .form-textarea, .form-select {
-            padding: 0.55rem 0.8rem;
+            padding: 0.5rem 0.72rem;
             border: 1px solid var(--border-medium);
-            border-radius: 6px;
+            border-radius: 5px;
             background: var(--input-bg);
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--fg-primary);
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
         .form-input:focus, .form-textarea:focus, .form-select:focus {
             outline: none;
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.1);
+            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08);
         }
 
-        .form-textarea { min-height: 75px; resize: vertical; line-height: 1.5; }
+        .form-textarea { min-height: 65px; resize: vertical; line-height: 1.45; }
         
         .form-select {
             cursor: pointer;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238b7d68' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%238b7d68' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 0.8rem center;
-            padding-right: 2rem;
+            background-position: right 0.72rem center;
+            padding-right: 1.8rem;
         }
 
-        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
-        .checkbox-group input { width: 16px; height: 16px; accent-color: var(--accent-gold); }
+        .checkbox-group { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.85rem; }
+        .checkbox-group input { width: 14px; height: 14px; accent-color: var(--accent-gold); }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.35rem;
-            padding: 0.6rem 1.25rem;
+            gap: 0.3rem;
+            padding: 0.55rem 1.1rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             font-family: 'Spectral', serif;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
-        .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-copper) 100%); color: #fff; box-shadow: 0 3px 10px rgba(201, 162, 39, 0.3); }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201, 162, 39, 0.4); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-copper) 100%); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.28); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(201, 162, 39, 0.35); }
         .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); }
-        .btn-secondary:hover { background: rgba(44, 36, 24, 0.05); }
-        [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.05); }
-        .btn-danger { background: transparent; color: #a04040; border: 1px solid rgba(160, 64, 64, 0.3); }
-        .btn-danger:hover { background: rgba(160, 64, 64, 0.1); }
-        .btn-icon { padding: 0.35rem; border-radius: 4px; }
+        .btn-secondary:hover { background: rgba(44, 36, 24, 0.04); }
+        [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
+        .btn-danger { background: transparent; color: #a04040; border: 1px solid rgba(160, 64, 64, 0.25); }
+        .btn-danger:hover { background: rgba(160, 64, 64, 0.08); }
+        .btn-icon { padding: 0.32rem; border-radius: 4px; }
 
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .secret-section {
+            background: rgba(139, 105, 20, 0.06);
+            border: 1px dashed rgba(201, 162, 39, 0.25);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .secret-section .form-label { color: var(--accent-sepia); }
+
+        /* Cards */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 0.9rem; }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 10px;
+            border-radius: 9px;
             overflow: hidden;
-            box-shadow: 0 3px 15px var(--shadow-warm);
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px var(--shadow-warm);
+            transition: all 0.28s ease;
             position: relative;
         }
 
@@ -407,183 +420,198 @@
             height: 3px;
             background: linear-gradient(90deg, var(--accent-gold), var(--accent-copper));
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.28s ease;
         }
 
-        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--shadow-warm); }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 5px 16px var(--shadow-warm); }
         .card:hover::before { opacity: 1; }
 
         .card-progress {
             position: absolute;
-            top: 6px; right: 6px;
-            width: 32px; height: 32px;
+            top: 5px; right: 5px;
+            width: 30px; height: 30px;
         }
 
         .card-progress svg { transform: rotate(-90deg); }
         .card-progress-bg { fill: none; stroke: var(--border-light); stroke-width: 2.5; }
-        .card-progress-fill { fill: none; stroke: var(--accent-gold); stroke-width: 2.5; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
-        .card-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 600; color: var(--accent-gold); }
+        .card-progress-fill { fill: none; stroke: var(--accent-gold); stroke-width: 2.5; stroke-linecap: round; transition: stroke-dashoffset 0.45s ease; }
+        .card-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 600; color: var(--accent-gold); }
 
         .card-header {
-            padding: 0.85rem 1.1rem;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding-right: 48px;
+            padding-right: 44px;
         }
 
-        .card-name { font-family: 'Spectral', serif; font-size: 1.15rem; font-weight: 600; color: var(--fg-primary); }
+        .card-name { font-family: 'Spectral', serif; font-size: 1.1rem; font-weight: 600; color: var(--fg-primary); }
         
         .card-tag {
             display: inline-block;
-            padding: 0.15rem 0.5rem;
-            background: rgba(201, 162, 39, 0.12);
+            padding: 0.12rem 0.45rem;
+            background: rgba(201, 162, 39, 0.1);
             color: var(--accent-sepia);
-            border-radius: 20px;
-            font-size: 0.7rem;
+            border-radius: 18px;
+            font-size: 0.68rem;
             font-weight: 500;
-            margin-top: 0.2rem;
+            margin-top: 0.15rem;
         }
 
-        .card-actions { display: flex; gap: 0.3rem; }
-        .card-body { padding: 0.85rem 1.1rem; }
-        .card-section { margin-bottom: 0.7rem; }
+        .card-actions { display: flex; gap: 0.25rem; }
+        .card-body { padding: 0.75rem 1rem; }
+        .card-section { margin-bottom: 0.6rem; }
         .card-section:last-child { margin-bottom: 0; }
-        .card-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-muted); margin-bottom: 0.2rem; }
-        .card-text { color: var(--fg-secondary); line-height: 1.5; font-size: 0.9rem; }
+        .card-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--fg-muted); margin-bottom: 0.15rem; }
+        .card-text { color: var(--fg-secondary); line-height: 1.48; font-size: 0.88rem; }
 
         .link-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
-            padding: 0.2rem 0.5rem;
-            background: rgba(45, 90, 74, 0.1);
+            gap: 0.2rem;
+            padding: 0.15rem 0.4rem;
+            background: rgba(45, 90, 74, 0.08);
             color: var(--cat-lore);
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-right: 0.3rem;
-            margin-bottom: 0.3rem;
+            border-radius: 3px;
+            font-size: 0.72rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.18s;
         }
-        .link-tag:hover { background: rgba(45, 90, 74, 0.2); }
-        .link-tag svg { width: 10px; height: 10px; }
+        .link-tag:hover { background: rgba(45, 90, 74, 0.15); }
+        .link-tag svg { width: 9px; height: 9px; }
 
-        .traits-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-        .trait-tag { padding: 0.15rem 0.45rem; background: rgba(44, 36, 24, 0.06); color: var(--fg-secondary); border-radius: 4px; font-size: 0.75rem; }
-        [data-theme="dark"] .trait-tag { background: rgba(232, 223, 211, 0.06); }
+        .traits-list { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+        .trait-tag { padding: 0.12rem 0.4rem; background: rgba(44, 36, 24, 0.05); color: var(--fg-secondary); border-radius: 3px; font-size: 0.72rem; }
+        [data-theme="dark"] .trait-tag { background: rgba(232, 223, 211, 0.05); }
 
-        .spoiler-content {
+        /* Secret/Blur */
+        .secret-block {
             position: relative;
-            transition: filter 0.3s ease;
+            margin-top: 0.5rem;
+            padding: 0.6rem 0.75rem;
+            background: rgba(201, 162, 39, 0.04);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-gold);
         }
-        
-        .spoiler-content.is-spoiler {
-            filter: blur(8px);
+
+        .secret-block.has-secret {
+            transition: filter 0.28s ease;
+        }
+
+        .secret-block.is-blurred {
+            filter: blur(6px);
             user-select: none;
             cursor: pointer;
         }
 
-        .spoiler-content.is-spoiler::after {
-            content: 'SPOILER';
+        .secret-block.is-blurred::after {
+            content: 'SECRET';
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: var(--accent-gold);
             color: #fff;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.65rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
-        .spoiler-content.is-spoiler:hover::after { opacity: 1; }
-        .spoiler-content.revealed { filter: blur(0); cursor: default; }
-        .spoiler-content.revealed::after { display: none; }
+        .secret-block.revealed { filter: blur(0); cursor: default; }
+        .secret-block.revealed::after { display: none; }
 
-        .chapters-layout { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; }
-        .chapters-list { background: var(--bg-card); border-radius: 10px; padding: 1rem; height: fit-content; border: 1px solid var(--border-light); }
-        .chapter-item { padding: 0.6rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin-bottom: 0.3rem; display: flex; justify-content: space-between; align-items: center; color: var(--fg-secondary); font-size: 0.9rem; }
-        .chapter-item:hover { background: rgba(201, 162, 39, 0.1); }
-        .chapter-item.active { background: rgba(201, 162, 39, 0.15); color: var(--accent-gold); font-weight: 500; }
-        .chapter-count { font-size: 0.75rem; color: var(--fg-muted); }
-        .add-chapter-btn { width: 100%; margin-top: 0.5rem; padding: 0.5rem; font-size: 0.85rem; }
+        /* Chapters */
+        .chapters-layout { display: grid; grid-template-columns: 200px 1fr; gap: 1.2rem; }
+        .chapters-list { background: var(--bg-card); border-radius: 9px; padding: 0.85rem; height: fit-content; border: 1px solid var(--border-light); }
+        .chapter-item { padding: 0.5rem 0.7rem; border-radius: 5px; cursor: pointer; transition: all 0.18s; margin-bottom: 0.25rem; display: flex; justify-content: space-between; align-items: center; color: var(--fg-secondary); font-size: 0.88rem; }
+        .chapter-item:hover { background: rgba(201, 162, 39, 0.08); }
+        .chapter-item.active { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); font-weight: 500; }
+        .chapter-count { font-size: 0.72rem; color: var(--fg-muted); }
+        .add-chapter-btn { width: 100%; margin-top: 0.4rem; padding: 0.45rem; font-size: 0.82rem; }
 
-        .notes-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .notes-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
         .note-item {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 0.85rem 1rem;
+            border-radius: 7px;
+            padding: 0.75rem 0.9rem;
             display: flex;
-            gap: 0.85rem;
+            gap: 0.75rem;
             align-items: flex-start;
-            box-shadow: 0 2px 8px var(--shadow-warm);
-            transition: all 0.2s ease;
+            box-shadow: 0 1px 6px var(--shadow-warm);
+            transition: all 0.18s ease;
             cursor: grab;
         }
 
         .note-item.dragging { opacity: 0.5; transform: scale(0.98); }
         .note-item.drag-over { border-color: var(--accent-gold); }
-        .note-number { width: 28px; height: 28px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Spectral', serif; font-weight: 600; font-size: 0.8rem; flex-shrink: 0; }
+        .note-number { width: 26px; height: 26px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Spectral', serif; font-weight: 600; font-size: 0.75rem; flex-shrink: 0; }
         .note-content { flex: 1; min-width: 0; }
-        .note-category { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .note-category { display: inline-block; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.25rem; }
         .note-category.intrigue { background: var(--cat-intrigue-bg); color: var(--cat-intrigue); }
         .note-category.lore { background: var(--cat-lore-bg); color: var(--cat-lore); }
         .note-category.idee { background: var(--cat-idee-bg); color: var(--cat-idee); }
-        .note-text { color: var(--fg-secondary); line-height: 1.5; font-size: 0.95rem; }
-        .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light); }
-        .note-date { font-size: 0.75rem; color: var(--fg-muted); font-style: italic; }
-        .drag-handle { opacity: 0.3; transition: opacity 0.2s; cursor: grab; padding: 0.3rem; }
-        .drag-handle:hover { opacity: 1; }
-        .drag-handle svg { width: 12px; height: 12px; color: var(--fg-muted); }
+        .note-text { color: var(--fg-secondary); line-height: 1.48; font-size: 0.92rem; }
+        .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid var(--border-light); }
+        .note-date { font-size: 0.72rem; color: var(--fg-muted); font-style: italic; }
+        .drag-handle { opacity: 0.25; transition: opacity 0.18s; cursor: grab; padding: 0.25rem; }
+        .drag-handle:hover { opacity: 0.7; }
+        .drag-handle svg { width: 11px; height: 11px; color: var(--fg-muted); }
 
-        .glossary-list { display: flex; flex-direction: column; gap: 0.5rem; }
-        .glossary-item { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; }
-        .glossary-term { font-family: 'Spectral', serif; font-weight: 600; color: var(--accent-gold); font-size: 1rem; }
-        .glossary-def { color: var(--fg-secondary); font-size: 0.9rem; }
+        /* Encyclopedia */
+        .encyclopedia-list { display: flex; flex-direction: column; gap: 0.6rem; }
+        .encyclopedia-item { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        .encyclopedia-content { flex: 1; }
+        .encyclopedia-title { font-family: 'Spectral', serif; font-size: 1.05rem; font-weight: 600; color: var(--fg-primary); }
+        .encyclopedia-cat { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; margin-left: 0.4rem; }
+        .encyclopedia-cat.race { background: var(--cat-race-bg); color: var(--cat-race); }
+        .encyclopedia-cat.langue { background: var(--cat-langue-bg); color: var(--cat-langue); }
+        .encyclopedia-desc { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.35rem; line-height: 1.45; }
 
-        .empty-state { text-align: center; padding: 2.5rem 1.5rem; color: var(--fg-muted); }
-        .empty-icon { width: 48px; height: 48px; margin: 0 auto 1rem; opacity: 0.4; }
-        .empty-title { font-family: 'Spectral', serif; font-size: 1.2rem; color: var(--fg-secondary); margin-bottom: 0.3rem; }
-        .empty-text { font-size: 0.9rem; max-width: 260px; margin: 0 auto; }
+        /* Empty */
+        .empty-state { text-align: center; padding: 2.2rem 1.4rem; color: var(--fg-muted); }
+        .empty-icon { width: 44px; height: 44px; margin: 0 auto 0.85rem; opacity: 0.35; }
+        .empty-title { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--fg-secondary); margin-bottom: 0.25rem; }
+        .empty-text { font-size: 0.88rem; max-width: 240px; margin: 0 auto; }
 
+        /* Toast */
         .toast {
             position: fixed;
-            bottom: 1.25rem;
-            right: 1.25rem;
-            padding: 0.75rem 1rem;
+            bottom: 1.1rem;
+            right: 1.1rem;
+            padding: 0.7rem 0.95rem;
             background: var(--sidebar-bg);
             color: var(--sidebar-fg);
-            border-radius: 6px;
+            border-radius: 5px;
             border-left: 3px solid var(--accent-gold);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
             transform: translateX(150%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
+            gap: 0.4rem;
+            font-size: 0.88rem;
         }
         .toast.show { transform: translateX(0); }
-        .toast-icon { width: 16px; height: 16px; color: var(--accent-gold); }
+        .toast-icon { width: 14px; height: 14px; color: var(--accent-gold); }
 
+        /* Mobile */
         .mobile-menu-btn {
             display: none;
             position: fixed;
-            top: 0.6rem; left: 0.6rem;
+            top: 0.55rem; left: 0.55rem;
             z-index: 200;
-            width: 36px; height: 36px;
+            width: 34px; height: 34px;
             background: var(--sidebar-bg);
-            border: 1px solid rgba(201, 162, 39, 0.3);
-            border-radius: 6px;
+            border: 1px solid rgba(201, 162, 39, 0.28);
+            border-radius: 5px;
             color: var(--accent-gold);
             cursor: pointer;
             align-items: center;
@@ -594,21 +622,21 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.55);
             z-index: 50;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.28s ease;
             pointer-events: none;
         }
 
         .mobile-overlay.active { opacity: 1; pointer-events: auto; }
 
-        .section { display: none; animation: fadeIn 0.3s ease; }
+        .section { display: none; animation: fadeIn 0.28s ease; }
         .section.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 900px) {
+        @media (max-width: 850px) {
             .chapters-layout { grid-template-columns: 1fr; }
             .chapters-list { order: 1; }
         }
@@ -619,16 +647,16 @@
             .main-content { margin-left: 0; }
             .mobile-menu-btn { display: flex; }
             .mobile-overlay { display: block; }
-            .top-bar { padding: 0.6rem 0.75rem; padding-top: 3.5rem; }
-            .content-header { padding: 1.25rem 1rem; }
-            .content-body { padding: 1.25rem 1rem; }
+            .top-bar { padding: 0.55rem 0.7rem; padding-top: 3.2rem; }
+            .content-header { padding: 1.1rem 0.9rem; }
+            .content-body { padding: 1.1rem 0.9rem; }
             .cards-grid { grid-template-columns: 1fr; }
-            .top-actions { position: fixed; top: 0.6rem; right: 0.6rem; z-index: 60; }
+            .top-actions { position: fixed; top: 0.55rem; right: 0.55rem; z-index: 60; }
         }
 
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--fg-muted); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--fg-muted); border-radius: 2px; }
         
         .hidden-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
@@ -642,7 +670,7 @@
 </head>
 <body data-theme="light">
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -679,12 +707,12 @@
                     <path d="M3 7v6h6"/>
                     <path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/>
                 </svg>
-                Annuler (Undo)
+                Annuler
             </button>
         </div>
 
         <nav class="nav-section">
-            <div class="nav-label">Monde</div>
+            <div class="nav-label">Navigation</div>
             <button class="nav-item active" data-section="characters">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -692,43 +720,26 @@
                 </svg>
                 Personnages
             </button>
-            <button class="nav-item" data-section="places">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
-                Lieux
-            </button>
-            <button class="nav-item" data-section="objects">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                    <polyline points="2 17 12 22 22 17"/>
-                    <polyline points="2 12 12 17 22 12"/>
-                </svg>
-                Objets
-            </button>
-            <button class="nav-item" data-section="glossary">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>
-                Glossaire
-            </button>
-
-            <div class="nav-label">Histoire</div>
             <button class="nav-item" data-section="chapters">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <polyline points="14 2 14 8 20 8"/>
                 </svg>
-                Chapitres
+                Chronologie
+            </button>
+            <button class="nav-item" data-section="encyclopedia">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                Encyclopedie
             </button>
         </nav>
 
         <div class="sidebar-stats">
             <div class="stat-item"><span>Personnages</span><span class="stat-value" id="characterCount">0</span></div>
-            <div class="stat-item"><span>Lieux</span><span class="stat-value" id="placeCount">0</span></div>
-            <div class="stat-item"><span>Objets</span><span class="stat-value" id="objectCount">0</span></div>
+            <div class="stat-item"><span>Evenements</span><span class="stat-value" id="eventCount">0</span></div>
+            <div class="stat-item"><span>Fiches</span><span class="stat-value" id="ficheCount">0</span></div>
             <div class="stat-item highlight"><span>Total mots</span><span class="stat-value" id="wordCount">0</span></div>
         </div>
     </aside>
@@ -743,10 +754,10 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher">
             </div>
             <div class="top-actions">
-                <button class="icon-btn" id="spoilerToggleBtn" title="Masquer/Afficher les spoilers">
+                <button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                     </svg>
                 </button>
                 <button class="icon-btn" id="focusModeBtn" title="Mode Focus">
@@ -763,7 +774,7 @@
             </div>
         </div>
 
-        <!-- Characters Section -->
+        <!-- Personnages -->
         <section class="section active" id="charactersSection">
             <header class="content-header">
                 <h1 class="page-title">Personnages</h1>
@@ -771,15 +782,15 @@
             </header>
             <div class="content-body">
                 <div class="form-container" id="characterFormContainer">
-                    <h2 class="form-title">Nouveau personnage</h2>
+                    <h2 class="form-title" id="characterFormTitle">Nouveau personnage</h2>
                     <form id="characterForm" class="form-grid">
                         <div class="form-group">
                             <label class="form-label">Nom</label>
-                            <input type="text" id="charName" class="form-input" placeholder="Nom complet" required>
+                            <input type="text" id="charName" class="form-input" placeholder="Nom">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Role</label>
-                            <select id="charRole" class="form-select" required>
+                            <select id="charRole" class="form-select">
                                 <option value="">Choisir...</option>
                                 <option value="Protagoniste">Protagoniste</option>
                                 <option value="Antagoniste">Antagoniste</option>
@@ -788,10 +799,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Lieu de vie</label>
-                            <select id="charPlace" class="form-select">
-                                <option value="">Aucun</option>
-                            </select>
+                            <label class="form-label">Race</label>
+                            <input type="text" id="charRace" class="form-input" placeholder="Humain, Elfe...">
                         </div>
                         <div class="form-group full-width">
                             <label class="form-label">Traits</label>
@@ -799,16 +808,17 @@
                         </div>
                         <div class="form-group full-width">
                             <label class="form-label">Description</label>
-                            <textarea id="charDescription" class="form-textarea" placeholder="Histoire, motivations..." required></textarea>
+                            <textarea id="charDescription" class="form-textarea" placeholder="Histoire, motivations..."></textarea>
                         </div>
                         <div class="form-group full-width">
-                            <label class="checkbox-group">
-                                <input type="checkbox" id="charSpoiler">
-                                Contenu sensible (Spoiler)
-                            </label>
+                            <div class="secret-section">
+                                <label class="form-label">Zone secrete (optionnel)</label>
+                                <textarea id="charSecret" class="form-textarea" placeholder="Informations cachees, spoilers..." style="min-height:50px;"></textarea>
+                            </div>
                         </div>
                         <div class="form-group full-width">
-                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display:none;">Annuler</button>
                         </div>
                     </form>
                 </div>
@@ -819,191 +829,27 @@
                         <circle cx="9" cy="7" r="4"/>
                     </svg>
                     <h3 class="empty-title">Aucun personnage</h3>
-                    <p class="empty-text">Commencez par creer vos protagonistes.</p>
+                    <p class="empty-text">Creez vos premiers protagonistes.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Places Section -->
-        <section class="section" id="placesSection">
-            <header class="content-header">
-                <h1 class="page-title">Lieux</h1>
-                <p class="page-subtitle">La geographie de votre monde</p>
-            </header>
-            <div class="content-body">
-                <div class="form-container" id="placeFormContainer">
-                    <h2 class="form-title">Nouveau lieu</h2>
-                    <form id="placeForm" class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Nom</label>
-                            <input type="text" id="placeName" class="form-input" placeholder="Nom du lieu" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Type</label>
-                            <select id="placeType" class="form-select" required>
-                                <option value="">Choisir...</option>
-                                <option value="Ville">Ville</option>
-                                <option value="Chateau">Chateau</option>
-                                <option value="Foret">Foret</option>
-                                <option value="Planete">Planete</option>
-                                <option value="Royaume">Royaume</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="form-label">Description</label>
-                            <textarea id="placeDescription" class="form-textarea" placeholder="Atmosphere, histoire..." required></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="checkbox-group">
-                                <input type="checkbox" id="placeSpoiler">
-                                Contenu sensible (Spoiler)
-                            </label>
-                        </div>
-                        <div class="form-group full-width">
-                            <button type="submit" class="btn btn-primary">Ajouter</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="cards-grid" id="placesGrid"></div>
-                <div class="empty-state" id="placesEmpty">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    <h3 class="empty-title">Aucun lieu</h3>
-                    <p class="empty-text">Cartographiez votre univers.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Objects Section -->
-        <section class="section" id="objectsSection">
-            <header class="content-header">
-                <h1 class="page-title">Objets</h1>
-                <p class="page-subtitle">Artefacts et items importants</p>
-            </header>
-            <div class="content-body">
-                <div class="form-container" id="objectFormContainer">
-                    <h2 class="form-title">Nouvel objet</h2>
-                    <form id="objectForm" class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Nom</label>
-                            <input type="text" id="objectName" class="form-input" placeholder="Nom de l'objet" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Type</label>
-                            <select id="objectType" class="form-select" required>
-                                <option value="">Choisir...</option>
-                                <option value="Arme">Arme</option>
-                                <option value="Armure">Armure</option>
-                                <option value="Document">Document</option>
-                                <option value="Potion">Potion</option>
-                                <option value="Artefact">Artefact</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Proprietaire</label>
-                            <select id="objectOwner" class="form-select">
-                                <option value="">Inconnu</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Localisation</label>
-                            <select id="objectLocation" class="form-select">
-                                <option value="">Inconnue</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="form-label">Description</label>
-                            <textarea id="objectDescription" class="form-textarea" placeholder="Pouvoirs, histoire..." required></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="checkbox-group">
-                                <input type="checkbox" id="objectSpoiler">
-                                Contenu sensible (Spoiler)
-                            </label>
-                        </div>
-                        <div class="form-group full-width">
-                            <button type="submit" class="btn btn-primary">Ajouter</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="cards-grid" id="objectsGrid"></div>
-                <div class="empty-state" id="objectsEmpty">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                        <polyline points="2 17 12 22 22 17"/>
-                        <polyline points="2 12 12 17 22 12"/>
-                    </svg>
-                    <h3 class="empty-title">Aucun objet</h3>
-                    <p class="empty-text">Ajoutez vos artefacts legendaires.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Glossary Section -->
-        <section class="section" id="glossarySection">
-            <header class="content-header">
-                <h1 class="page-title">Glossaire</h1>
-                <p class="page-subtitle">Votre dictionnaire personnel</p>
-            </header>
-            <div class="content-body">
-                <div class="form-container" id="glossaryFormContainer">
-                    <h2 class="form-title">Nouveau terme</h2>
-                    <form id="glossaryForm" class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Terme</label>
-                            <input type="text" id="glossaryTerm" class="form-input" placeholder="Mot invente" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Categorie</label>
-                            <select id="glossaryCat" class="form-select">
-                                <option value="Langue">Langue</option>
-                                <option value="Tech">Technologie</option>
-                                <option value="Argot">Argot</option>
-                                <option value="Magie">Magie</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label class="form-label">Definition</label>
-                            <textarea id="glossaryDef" class="form-textarea" placeholder="Signification et contexte..." required></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <button type="submit" class="btn btn-primary">Ajouter</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="glossary-list" id="glossaryList"></div>
-                <div class="empty-state" id="glossaryEmpty">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                    </svg>
-                    <h3 class="empty-title">Glossaire vide</h3>
-                    <p class="empty-text">Documentez votre vocabulaire.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Chapters Section -->
+        <!-- Chronologie -->
         <section class="section" id="chaptersSection">
             <header class="content-header">
-                <h1 class="page-title">Chapitres</h1>
+                <h1 class="page-title">Chronologie</h1>
                 <p class="page-subtitle">Structurez votre recit</p>
             </header>
             <div class="content-body">
                 <div class="chapters-layout">
                     <div class="chapters-list" id="chaptersList">
-                        <div class="nav-label">Dossiers</div>
+                        <div class="nav-label">Chapitres</div>
                     </div>
                     <div class="chapter-content">
                         <div class="form-container" id="noteFormContainer">
-                            <h2 class="form-title" id="noteFormTitle">Ajouter une note</h2>
+                            <h2 class="form-title" id="noteFormTitle">Ajouter un evenement</h2>
                             <form id="noteForm">
-                                <div class="form-grid" style="margin-bottom:0.75rem;">
+                                <div class="form-grid" style="margin-bottom:0.65rem;">
                                     <div class="form-group">
                                         <label class="form-label">Type</label>
                                         <select id="noteCategory" class="form-select">
@@ -1012,18 +858,18 @@
                                             <option value="idee">Idee</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="checkbox-group" style="margin-top:1.3rem;">
-                                            <input type="checkbox" id="noteSpoiler">
-                                            Spoiler
-                                        </label>
-                                    </div>
                                 </div>
-                                <div class="form-group" style="margin-bottom:0.75rem;">
+                                <div class="form-group" style="margin-bottom:0.65rem;">
                                     <label class="form-label">Contenu</label>
                                     <textarea id="noteText" class="form-textarea" placeholder="Evenement ou note..." required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Ajouter au chapitre</button>
+                                <div class="form-group full-width">
+                                    <div class="secret-section">
+                                        <label class="form-label">Zone secrete (optionnel)</label>
+                                        <textarea id="noteSecret" class="form-textarea" placeholder="Informations cachees..." style="min-height:45px;"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
                             </form>
                         </div>
                         <div class="notes-list" id="notesList"></div>
@@ -1035,6 +881,55 @@
                             <p class="empty-text">Selectionnez ou creez un chapitre.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Encyclopedie -->
+        <section class="section" id="encyclopediaSection">
+            <header class="content-header">
+                <h1 class="page-title">Encyclopedie</h1>
+                <p class="page-subtitle">Races et langues de votre monde</p>
+            </header>
+            <div class="content-body">
+                <div class="form-container" id="encyclopediaFormContainer">
+                    <h2 class="form-title" id="encyclopediaFormTitle">Nouvelle fiche</h2>
+                    <form id="encyclopediaForm" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Titre</label>
+                            <input type="text" id="encyTitle" class="form-input" placeholder="Nom">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categorie</label>
+                            <select id="encyCategory" class="form-select">
+                                <option value="race">Race</option>
+                                <option value="langue">Langue</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea id="encyDescription" class="form-textarea" placeholder="Details..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <div class="secret-section">
+                                <label class="form-label">Zone secrete (optionnel)</label>
+                                <textarea id="encySecret" class="form-textarea" placeholder="Secrets, spoilers..." style="min-height:50px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelEncyEditBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="encyclopedia-list" id="encyclopediaList"></div>
+                <div class="empty-state" id="encyclopediaEmpty">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <h3 class="empty-title">Encyclopedie vide</h3>
+                    <p class="empty-text">Documentez votre monde.</p>
                 </div>
             </div>
         </section>
@@ -1050,24 +945,24 @@
 
     <script>
         // ===== STATE =====
-        const STORAGE_KEY = 'scriptorium_data_v2';
-        const HISTORY_KEY = 'scriptorium_history';
+        const STORAGE_KEY = 'scriptorium_v3';
+        const HISTORY_KEY = 'scriptorium_history_v3';
         
         let state = {
             characters: [],
-            places: [],
-            objects: [],
-            glossary: [],
-            chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]
+            chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }],
+            encyclopedia: []
         };
         
         let history = [];
         let currentChapterId = 'ch1';
         let focusMode = false;
-        let hideSpoilers = true;
+        let hideSecrets = true;
         let draggedNote = null;
+        let editingCharacterId = null;
+        let editingEncyclopediaId = null;
 
-        // ===== DOM HELPERS =====
+        // ===== DOM =====
         const $ = id => document.getElementById(id);
         const sidebar = $('sidebar');
         const mainContent = $('mainContent');
@@ -1079,7 +974,7 @@
         const themeToggleBtn = $('themeToggleBtn');
         const themeIcon = $('themeIcon');
         const focusModeBtn = $('focusModeBtn');
-        const spoilerToggleBtn = $('spoilerToggleBtn');
+        const secretsToggleBtn = $('secretsToggleBtn');
         const exportBtn = $('exportBtn');
         const importBtn = $('importBtn');
         const importInput = $('importInput');
@@ -1092,15 +987,9 @@
             return d.innerHTML;
         };
         
-        const formatDate = iso => {
-            return new Date(iso).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        };
+        const formatDate = iso => new Date(iso).toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
         
         const countWords = t => (t || '').trim().split(/\s+/).filter(w => w.length > 0).length;
         
@@ -1122,9 +1011,7 @@
                         state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }];
                     }
                     currentChapterId = state.chapters[0].id;
-                } catch(e) {
-                    console.error(e);
-                }
+                } catch(e) { console.error(e); }
             }
             
             const theme = localStorage.getItem('scriptorium_theme');
@@ -1149,6 +1036,7 @@
             state = JSON.parse(prevState);
             save();
             localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            resetEditModes();
             renderAll();
             showToast('Action annulee');
         }
@@ -1156,7 +1044,7 @@
         function showToast(msg) {
             toastMessage.textContent = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(() => toast.classList.remove('show'), 2800);
         }
 
         // ===== THEME =====
@@ -1174,7 +1062,7 @@
             updateThemeIcon(next);
         }
 
-        // ===== FOCUS & SPOILERS =====
+        // ===== FOCUS & SECRETS =====
         function toggleFocus() {
             focusMode = !focusMode;
             sidebar.classList.toggle('hidden', focusMode);
@@ -1183,9 +1071,9 @@
             document.querySelectorAll('.form-container').forEach(f => f.classList.toggle('hidden', focusMode));
         }
 
-        function toggleSpoilers() {
-            hideSpoilers = !hideSpoilers;
-            spoilerToggleBtn.classList.toggle('active', hideSpoilers);
+        function toggleSecrets() {
+            hideSecrets = !hideSecrets;
+            secretsToggleBtn.classList.toggle('active', hideSecrets);
             renderAll();
         }
 
@@ -1251,67 +1139,43 @@
         // ===== SEARCH =====
         searchInput.addEventListener('input', renderAll);
 
-        // ===== RENDER HELPERS =====
-        function createSpoilerWrapper(content, isSpoiler) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'spoiler-content' + (isSpoiler && hideSpoilers ? ' is-spoiler' : '');
-            wrapper.innerHTML = content;
-            if (isSpoiler) {
-                wrapper.addEventListener('click', () => {
-                    if (hideSpoilers) wrapper.classList.add('revealed');
-                });
-            }
-            return wrapper;
-        }
-
-        function getCharacterName(id) {
-            if (!id) return null;
-            const c = state.characters.find(c => c.id === id);
-            return c ? c.name : null;
-        }
-
-        function getPlaceName(id) {
-            if (!id) return null;
-            const p = state.places.find(p => p.id === id);
-            return p ? p.name : null;
-        }
-
-        function populateSelects() {
-            const charPlaceSelect = $('charPlace');
-            const objectOwnerSelect = $('objectOwner');
-            const objectLocationSelect = $('objectLocation');
-            
-            const charOptions = '<option value="">Aucun</option>' +
-                state.characters.map(c => '<option value="' + c.id + '">' + escapeHtml(c.name) + '</option>').join('');
-            const placeOptions = '<option value="">Inconnu</option>' +
-                state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name) + '</option>').join('');
-            
-            charPlaceSelect.innerHTML = placeOptions;
-            objectOwnerSelect.innerHTML = charOptions;
-            objectLocationSelect.innerHTML = placeOptions;
-        }
-
+        // ===== STATS =====
         function updateStats() {
             $('characterCount').textContent = state.characters.length;
-            $('placeCount').textContent = state.places.length;
-            $('objectCount').textContent = state.objects.length;
+            
+            let eventCount = 0;
+            state.chapters.forEach(ch => eventCount += ch.notes.length);
+            $('eventCount').textContent = eventCount;
+            
+            $('ficheCount').textContent = state.encyclopedia.length;
             
             let words = 0;
             state.characters.forEach(c => {
-                words += countWords(c.name) + countWords(c.description) + countWords(c.traits);
+                words += countWords(c.name) + countWords(c.description) + countWords(c.traits) + countWords(c.secret);
             });
-            state.places.forEach(p => {
-                words += countWords(p.name) + countWords(p.description);
+            state.encyclopedia.forEach(e => {
+                words += countWords(e.title) + countWords(e.description) + countWords(e.secret);
             });
-            state.objects.forEach(o => {
-                words += countWords(o.name) + countWords(o.description);
-            });
-            state.glossary.forEach(g => {
-                words += countWords(g.term) + countWords(g.definition);
-            });
-            state.chapters.forEach(ch => ch.notes.forEach(n => words += countWords(n.text)));
+            state.chapters.forEach(ch => ch.notes.forEach(n => {
+                words += countWords(n.text) + countWords(n.secret);
+            }));
             
             $('wordCount').textContent = words;
+        }
+
+        // ===== SECRET BLOCK =====
+        function createSecretBlock(secret) {
+            if (!secret || !secret.trim()) return null;
+            
+            const block = document.createElement('div');
+            block.className = 'secret-block has-secret' + (hideSecrets ? ' is-blurred' : '');
+            block.innerHTML = '<p class="card-text">' + escapeHtml(secret) + '</p>';
+            
+            if (hideSecrets) {
+                block.addEventListener('click', () => block.classList.add('revealed'));
+            }
+            
+            return block;
         }
 
         // ===== RENDER CHARACTERS =====
@@ -1320,8 +1184,9 @@
             const empty = $('charactersEmpty');
             const q = searchInput.value.toLowerCase();
             const filtered = state.characters.filter(c =>
-                c.name.toLowerCase().includes(q) ||
-                c.role.toLowerCase().includes(q) ||
+                (c.name || '').toLowerCase().includes(q) ||
+                (c.role || '').toLowerCase().includes(q) ||
+                (c.race || '').toLowerCase().includes(q) ||
                 (c.description || '').toLowerCase().includes(q)
             );
             
@@ -1332,186 +1197,64 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 
-                const completion = [c.name, c.role, c.description, c.traits].filter(Boolean).length;
-                const pct = Math.round((completion / 4) * 100);
+                // Completion based on filled fields
+                const fields = [c.name, c.role, c.description, c.traits, c.race];
+                const filled = fields.filter(f => f && f.trim()).length;
+                const pct = Math.round((filled / 5) * 100);
                 const circ = 2 * Math.PI * 15;
                 const offset = circ - (pct / 100) * circ;
                 
                 const traits = (c.traits || '').split(',').map(t => t.trim()).filter(Boolean);
-                const placeName = getPlaceName(c.placeId);
                 
-                let cardHtml = '<div class="card-progress"><svg width="32" height="32" viewBox="0 0 36 36">' +
+                let cardHtml = '<div class="card-progress"><svg width="30" height="30" viewBox="0 0 36 36">' +
                     '<circle class="card-progress-bg" cx="18" cy="18" r="15"></circle>' +
                     '<circle class="card-progress-fill" cx="18" cy="18" r="15" stroke-dasharray="' + circ + '" stroke-dashoffset="' + offset + '"></circle>' +
                     '</svg><span class="card-progress-text">' + pct + '%</span></div>';
                 
                 cardHtml += '<div class="card-header"><div>' +
-                    '<h3 class="card-name">' + escapeHtml(c.name) + '</h3>' +
-                    '<span class="card-tag">' + escapeHtml(c.role) + '</span></div>' +
-                    '<div class="card-actions">' +
+                    '<h3 class="card-name">' + escapeHtml(c.name || 'Sans nom') + '</h3>';
+                
+                if (c.role) cardHtml += '<span class="card-tag">' + escapeHtml(c.role) + '</span>';
+                if (c.race) cardHtml += '<span class="card-tag">' + escapeHtml(c.race) + '</span>';
+                
+                cardHtml += '</div><div class="card-actions">' +
                     '<button class="btn btn-icon btn-secondary" onclick="editCharacter(\'' + c.id + '\')" title="Modifier">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
                     '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
                     '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
                     '<button class="btn btn-icon btn-danger" onclick="deleteCharacter(\'' + c.id + '\')" title="Supprimer">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
                     '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' +
                     '</div></div><div class="card-body">';
                 
-                card.innerHTML = cardHtml;
-                
-                const body = card.querySelector('.card-body');
-                const descDiv = createSpoilerWrapper('<p class="card-text">' + escapeHtml(c.description) + '</p>', c.spoiler);
-                body.innerHTML = '<div class="card-section"><div class="card-label">Description</div></div>';
-                body.querySelector('.card-section').appendChild(descDiv);
-                
-                if (placeName) {
-                    body.innerHTML += '<div class="card-section"><div class="card-label">Localisation</div>' +
-                        '<span class="link-tag" onclick="navigateToPlace(\'' + c.placeId + '\')">' +
-                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                        '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>' +
-                        escapeHtml(placeName) + '</span></div>';
+                if (c.description) {
+                    cardHtml += '<div class="card-section"><div class="card-label">Description</div>' +
+                        '<p class="card-text">' + escapeHtml(c.description) + '</p></div>';
                 }
                 
                 if (traits.length) {
-                    body.innerHTML += '<div class="card-section"><div class="card-label">Traits</div>' +
-                        '<div class="traits-list">' +
-                        traits.map(t => '<span class="trait-tag">' + escapeHtml(t) + '</span>').join('') +
-                        '</div></div>';
+                    cardHtml += '<div class="card-section"><div class="card-label">Traits</div>' +
+                        '<div class="traits-list">' + traits.map(t => '<span class="trait-tag">' + escapeHtml(t) + '</span>').join('') + '</div></div>';
+                }
+                
+                cardHtml += '</div>';
+                
+                card.innerHTML = cardHtml;
+                
+                // Add secret block if exists
+                if (c.secret && c.secret.trim()) {
+                    const secretBlock = createSecretBlock(c.secret);
+                    if (secretBlock) card.querySelector('.card-body').appendChild(secretBlock);
                 }
                 
                 grid.appendChild(card);
-            });
-        }
-
-        // ===== RENDER PLACES =====
-        function renderPlaces() {
-            const grid = $('placesGrid');
-            const empty = $('placesEmpty');
-            const q = searchInput.value.toLowerCase();
-            const filtered = state.places.filter(p =>
-                p.name.toLowerCase().includes(q) ||
-                p.type.toLowerCase().includes(q) ||
-                p.description.toLowerCase().includes(q)
-            );
-            
-            grid.innerHTML = '';
-            empty.style.display = filtered.length ? 'none' : 'block';
-            
-            filtered.forEach(p => {
-                const residents = state.characters.filter(c => c.placeId === p.id);
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                let residentsHtml = '';
-                if (residents.length) {
-                    residentsHtml = '<div class="card-section"><div class="card-label">Habitants</div>' +
-                        residents.map(r => '<span class="link-tag" onclick="navigateToCharacter(\'' + r.id + '\')">' +
-                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                        '<circle cx="9" cy="7" r="4"/></svg>' + escapeHtml(r.name) + '</span>').join('') +
-                        '</div>';
-                }
-                
-                card.innerHTML = '<div class="card-header"><div>' +
-                    '<h3 class="card-name">' + escapeHtml(p.name) + '</h3>' +
-                    '<span class="card-tag">' + escapeHtml(p.type) + '</span></div>' +
-                    '<div class="card-actions">' +
-                    '<button class="btn btn-icon btn-danger" onclick="deletePlace(\'' + p.id + '\')" title="Supprimer">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' +
-                    '</div></div><div class="card-body">' +
-                    '<div class="card-section"><div class="card-label">Description</div></div>' +
-                    residentsHtml + '</div>';
-                
-                const descDiv = createSpoilerWrapper('<p class="card-text">' + escapeHtml(p.description) + '</p>', p.spoiler);
-                card.querySelector('.card-section').appendChild(descDiv);
-                
-                grid.appendChild(card);
-            });
-        }
-
-        // ===== RENDER OBJECTS =====
-        function renderObjects() {
-            const grid = $('objectsGrid');
-            const empty = $('objectsEmpty');
-            const q = searchInput.value.toLowerCase();
-            const filtered = state.objects.filter(o =>
-                o.name.toLowerCase().includes(q) ||
-                o.type.toLowerCase().includes(q) ||
-                o.description.toLowerCase().includes(q)
-            );
-            
-            grid.innerHTML = '';
-            empty.style.display = filtered.length ? 'none' : 'block';
-            
-            filtered.forEach(o => {
-                const ownerName = getCharacterName(o.ownerId);
-                const locName = getPlaceName(o.locationId);
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                let linksHtml = '';
-                if (ownerName) {
-                    linksHtml += '<span class="link-tag" onclick="navigateToCharacter(\'' + o.ownerId + '\')">' +
-                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                        '<circle cx="9" cy="7" r="4"/></svg>' + escapeHtml(ownerName) + '</span>';
-                }
-                if (locName) {
-                    linksHtml += '<span class="link-tag" onclick="navigateToPlace(\'' + o.locationId + '\')">' +
-                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                        '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>' +
-                        escapeHtml(locName) + '</span>';
-                }
-                
-                card.innerHTML = '<div class="card-header"><div>' +
-                    '<h3 class="card-name">' + escapeHtml(o.name) + '</h3>' +
-                    '<span class="card-tag">' + escapeHtml(o.type) + '</span></div>' +
-                    '<div class="card-actions">' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteObject(\'' + o.id + '\')" title="Supprimer">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' +
-                    '</div></div><div class="card-body">' +
-                    '<div class="card-section"><div class="card-label">Description</div></div>' +
-                    (linksHtml ? '<div class="card-section"><div class="card-label">Liens</div>' + linksHtml + '</div>' : '') +
-                    '</div>';
-                
-                const descDiv = createSpoilerWrapper('<p class="card-text">' + escapeHtml(o.description) + '</p>', o.spoiler);
-                card.querySelector('.card-section').appendChild(descDiv);
-                
-                grid.appendChild(card);
-            });
-        }
-
-        // ===== RENDER GLOSSARY =====
-        function renderGlossary() {
-            const list = $('glossaryList');
-            const empty = $('glossaryEmpty');
-            const q = searchInput.value.toLowerCase();
-            const filtered = state.glossary.filter(g =>
-                g.term.toLowerCase().includes(q) ||
-                g.definition.toLowerCase().includes(q)
-            ).sort((a, b) => a.term.localeCompare(b.term));
-            
-            list.innerHTML = '';
-            empty.style.display = filtered.length ? 'none' : 'block';
-            
-            filtered.forEach(g => {
-                const item = document.createElement('div');
-                item.className = 'glossary-item';
-                item.innerHTML = '<div><span class="glossary-term">' + escapeHtml(g.term) + '</span> ' +
-                    '<span class="card-tag">' + escapeHtml(g.category) + '</span>' +
-                    '<p class="glossary-def" style="margin-top:0.3rem">' + escapeHtml(g.definition) + '</p></div>' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteGlossary(\'' + g.id + '\')" title="Supprimer">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
-                list.appendChild(item);
             });
         }
 
         // ===== RENDER CHAPTERS =====
         function renderChapters() {
             const list = $('chaptersList');
-            list.innerHTML = '<div class="nav-label">Dossiers</div>';
+            list.innerHTML = '<div class="nav-label">Chapitres</div>';
             
             state.chapters.forEach(ch => {
                 const item = document.createElement('div');
@@ -1523,12 +1266,24 @@
                     renderChapters();
                     renderNotes();
                 });
+                item.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    const newName = prompt('Renommer le chapitre :', ch.title);
+                    if (newName && newName.trim()) {
+                        recordHistory();
+                        ch.title = newName.trim();
+                        save();
+                        renderChapters();
+                        renderNotes();
+                        showToast('Chapitre renomme');
+                    }
+                });
                 list.appendChild(item);
             });
             
             const addChapterBtn = document.createElement('button');
             addChapterBtn.className = 'btn btn-secondary add-chapter-btn';
-            addChapterBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nouveau chapitre';
+            addChapterBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nouveau chapitre';
             addChapterBtn.addEventListener('click', addChapter);
             list.appendChild(addChapterBtn);
         }
@@ -1562,23 +1317,30 @@
                 item.innerHTML = '<div class="note-number">' + (i + 1) + '</div>' +
                     '<div class="note-content">' +
                     '<span class="note-category ' + n.category + '">' + escapeHtml(n.category) + '</span>' +
-                    '</div>' +
+                    '<p class="note-text">' + escapeHtml(n.text) + '</p>' +
+                    '<div class="note-meta">' +
+                    '<span class="note-date">' + formatDate(n.date) + '</span>' +
+                    '<div>' +
+                    '<button class="btn btn-icon btn-secondary" onclick="editNote(\'' + n.id + '\')" title="Modifier">' +
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
+                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
+                    '<button class="btn btn-icon btn-danger" onclick="deleteNote(\'' + n.id + '\')" title="Supprimer">' +
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+                    '</svg></button>' +
+                    '</div></div></div>' +
                     '<div class="drag-handle">' +
                     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
                     '<circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/>' +
                     '<circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/>' +
                     '</svg></div>';
                 
-                const noteContent = item.querySelector('.note-content');
-                const contentDiv = createSpoilerWrapper('<p class="note-text">' + escapeHtml(n.text) + '</p>', n.spoiler);
-                noteContent.appendChild(contentDiv);
-                
-                noteContent.innerHTML += '<div class="note-meta">' +
-                    '<span class="note-date">' + formatDate(n.date) + '</span>' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteNote(\'' + n.id + '\')" title="Supprimer">' +
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
-                    '</svg></button></div>';
+                // Add secret if exists
+                if (n.secret && n.secret.trim()) {
+                    const secretBlock = createSecretBlock(n.secret);
+                    if (secretBlock) item.querySelector('.note-content').insertBefore(secretBlock, item.querySelector('.note-meta'));
+                }
                 
                 // Drag events
                 item.addEventListener('dragstart', e => {
@@ -1616,125 +1378,120 @@
             });
         }
 
+        // ===== RENDER ENCYCLOPEDIA =====
+        function renderEncyclopedia() {
+            const list = $('encyclopediaList');
+            const empty = $('encyclopediaEmpty');
+            const q = searchInput.value.toLowerCase();
+            const filtered = state.encyclopedia.filter(e =>
+                (e.title || '').toLowerCase().includes(q) ||
+                (e.description || '').toLowerCase().includes(q)
+            ).sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            
+            list.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+            
+            filtered.forEach(e => {
+                const item = document.createElement('div');
+                item.className = 'encyclopedia-item';
+                
+                item.innerHTML = '<div class="encyclopedia-content">' +
+                    '<span class="encyclopedia-title">' + escapeHtml(e.title || 'Sans titre') + '</span>' +
+                    '<span class="encyclopedia-cat ' + e.category + '">' + escapeHtml(e.category) + '</span>' +
+                    (e.description ? '<p class="encyclopedia-desc">' + escapeHtml(e.description) + '</p>' : '') +
+                    '</div>' +
+                    '<div>' +
+                    '<button class="btn btn-icon btn-secondary" onclick="editEncyclopedia(\'' + e.id + '\')" title="Modifier">' +
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
+                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
+                    '<button class="btn btn-icon btn-danger" onclick="deleteEncyclopedia(\'' + e.id + '\')" title="Supprimer">' +
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+                    '</svg></button>' +
+                    '</div>';
+                
+                // Add secret if exists
+                if (e.secret && e.secret.trim()) {
+                    const secretBlock = createSecretBlock(e.secret);
+                    if (secretBlock) item.querySelector('.encyclopedia-content').appendChild(secretBlock);
+                }
+                
+                list.appendChild(item);
+            });
+        }
+
         // ===== RENDER ALL =====
         function renderAll() {
-            populateSelects();
             renderCharacters();
-            renderPlaces();
-            renderObjects();
-            renderGlossary();
             renderChapters();
             renderNotes();
+            renderEncyclopedia();
             updateStats();
         }
 
-        // ===== FORM HANDLERS =====
+        // ===== RESET EDIT MODES =====
+        function resetEditModes() {
+            editingCharacterId = null;
+            editingEncyclopediaId = null;
+            $('characterFormTitle').textContent = 'Nouveau personnage';
+            $('encyclopediaFormTitle').textContent = 'Nouvelle fiche';
+            $('cancelEditBtn').style.display = 'none';
+            $('cancelEncyEditBtn').style.display = 'none';
+        }
+
+        // ===== CHARACTER FORM =====
         $('characterForm').addEventListener('submit', e => {
             e.preventDefault();
             recordHistory();
+            
             const char = {
-                id: generateId(),
+                id: editingCharacterId || generateId(),
                 name: $('charName').value.trim(),
                 role: $('charRole').value,
-                placeId: $('charPlace').value || null,
+                race: $('charRace').value.trim(),
                 traits: $('charTraits').value.trim(),
                 description: $('charDescription').value.trim(),
-                spoiler: $('charSpoiler').checked
+                secret: $('charSecret').value.trim()
             };
-            state.characters.push(char);
-            save();
-            renderAll();
-            e.target.reset();
-            showToast(char.name + ' ajoute');
-        });
-
-        $('placeForm').addEventListener('submit', e => {
-            e.preventDefault();
-            recordHistory();
-            const place = {
-                id: generateId(),
-                name: $('placeName').value.trim(),
-                type: $('placeType').value,
-                description: $('placeDescription').value.trim(),
-                spoiler: $('placeSpoiler').checked
-            };
-            state.places.push(place);
-            save();
-            renderAll();
-            e.target.reset();
-            showToast(place.name + ' ajoute');
-        });
-
-        $('objectForm').addEventListener('submit', e => {
-            e.preventDefault();
-            recordHistory();
-            const obj = {
-                id: generateId(),
-                name: $('objectName').value.trim(),
-                type: $('objectType').value,
-                ownerId: $('objectOwner').value || null,
-                locationId: $('objectLocation').value || null,
-                description: $('objectDescription').value.trim(),
-                spoiler: $('objectSpoiler').checked
-            };
-            state.objects.push(obj);
-            save();
-            renderAll();
-            e.target.reset();
-            showToast(obj.name + ' ajoute');
-        });
-
-        $('glossaryForm').addEventListener('submit', e => {
-            e.preventDefault();
-            recordHistory();
-            const term = {
-                id: generateId(),
-                term: $('glossaryTerm').value.trim(),
-                category: $('glossaryCat').value,
-                definition: $('glossaryDef').value.trim()
-            };
-            state.glossary.push(term);
-            save();
-            renderAll();
-            e.target.reset();
-            showToast(term.term + ' ajoute');
-        });
-
-        $('noteForm').addEventListener('submit', e => {
-            e.preventDefault();
-            const chapter = state.chapters.find(c => c.id === currentChapterId);
-            if (!chapter) return;
             
-            recordHistory();
-            const note = {
-                id: generateId(),
-                text: $('noteText').value.trim(),
-                category: $('noteCategory').value,
-                spoiler: $('noteSpoiler').checked,
-                date: new Date().toISOString()
-            };
-            chapter.notes.push(note);
+            if (editingCharacterId) {
+                const idx = state.characters.findIndex(c => c.id === editingCharacterId);
+                if (idx !== -1) state.characters[idx] = char;
+            } else {
+                state.characters.push(char);
+            }
+            
             save();
-            renderNotes();
+            renderAll();
             e.target.reset();
-            showToast('Note ajoutee');
+            resetEditModes();
+            showToast(editingCharacterId ? 'Personnage modifie' : 'Personnage ajoute');
         });
 
-        function addChapter() {
-            const title = prompt('Titre du nouveau chapitre :');
-            if (title && title.trim()) {
-                recordHistory();
-                const ch = { id: generateId(), title: title.trim(), notes: [] };
-                state.chapters.push(ch);
-                currentChapterId = ch.id;
-                save();
-                renderChapters();
-                renderNotes();
-                showToast('Chapitre cree');
-            }
-        }
+        $('cancelEditBtn').addEventListener('click', () => {
+            $('characterForm').reset();
+            resetEditModes();
+        });
 
-        // ===== DELETE HANDLERS =====
+        window.editCharacter = function(id) {
+            const c = state.characters.find(c => c.id === id);
+            if (!c) return;
+            
+            editingCharacterId = id;
+            $('charName').value = c.name || '';
+            $('charRole').value = c.role || '';
+            $('charRace').value = c.race || '';
+            $('charTraits').value = c.traits || '';
+            $('charDescription').value = c.description || '';
+            $('charSecret').value = c.secret || '';
+            
+            $('characterFormTitle').textContent = 'Modifier le personnage';
+            $('cancelEditBtn').style.display = 'inline-flex';
+            
+            $('characterFormContainer').scrollIntoView({ behavior: 'smooth' });
+        };
+
         window.deleteCharacter = function(id) {
             if (confirm('Supprimer ce personnage ?')) {
                 recordHistory();
@@ -1745,53 +1502,51 @@
             }
         };
 
-        window.editCharacter = function(id) {
-            const c = state.characters.find(c => c.id === id);
-            if (!c) return;
+        // ===== NOTE FORM =====
+        let editingNoteId = null;
+
+        $('noteForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const chapter = state.chapters.find(c => c.id === currentChapterId);
+            if (!chapter) return;
+            
             recordHistory();
-            $('charName').value = c.name;
-            $('charRole').value = c.role;
-            $('charPlace').value = c.placeId || '';
-            $('charTraits').value = c.traits || '';
-            $('charDescription').value = c.description;
-            $('charSpoiler').checked = c.spoiler;
-            state.characters = state.characters.filter(ch => ch.id !== id);
+            
+            const note = {
+                id: editingNoteId || generateId(),
+                text: $('noteText').value.trim(),
+                category: $('noteCategory').value,
+                secret: $('noteSecret').value.trim(),
+                date: editingNoteId ? (chapter.notes.find(n => n.id === editingNoteId)?.date || new Date().toISOString()) : new Date().toISOString()
+            };
+            
+            if (editingNoteId) {
+                const idx = chapter.notes.findIndex(n => n.id === editingNoteId);
+                if (idx !== -1) chapter.notes[idx] = note;
+            } else {
+                chapter.notes.push(note);
+            }
+            
             save();
-            renderAll();
-            $('charName').focus();
-            showToast('Modifiez et validez');
-        };
+            renderNotes();
+            e.target.reset();
+            editingNoteId = null;
+            showToast(editingNoteId ? 'Note modifiee' : 'Note ajoutee');
+        });
 
-        window.deletePlace = function(id) {
-            if (confirm('Supprimer ce lieu ?')) {
-                recordHistory();
-                state.places = state.places.filter(p => p.id !== id);
-                state.characters.forEach(c => { if (c.placeId === id) c.placeId = null; });
-                state.objects.forEach(o => { if (o.locationId === id) o.locationId = null; });
-                save();
-                renderAll();
-                showToast('Lieu supprime');
-            }
-        };
-
-        window.deleteObject = function(id) {
-            if (confirm('Supprimer cet objet ?')) {
-                recordHistory();
-                state.objects = state.objects.filter(o => o.id !== id);
-                save();
-                renderAll();
-                showToast('Objet supprime');
-            }
-        };
-
-        window.deleteGlossary = function(id) {
-            if (confirm('Supprimer ce terme ?')) {
-                recordHistory();
-                state.glossary = state.glossary.filter(g => g.id !== id);
-                save();
-                renderAll();
-                showToast('Terme supprime');
-            }
+        window.editNote = function(id) {
+            const chapter = state.chapters.find(c => c.id === currentChapterId);
+            if (!chapter) return;
+            
+            const n = chapter.notes.find(n => n.id === id);
+            if (!n) return;
+            
+            editingNoteId = id;
+            $('noteText').value = n.text || '';
+            $('noteCategory').value = n.category || 'intrigue';
+            $('noteSecret').value = n.secret || '';
+            
+            $('noteFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
 
         window.deleteNote = function(id) {
@@ -1807,29 +1562,102 @@
             }
         };
 
-        // ===== NAVIGATION HELPERS =====
-        window.navigateToCharacter = function(id) {
-            switchSection('characters');
+        // ===== CHAPTER =====
+        function addChapter() {
+            const title = prompt('Titre du nouveau chapitre :');
+            if (title && title.trim()) {
+                recordHistory();
+                const ch = { id: generateId(), title: title.trim(), notes: [] };
+                state.chapters.push(ch);
+                currentChapterId = ch.id;
+                save();
+                renderChapters();
+                renderNotes();
+                showToast('Chapitre cree');
+            }
+        }
+
+        // ===== ENCYCLOPEDIA FORM =====
+        $('encyclopediaForm').addEventListener('submit', e => {
+            e.preventDefault();
+            recordHistory();
+            
+            const entry = {
+                id: editingEncyclopediaId || generateId(),
+                title: $('encyTitle').value.trim(),
+                category: $('encyCategory').value,
+                description: $('encyDescription').value.trim(),
+                secret: $('encySecret').value.trim()
+            };
+            
+            if (editingEncyclopediaId) {
+                const idx = state.encyclopedia.findIndex(e => e.id === editingEncyclopediaId);
+                if (idx !== -1) state.encyclopedia[idx] = entry;
+            } else {
+                state.encyclopedia.push(entry);
+            }
+            
+            save();
+            renderAll();
+            e.target.reset();
+            resetEditModes();
+            showToast(editingEncyclopediaId ? 'Fiche modifiee' : 'Fiche ajoutee');
+        });
+
+        $('cancelEncyEditBtn').addEventListener('click', () => {
+            $('encyclopediaForm').reset();
+            resetEditModes();
+        });
+
+        window.editEncyclopedia = function(id) {
+            const e = state.encyclopedia.find(en => en.id === id);
+            if (!e) return;
+            
+            editingEncyclopediaId = id;
+            $('encyTitle').value = e.title || '';
+            $('encyCategory').value = e.category || 'race';
+            $('encyDescription').value = e.description || '';
+            $('encySecret').value = e.secret || '';
+            
+            $('encyclopediaFormTitle').textContent = 'Modifier la fiche';
+            $('cancelEncyEditBtn').style.display = 'inline-flex';
+            
+            $('encyclopediaFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
 
-        window.navigateToPlace = function(id) {
-            switchSection('places');
+        window.deleteEncyclopedia = function(id) {
+            if (confirm('Supprimer cette fiche ?')) {
+                recordHistory();
+                state.encyclopedia = state.encyclopedia.filter(e => e.id !== id);
+                save();
+                renderAll();
+                showToast('Fiche supprimee');
+            }
         };
 
         // ===== EVENT LISTENERS =====
         themeToggleBtn.addEventListener('click', toggleTheme);
         focusModeBtn.addEventListener('click', toggleFocus);
-        spoilerToggleBtn.addEventListener('click', toggleSpoilers);
+        secretsToggleBtn.addEventListener('click', toggleSecrets);
 
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault();
                 save();
-                showToast('Plume sauvegardee');
+                showToast('Sauvegarde effectuee');
             }
             if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 undo();
+            }
+            if (e.key === 'Escape') {
+                if (editingCharacterId || editingEncyclopediaId || editingNoteId) {
+                    $('characterForm').reset();
+                    $('encyclopediaForm').reset();
+                    $('noteForm').reset();
+                    resetEditModes();
+                    editingNoteId = null;
+                }
             }
         });
 
