@@ -85,7 +85,6 @@
             z-index: 0;
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             left: 0; top: 0;
@@ -102,13 +101,13 @@
         .sidebar.hidden { transform: translateX(-100%); }
 
         .sidebar-header {
-            padding: 1.4rem 1.2rem;
+            padding: 1.3rem 1.15rem;
             border-bottom: 1px solid rgba(201, 162, 39, 0.12);
         }
 
         .logo {
             font-family: 'Spectral', serif;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--accent-gold);
             letter-spacing: 0.08em;
@@ -116,17 +115,17 @@
         }
 
         .logo-subtitle {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--fg-muted);
             font-style: italic;
-            margin-top: 0.15rem;
+            margin-top: 0.12rem;
         }
 
         .sidebar-actions {
-            padding: 0.7rem 1rem;
+            padding: 0.65rem 0.95rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.35rem;
+            gap: 0.3rem;
             border-bottom: 1px solid rgba(201, 162, 39, 0.08);
         }
 
@@ -134,14 +133,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.25rem;
-            padding: 0.45rem 0.5rem;
+            gap: 0.22rem;
+            padding: 0.42rem 0.45rem;
             background: rgba(201, 162, 39, 0.06);
             border: 1px solid rgba(201, 162, 39, 0.18);
             border-radius: 5px;
             color: var(--sidebar-fg);
             font-family: inherit;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.22s ease;
         }
@@ -154,22 +153,22 @@
         .sidebar-btn svg { width: 11px; height: 11px; }
         .sidebar-btn.full-width { grid-column: 1 / -1; }
 
-        .nav-section { padding: 0.6rem 0; flex: 1; }
+        .nav-section { padding: 0.55rem 0; flex: 1; }
         
         .nav-label {
-            padding: 0.35rem 1.2rem;
-            font-size: 0.58rem;
+            padding: 0.32rem 1.15rem;
+            font-size: 0.56rem;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.13em;
             color: var(--fg-muted);
-            margin-top: 0.4rem;
+            margin-top: 0.35rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 0.55rem;
-            padding: 0.55rem 1.2rem;
+            gap: 0.5rem;
+            padding: 0.5rem 1.15rem;
             color: var(--sidebar-fg);
             cursor: pointer;
             transition: all 0.22s ease;
@@ -179,7 +178,7 @@
             width: 100%;
             text-align: left;
             font-family: inherit;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
         }
 
         .nav-item::before {
@@ -196,11 +195,11 @@
         .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
         .nav-item.active::before { transform: scaleY(1); }
 
-        .nav-icon { width: 15px; height: 15px; opacity: 0.65; transition: opacity 0.22s ease; }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
         .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
 
         .sidebar-stats {
-            padding: 0.65rem 1.2rem;
+            padding: 0.6rem 1.15rem;
             border-top: 1px solid rgba(201, 162, 39, 0.12);
             background: rgba(0, 0, 0, 0.22);
         }
@@ -209,16 +208,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.25rem 0;
+            padding: 0.22rem 0;
             color: var(--fg-muted);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
         }
 
         .stat-value { color: var(--accent-gold); font-weight: 600; font-family: 'Spectral', serif; }
-        .stat-item.highlight { padding: 0.4rem 0; margin-top: 0.35rem; border-top: 1px solid rgba(201, 162, 39, 0.08); }
-        .stat-item.highlight .stat-value { font-size: 0.95rem; }
+        .stat-item.highlight { padding: 0.38rem 0; margin-top: 0.32rem; border-top: 1px solid rgba(201, 162, 39, 0.08); }
+        .stat-item.highlight .stat-value { font-size: 0.92rem; }
 
-        /* Main */
         .main-content {
             margin-left: 250px;
             min-height: 100vh;
@@ -235,23 +233,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.65rem 1.4rem;
+            padding: 0.6rem 1.35rem;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-light);
             backdrop-filter: blur(10px);
-            gap: 0.85rem;
+            gap: 0.8rem;
         }
 
-        .search-container { position: relative; flex: 1; max-width: 320px; }
+        .search-container { position: relative; flex: 1; max-width: 300px; }
         
         .search-input {
             width: 100%;
-            padding: 0.45rem 0.75rem 0.45rem 2rem;
+            padding: 0.42rem 0.7rem 0.42rem 1.9rem;
             background: var(--input-bg);
             border: 1px solid var(--border-medium);
             border-radius: 5px;
             font-family: inherit;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--fg-primary);
             transition: all 0.22s ease;
         }
@@ -265,22 +263,22 @@
 
         .search-icon {
             position: absolute;
-            left: 0.7rem;
+            left: 0.68rem;
             top: 50%;
             transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
+            width: 11px;
+            height: 11px;
             color: var(--fg-muted);
         }
 
-        .top-actions { display: flex; gap: 0.35rem; }
+        .top-actions { display: flex; gap: 0.3rem; }
 
         .icon-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             background: var(--input-bg);
             border: 1px solid var(--border-medium);
             border-radius: 5px;
@@ -291,26 +289,25 @@
 
         .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
         .icon-btn.active { background: rgba(201, 162, 39, 0.12); border-color: var(--accent-gold); color: var(--accent-gold); }
-        .icon-btn svg { width: 15px; height: 15px; }
+        .icon-btn svg { width: 14px; height: 14px; }
 
         .content-header {
-            padding: 1.35rem 1.6rem;
+            padding: 1.25rem 1.5rem;
             border-bottom: 1px solid var(--border-light);
             background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
         }
 
-        .page-title { font-family: 'Spectral', serif; font-size: 1.65rem; font-weight: 700; color: var(--fg-primary); }
-        .page-subtitle { color: var(--fg-secondary); font-size: 0.92rem; margin-top: 0.25rem; font-style: italic; }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); }
+        .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
 
-        .content-body { padding: 1.35rem 1.6rem; position: relative; z-index: 1; }
+        .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
 
-        /* Forms */
         .form-container {
             background: var(--bg-form);
             border: 1px solid var(--border-light);
-            border-radius: 9px;
-            padding: 1.35rem;
-            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.35rem;
             box-shadow: 0 3px 12px var(--shadow-warm);
             backdrop-filter: blur(10px);
             transition: opacity 0.28s ease, transform 0.28s ease;
@@ -321,27 +318,27 @@
 
         .form-title {
             font-family: 'Spectral', serif;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--fg-primary);
-            margin-bottom: 0.85rem;
-            padding-bottom: 0.45rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
             border-bottom: 1px solid var(--border-light);
         }
 
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.7rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.22rem; }
         .form-group.full-width { grid-column: 1 / -1; }
 
-        .form-label { font-size: 0.68rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
+        .form-label { font-size: 0.65rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
 
         .form-input, .form-textarea, .form-select {
-            padding: 0.5rem 0.72rem;
+            padding: 0.48rem 0.68rem;
             border: 1px solid var(--border-medium);
             border-radius: 5px;
             background: var(--input-bg);
             font-family: inherit;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--fg-primary);
             transition: all 0.22s ease;
         }
@@ -352,30 +349,30 @@
             box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08);
         }
 
-        .form-textarea { min-height: 65px; resize: vertical; line-height: 1.45; }
+        .form-textarea { min-height: 60px; resize: vertical; line-height: 1.42; }
         
         .form-select {
             cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%238b7d68' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 0.72rem center;
-            padding-right: 1.8rem;
+            background-position: right 0.68rem center;
+            padding-right: 1.7rem;
         }
 
-        .checkbox-group { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.85rem; }
-        .checkbox-group input { width: 14px; height: 14px; accent-color: var(--accent-gold); }
+        .checkbox-group { display: flex; align-items: center; gap: 0.38rem; cursor: pointer; font-size: 0.82rem; }
+        .checkbox-group input { width: 13px; height: 13px; accent-color: var(--accent-gold); }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.3rem;
-            padding: 0.55rem 1.1rem;
+            gap: 0.28rem;
+            padding: 0.52rem 1rem;
             border: none;
             border-radius: 5px;
             font-family: 'Spectral', serif;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.22s ease;
@@ -388,25 +385,24 @@
         [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
         .btn-danger { background: transparent; color: #a04040; border: 1px solid rgba(160, 64, 64, 0.25); }
         .btn-danger:hover { background: rgba(160, 64, 64, 0.08); }
-        .btn-icon { padding: 0.32rem; border-radius: 4px; }
+        .btn-icon { padding: 0.3rem; border-radius: 4px; }
 
         .secret-section {
-            background: rgba(139, 105, 20, 0.06);
-            border: 1px dashed rgba(201, 162, 39, 0.25);
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
+            background: rgba(139, 105, 20, 0.05);
+            border: 1px dashed rgba(201, 162, 39, 0.22);
+            border-radius: 5px;
+            padding: 0.7rem;
+            margin-top: 0.45rem;
         }
 
         .secret-section .form-label { color: var(--accent-sepia); }
 
-        /* Cards */
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 0.9rem; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 9px;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 12px var(--shadow-warm);
             transition: all 0.28s ease;
@@ -429,83 +425,75 @@
         .card-progress {
             position: absolute;
             top: 5px; right: 5px;
-            width: 30px; height: 30px;
+            width: 28px; height: 28px;
         }
 
         .card-progress svg { transform: rotate(-90deg); }
         .card-progress-bg { fill: none; stroke: var(--border-light); stroke-width: 2.5; }
         .card-progress-fill { fill: none; stroke: var(--accent-gold); stroke-width: 2.5; stroke-linecap: round; transition: stroke-dashoffset 0.45s ease; }
-        .card-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 600; color: var(--accent-gold); }
+        .card-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.56rem; font-weight: 600; color: var(--accent-gold); }
 
         .card-header {
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 0.95rem;
             border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding-right: 44px;
+            padding-right: 42px;
         }
 
-        .card-name { font-family: 'Spectral', serif; font-size: 1.1rem; font-weight: 600; color: var(--fg-primary); }
+        .card-name { font-family: 'Spectral', serif; font-size: 1.05rem; font-weight: 600; color: var(--fg-primary); }
         
         .card-tag {
             display: inline-block;
-            padding: 0.12rem 0.45rem;
+            padding: 0.1rem 0.4rem;
             background: rgba(201, 162, 39, 0.1);
             color: var(--accent-sepia);
-            border-radius: 18px;
-            font-size: 0.68rem;
+            border-radius: 16px;
+            font-size: 0.65rem;
             font-weight: 500;
-            margin-top: 0.15rem;
+            margin-top: 0.12rem;
         }
 
-        .card-actions { display: flex; gap: 0.25rem; }
-        .card-body { padding: 0.75rem 1rem; }
-        .card-section { margin-bottom: 0.6rem; }
+        .card-actions { display: flex; gap: 0.22rem; }
+        .card-body { padding: 0.7rem 0.95rem; }
+        .card-section { margin-bottom: 0.55rem; }
         .card-section:last-child { margin-bottom: 0; }
-        .card-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--fg-muted); margin-bottom: 0.15rem; }
-        .card-text { color: var(--fg-secondary); line-height: 1.48; font-size: 0.88rem; }
+        .card-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-muted); margin-bottom: 0.12rem; }
+        .card-text { color: var(--fg-secondary); line-height: 1.44; font-size: 0.85rem; }
 
         .link-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.2rem;
-            padding: 0.15rem 0.4rem;
+            gap: 0.18rem;
+            padding: 0.12rem 0.38rem;
             background: rgba(45, 90, 74, 0.08);
             color: var(--cat-lore);
             border-radius: 3px;
-            font-size: 0.72rem;
-            margin-right: 0.25rem;
-            margin-bottom: 0.25rem;
+            font-size: 0.7rem;
+            margin-right: 0.22rem;
+            margin-bottom: 0.22rem;
             cursor: pointer;
             transition: background 0.18s;
         }
-        .link-tag:hover { background: rgba(45, 90, 74, 0.15); }
+        .link-tag:hover { background: rgba(45, 90, 74, 0.14); }
         .link-tag svg { width: 9px; height: 9px; }
 
-        .traits-list { display: flex; flex-wrap: wrap; gap: 0.25rem; }
-        .trait-tag { padding: 0.12rem 0.4rem; background: rgba(44, 36, 24, 0.05); color: var(--fg-secondary); border-radius: 3px; font-size: 0.72rem; }
+        .traits-list { display: flex; flex-wrap: wrap; gap: 0.22rem; }
+        .trait-tag { padding: 0.1rem 0.38rem; background: rgba(44, 36, 24, 0.05); color: var(--fg-secondary); border-radius: 3px; font-size: 0.7rem; }
         [data-theme="dark"] .trait-tag { background: rgba(232, 223, 211, 0.05); }
 
-        /* Secret/Blur */
         .secret-block {
             position: relative;
-            margin-top: 0.5rem;
-            padding: 0.6rem 0.75rem;
+            margin-top: 0.45rem;
+            padding: 0.55rem 0.7rem;
             background: rgba(201, 162, 39, 0.04);
             border-radius: 5px;
             border-left: 3px solid var(--accent-gold);
         }
 
-        .secret-block.has-secret {
-            transition: filter 0.28s ease;
-        }
-
-        .secret-block.is-blurred {
-            filter: blur(6px);
-            user-select: none;
-            cursor: pointer;
-        }
+        .secret-block.has-secret { transition: filter 0.28s ease; }
+        .secret-block.is-blurred { filter: blur(6px); user-select: none; cursor: pointer; }
 
         .secret-block.is-blurred::after {
             content: 'SECRET';
@@ -514,9 +502,9 @@
             transform: translate(-50%, -50%);
             background: var(--accent-gold);
             color: #fff;
-            padding: 0.2rem 0.5rem;
+            padding: 0.18rem 0.45rem;
             border-radius: 3px;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 600;
             letter-spacing: 0.04em;
             pointer-events: none;
@@ -525,24 +513,23 @@
         .secret-block.revealed { filter: blur(0); cursor: default; }
         .secret-block.revealed::after { display: none; }
 
-        /* Chapters */
-        .chapters-layout { display: grid; grid-template-columns: 200px 1fr; gap: 1.2rem; }
-        .chapters-list { background: var(--bg-card); border-radius: 9px; padding: 0.85rem; height: fit-content; border: 1px solid var(--border-light); }
-        .chapter-item { padding: 0.5rem 0.7rem; border-radius: 5px; cursor: pointer; transition: all 0.18s; margin-bottom: 0.25rem; display: flex; justify-content: space-between; align-items: center; color: var(--fg-secondary); font-size: 0.88rem; }
+        .chapters-layout { display: grid; grid-template-columns: 190px 1fr; gap: 1.1rem; }
+        .chapters-list { background: var(--bg-card); border-radius: 8px; padding: 0.8rem; height: fit-content; border: 1px solid var(--border-light); }
+        .chapter-item { padding: 0.48rem 0.65rem; border-radius: 5px; cursor: pointer; transition: all 0.18s; margin-bottom: 0.22rem; display: flex; justify-content: space-between; align-items: center; color: var(--fg-secondary); font-size: 0.85rem; }
         .chapter-item:hover { background: rgba(201, 162, 39, 0.08); }
         .chapter-item.active { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); font-weight: 500; }
-        .chapter-count { font-size: 0.72rem; color: var(--fg-muted); }
-        .add-chapter-btn { width: 100%; margin-top: 0.4rem; padding: 0.45rem; font-size: 0.82rem; }
+        .chapter-count { font-size: 0.7rem; color: var(--fg-muted); }
+        .add-chapter-btn { width: 100%; margin-top: 0.35rem; padding: 0.42rem; font-size: 0.8rem; }
 
-        .notes-list { display: flex; flex-direction: column; gap: 0.6rem; }
+        .notes-list { display: flex; flex-direction: column; gap: 0.55rem; }
 
         .note-item {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 7px;
-            padding: 0.75rem 0.9rem;
+            padding: 0.7rem 0.85rem;
             display: flex;
-            gap: 0.75rem;
+            gap: 0.7rem;
             align-items: flex-start;
             box-shadow: 0 1px 6px var(--shadow-warm);
             transition: all 0.18s ease;
@@ -551,41 +538,38 @@
 
         .note-item.dragging { opacity: 0.5; transform: scale(0.98); }
         .note-item.drag-over { border-color: var(--accent-gold); }
-        .note-number { width: 26px; height: 26px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Spectral', serif; font-weight: 600; font-size: 0.75rem; flex-shrink: 0; }
+        .note-number { width: 24px; height: 24px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Spectral', serif; font-weight: 600; font-size: 0.72rem; flex-shrink: 0; }
         .note-content { flex: 1; min-width: 0; }
-        .note-category { display: inline-block; padding: 0.08rem 0.35rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.25rem; }
+        .note-category { display: inline-block; padding: 0.07rem 0.32rem; border-radius: 3px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.22rem; }
         .note-category.intrigue { background: var(--cat-intrigue-bg); color: var(--cat-intrigue); }
         .note-category.lore { background: var(--cat-lore-bg); color: var(--cat-lore); }
         .note-category.idee { background: var(--cat-idee-bg); color: var(--cat-idee); }
-        .note-text { color: var(--fg-secondary); line-height: 1.48; font-size: 0.92rem; }
-        .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid var(--border-light); }
-        .note-date { font-size: 0.72rem; color: var(--fg-muted); font-style: italic; }
-        .drag-handle { opacity: 0.25; transition: opacity 0.18s; cursor: grab; padding: 0.25rem; }
-        .drag-handle:hover { opacity: 0.7; }
-        .drag-handle svg { width: 11px; height: 11px; color: var(--fg-muted); }
+        .note-text { color: var(--fg-secondary); line-height: 1.44; font-size: 0.88rem; }
+        .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--border-light); }
+        .note-date { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; }
+        .drag-handle { opacity: 0.25; transition: opacity 0.18s; cursor: grab; padding: 0.22rem; }
+        .drag-handle:hover { opacity: 0.65; }
+        .drag-handle svg { width: 10px; height: 10px; color: var(--fg-muted); }
 
-        /* Encyclopedia */
-        .encyclopedia-list { display: flex; flex-direction: column; gap: 0.6rem; }
-        .encyclopedia-item { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: flex-start; }
-        .encyclopedia-content { flex: 1; }
-        .encyclopedia-title { font-family: 'Spectral', serif; font-size: 1.05rem; font-weight: 600; color: var(--fg-primary); }
-        .encyclopedia-cat { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; margin-left: 0.4rem; }
+        .encyclopedia-list, .glossary-list { display: flex; flex-direction: column; gap: 0.55rem; }
+        .encyclopedia-item, .glossary-item { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 0.8rem 0.95rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        .encyclopedia-content, .glossary-content { flex: 1; }
+        .encyclopedia-title, .glossary-term { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--accent-gold); }
+        .encyclopedia-cat { display: inline-block; padding: 0.08rem 0.38rem; border-radius: 3px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; margin-left: 0.35rem; }
         .encyclopedia-cat.race { background: var(--cat-race-bg); color: var(--cat-race); }
         .encyclopedia-cat.langue { background: var(--cat-langue-bg); color: var(--cat-langue); }
-        .encyclopedia-desc { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.35rem; line-height: 1.45; }
+        .encyclopedia-desc, .glossary-def { color: var(--fg-secondary); font-size: 0.85rem; margin-top: 0.3rem; line-height: 1.42; }
 
-        /* Empty */
-        .empty-state { text-align: center; padding: 2.2rem 1.4rem; color: var(--fg-muted); }
-        .empty-icon { width: 44px; height: 44px; margin: 0 auto 0.85rem; opacity: 0.35; }
-        .empty-title { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--fg-secondary); margin-bottom: 0.25rem; }
-        .empty-text { font-size: 0.88rem; max-width: 240px; margin: 0 auto; }
+        .empty-state { text-align: center; padding: 2rem 1.3rem; color: var(--fg-muted); }
+        .empty-icon { width: 42px; height: 42px; margin: 0 auto 0.8rem; opacity: 0.35; }
+        .empty-title { font-family: 'Spectral', serif; font-size: 1.05rem; color: var(--fg-secondary); margin-bottom: 0.22rem; }
+        .empty-text { font-size: 0.85rem; max-width: 230px; margin: 0 auto; }
 
-        /* Toast */
         .toast {
             position: fixed;
-            bottom: 1.1rem;
-            right: 1.1rem;
-            padding: 0.7rem 0.95rem;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.65rem 0.9rem;
             background: var(--sidebar-bg);
             color: var(--sidebar-fg);
             border-radius: 5px;
@@ -596,19 +580,18 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.88rem;
+            gap: 0.38rem;
+            font-size: 0.85rem;
         }
         .toast.show { transform: translateX(0); }
-        .toast-icon { width: 14px; height: 14px; color: var(--accent-gold); }
+        .toast-icon { width: 13px; height: 13px; color: var(--accent-gold); }
 
-        /* Mobile */
         .mobile-menu-btn {
             display: none;
             position: fixed;
-            top: 0.55rem; left: 0.55rem;
+            top: 0.5rem; left: 0.5rem;
             z-index: 200;
-            width: 34px; height: 34px;
+            width: 32px; height: 32px;
             background: var(--sidebar-bg);
             border: 1px solid rgba(201, 162, 39, 0.28);
             border-radius: 5px;
@@ -634,7 +617,7 @@
         .section { display: none; animation: fadeIn 0.28s ease; }
         .section.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 850px) {
             .chapters-layout { grid-template-columns: 1fr; }
@@ -647,11 +630,11 @@
             .main-content { margin-left: 0; }
             .mobile-menu-btn { display: flex; }
             .mobile-overlay { display: block; }
-            .top-bar { padding: 0.55rem 0.7rem; padding-top: 3.2rem; }
-            .content-header { padding: 1.1rem 0.9rem; }
-            .content-body { padding: 1.1rem 0.9rem; }
+            .top-bar { padding: 0.5rem 0.65rem; padding-top: 3rem; }
+            .content-header { padding: 1rem 0.85rem; }
+            .content-body { padding: 1rem 0.85rem; }
             .cards-grid { grid-template-columns: 1fr; }
-            .top-actions { position: fixed; top: 0.55rem; right: 0.55rem; z-index: 60; }
+            .top-actions { position: fixed; top: 0.5rem; right: 0.5rem; z-index: 60; }
         }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -670,7 +653,7 @@
 </head>
 <body data-theme="light">
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -712,7 +695,7 @@
         </div>
 
         <nav class="nav-section">
-            <div class="nav-label">Navigation</div>
+            <div class="nav-label">Monde</div>
             <button class="nav-item active" data-section="characters">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -720,12 +703,20 @@
                 </svg>
                 Personnages
             </button>
-            <button class="nav-item" data-section="chapters">
+            <button class="nav-item" data-section="places">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
                 </svg>
-                Chronologie
+                Lieux
+            </button>
+            <button class="nav-item" data-section="objects">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                </svg>
+                Objets
             </button>
             <button class="nav-item" data-section="encyclopedia">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -734,12 +725,28 @@
                 </svg>
                 Encyclopedie
             </button>
+            <button class="nav-item" data-section="glossary">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20h9"/>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                Glossaire
+            </button>
+
+            <div class="nav-label">Histoire</div>
+            <button class="nav-item" data-section="chapters">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                Chronologie
+            </button>
         </nav>
 
         <div class="sidebar-stats">
             <div class="stat-item"><span>Personnages</span><span class="stat-value" id="characterCount">0</span></div>
-            <div class="stat-item"><span>Evenements</span><span class="stat-value" id="eventCount">0</span></div>
-            <div class="stat-item"><span>Fiches</span><span class="stat-value" id="ficheCount">0</span></div>
+            <div class="stat-item"><span>Lieux</span><span class="stat-value" id="placeCount">0</span></div>
+            <div class="stat-item"><span>Objets</span><span class="stat-value" id="objectCount">0</span></div>
             <div class="stat-item highlight"><span>Total mots</span><span class="stat-value" id="wordCount">0</span></div>
         </div>
     </aside>
@@ -802,6 +809,10 @@
                             <label class="form-label">Race</label>
                             <input type="text" id="charRace" class="form-input" placeholder="Humain, Elfe...">
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Lieu de vie</label>
+                            <select id="charPlace" class="form-select"><option value="">Aucun</option></select>
+                        </div>
                         <div class="form-group full-width">
                             <label class="form-label">Traits</label>
                             <input type="text" id="charTraits" class="form-input" placeholder="Courageux, Loyal...">
@@ -813,7 +824,7 @@
                         <div class="form-group full-width">
                             <div class="secret-section">
                                 <label class="form-label">Zone secrete (optionnel)</label>
-                                <textarea id="charSecret" class="form-textarea" placeholder="Informations cachees, spoilers..." style="min-height:50px;"></textarea>
+                                <textarea id="charSecret" class="form-textarea" placeholder="Informations cachees, spoilers..." style="min-height:48px;"></textarea>
                             </div>
                         </div>
                         <div class="form-group full-width">
@@ -825,8 +836,7 @@
                 <div class="cards-grid" id="charactersGrid"></div>
                 <div class="empty-state" id="charactersEmpty">
                     <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
                     </svg>
                     <h3 class="empty-title">Aucun personnage</h3>
                     <p class="empty-text">Creez vos premiers protagonistes.</p>
@@ -834,53 +844,116 @@
             </div>
         </section>
 
-        <!-- Chronologie -->
-        <section class="section" id="chaptersSection">
+        <!-- Lieux -->
+        <section class="section" id="placesSection">
             <header class="content-header">
-                <h1 class="page-title">Chronologie</h1>
-                <p class="page-subtitle">Structurez votre recit</p>
+                <h1 class="page-title">Lieux</h1>
+                <p class="page-subtitle">La geographie de votre monde</p>
             </header>
             <div class="content-body">
-                <div class="chapters-layout">
-                    <div class="chapters-list" id="chaptersList">
-                        <div class="nav-label">Chapitres</div>
-                    </div>
-                    <div class="chapter-content">
-                        <div class="form-container" id="noteFormContainer">
-                            <h2 class="form-title" id="noteFormTitle">Ajouter un evenement</h2>
-                            <form id="noteForm">
-                                <div class="form-grid" style="margin-bottom:0.65rem;">
-                                    <div class="form-group">
-                                        <label class="form-label">Type</label>
-                                        <select id="noteCategory" class="form-select">
-                                            <option value="intrigue">Intrigue</option>
-                                            <option value="lore">Lore</option>
-                                            <option value="idee">Idee</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="margin-bottom:0.65rem;">
-                                    <label class="form-label">Contenu</label>
-                                    <textarea id="noteText" class="form-textarea" placeholder="Evenement ou note..." required></textarea>
-                                </div>
-                                <div class="form-group full-width">
-                                    <div class="secret-section">
-                                        <label class="form-label">Zone secrete (optionnel)</label>
-                                        <textarea id="noteSecret" class="form-textarea" placeholder="Informations cachees..." style="min-height:45px;"></textarea>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Ajouter</button>
-                            </form>
+                <div class="form-container" id="placeFormContainer">
+                    <h2 class="form-title" id="placeFormTitle">Nouveau lieu</h2>
+                    <form id="placeForm" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nom</label>
+                            <input type="text" id="placeName" class="form-input" placeholder="Nom du lieu">
                         </div>
-                        <div class="notes-list" id="notesList"></div>
-                        <div class="empty-state" id="notesEmpty">
-                            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            </svg>
-                            <h3 class="empty-title">Chapitre vide</h3>
-                            <p class="empty-text">Selectionnez ou creez un chapitre.</p>
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select id="placeType" class="form-select">
+                                <option value="">Choisir...</option>
+                                <option value="Ville">Ville</option>
+                                <option value="Chateau">Chateau</option>
+                                <option value="Foret">Foret</option>
+                                <option value="Planete">Planete</option>
+                                <option value="Royaume">Royaume</option>
+                                <option value="Autre">Autre</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea id="placeDescription" class="form-textarea" placeholder="Atmosphere, histoire..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <div class="secret-section">
+                                <label class="form-label">Zone secrete (optionnel)</label>
+                                <textarea id="placeSecret" class="form-textarea" placeholder="Secrets du lieu..." style="min-height:48px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelPlaceEditBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="cards-grid" id="placesGrid"></div>
+                <div class="empty-state" id="placesEmpty">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <h3 class="empty-title">Aucun lieu</h3>
+                    <p class="empty-text">Cartographiez votre univers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objets -->
+        <section class="section" id="objectsSection">
+            <header class="content-header">
+                <h1 class="page-title">Objets</h1>
+                <p class="page-subtitle">Artefacts et items importants</p>
+            </header>
+            <div class="content-body">
+                <div class="form-container" id="objectFormContainer">
+                    <h2 class="form-title" id="objectFormTitle">Nouvel objet</h2>
+                    <form id="objectForm" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nom</label>
+                            <input type="text" id="objectName" class="form-input" placeholder="Nom de l'objet">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select id="objectType" class="form-select">
+                                <option value="">Choisir...</option>
+                                <option value="Arme">Arme</option>
+                                <option value="Armure">Armure</option>
+                                <option value="Document">Document</option>
+                                <option value="Potion">Potion</option>
+                                <option value="Artefact">Artefact</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Proprietaire</label>
+                            <select id="objectOwner" class="form-select"><option value="">Inconnu</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Localisation</label>
+                            <select id="objectLocation" class="form-select"><option value="">Inconnue</option></select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea id="objectDescription" class="form-textarea" placeholder="Pouvoirs, histoire..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <div class="secret-section">
+                                <label class="form-label">Zone secrete (optionnel)</label>
+                                <textarea id="objectSecret" class="form-textarea" placeholder="Secrets de l'objet..." style="min-height:48px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelObjectEditBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="cards-grid" id="objectsGrid"></div>
+                <div class="empty-state" id="objectsEmpty">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                    </svg>
+                    <h3 class="empty-title">Aucun objet</h3>
+                    <p class="empty-text">Ajoutez vos artefacts.</p>
                 </div>
             </div>
         </section>
@@ -913,7 +986,7 @@
                         <div class="form-group full-width">
                             <div class="secret-section">
                                 <label class="form-label">Zone secrete (optionnel)</label>
-                                <textarea id="encySecret" class="form-textarea" placeholder="Secrets, spoilers..." style="min-height:50px;"></textarea>
+                                <textarea id="encySecret" class="form-textarea" placeholder="Secrets..." style="min-height:48px;"></textarea>
                             </div>
                         </div>
                         <div class="form-group full-width">
@@ -925,11 +998,104 @@
                 <div class="encyclopedia-list" id="encyclopediaList"></div>
                 <div class="empty-state" id="encyclopediaEmpty">
                     <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
                     <h3 class="empty-title">Encyclopedie vide</h3>
                     <p class="empty-text">Documentez votre monde.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Glossaire -->
+        <section class="section" id="glossarySection">
+            <header class="content-header">
+                <h1 class="page-title">Glossaire</h1>
+                <p class="page-subtitle">Votre dictionnaire personnel</p>
+            </header>
+            <div class="content-body">
+                <div class="form-container" id="glossaryFormContainer">
+                    <h2 class="form-title" id="glossaryFormTitle">Nouveau terme</h2>
+                    <form id="glossaryForm" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Terme</label>
+                            <input type="text" id="glossaryTerm" class="form-input" placeholder="Mot invente">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categorie</label>
+                            <select id="glossaryCat" class="form-select">
+                                <option value="Langue">Langue</option>
+                                <option value="Tech">Technologie</option>
+                                <option value="Argot">Argot</option>
+                                <option value="Magie">Magie</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Definition</label>
+                            <textarea id="glossaryDef" class="form-textarea" placeholder="Signification..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelGlossaryEditBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="glossary-list" id="glossaryList"></div>
+                <div class="empty-state" id="glossaryEmpty">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                    <h3 class="empty-title">Glossaire vide</h3>
+                    <p class="empty-text">Documentez votre vocabulaire.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chronologie -->
+        <section class="section" id="chaptersSection">
+            <header class="content-header">
+                <h1 class="page-title">Chronologie</h1>
+                <p class="page-subtitle">Structurez votre recit</p>
+            </header>
+            <div class="content-body">
+                <div class="chapters-layout">
+                    <div class="chapters-list" id="chaptersList"><div class="nav-label">Chapitres</div></div>
+                    <div class="chapter-content">
+                        <div class="form-container" id="noteFormContainer">
+                            <h2 class="form-title" id="noteFormTitle">Ajouter un evenement</h2>
+                            <form id="noteForm">
+                                <div class="form-grid" style="margin-bottom:0.6rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Type</label>
+                                        <select id="noteCategory" class="form-select">
+                                            <option value="intrigue">Intrigue</option>
+                                            <option value="lore">Lore</option>
+                                            <option value="idee">Idee</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0.6rem;">
+                                    <label class="form-label">Contenu</label>
+                                    <textarea id="noteText" class="form-textarea" placeholder="Evenement ou note..." required></textarea>
+                                </div>
+                                <div class="form-group full-width">
+                                    <div class="secret-section">
+                                        <label class="form-label">Zone secrete (optionnel)</label>
+                                        <textarea id="noteSecret" class="form-textarea" placeholder="Informations cachees..." style="min-height:42px;"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                        </div>
+                        <div class="notes-list" id="notesList"></div>
+                        <div class="empty-state" id="notesEmpty">
+                            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            </svg>
+                            <h3 class="empty-title">Chapitre vide</h3>
+                            <p class="empty-text">Selectionnez ou creez un chapitre.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -937,21 +1103,23 @@
 
     <div class="toast" id="toast">
         <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
         <span id="toastMessage"></span>
     </div>
 
     <script>
         // ===== STATE =====
-        const STORAGE_KEY = 'scriptorium_v3';
-        const HISTORY_KEY = 'scriptorium_history_v3';
+        const STORAGE_KEY = 'scriptorium_v4';
+        const HISTORY_KEY = 'scriptorium_history_v4';
         
         let state = {
             characters: [],
-            chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }],
-            encyclopedia: []
+            places: [],
+            objects: [],
+            encyclopedia: [],
+            glossary: [],
+            chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]
         };
         
         let history = [];
@@ -959,8 +1127,14 @@
         let focusMode = false;
         let hideSecrets = true;
         let draggedNote = null;
+        
+        // Edit states
         let editingCharacterId = null;
+        let editingPlaceId = null;
+        let editingObjectId = null;
         let editingEncyclopediaId = null;
+        let editingGlossaryId = null;
+        let editingNoteId = null;
 
         // ===== DOM =====
         const $ = id => document.getElementById(id);
@@ -981,25 +1155,12 @@
         const undoBtn = $('undoBtn');
 
         // ===== UTILITIES =====
-        const escapeHtml = t => {
-            const d = document.createElement('div');
-            d.textContent = t || '';
-            return d.innerHTML;
-        };
-        
-        const formatDate = iso => new Date(iso).toLocaleDateString('fr-FR', {
-            day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-        });
-        
+        const escapeHtml = t => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
+        const formatDate = iso => new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         const countWords = t => (t || '').trim().split(/\s+/).filter(w => w.length > 0).length;
-        
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
-        }
+        const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
 
-        function save() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        }
+        function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
         function load() {
             const saved = localStorage.getItem(STORAGE_KEY);
@@ -1007,18 +1168,12 @@
                 try {
                     const parsed = JSON.parse(saved);
                     state = { ...state, ...parsed };
-                    if (!state.chapters || state.chapters.length === 0) {
-                        state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }];
-                    }
+                    if (!state.chapters || state.chapters.length === 0) state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }];
                     currentChapterId = state.chapters[0].id;
                 } catch(e) { console.error(e); }
             }
-            
             const theme = localStorage.getItem('scriptorium_theme');
-            if (theme) {
-                document.body.setAttribute('data-theme', theme);
-                updateThemeIcon(theme);
-            }
+            if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
         }
 
         function recordHistory() {
@@ -1028,15 +1183,12 @@
         }
 
         function undo() {
-            if (history.length === 0) {
-                showToast('Rien a annuler');
-                return;
-            }
+            if (history.length === 0) { showToast('Rien a annuler'); return; }
             const prevState = history.pop();
             state = JSON.parse(prevState);
             save();
             localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-            resetEditModes();
+            resetAllEditModes();
             renderAll();
             showToast('Action annulee');
         }
@@ -1079,26 +1231,17 @@
 
         // ===== NAVIGATION =====
         function switchSection(id) {
-            document.querySelectorAll('.nav-item').forEach(n => {
-                n.classList.toggle('active', n.dataset.section === id);
-            });
-            document.querySelectorAll('.section').forEach(s => {
-                s.classList.toggle('active', s.id === id + 'Section');
-            });
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.section === id));
+            document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === id + 'Section'));
             closeMobile();
             searchInput.value = '';
             renderAll();
         }
 
-        document.querySelectorAll('.nav-item').forEach(n => {
-            n.addEventListener('click', () => switchSection(n.dataset.section));
-        });
+        document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', () => switchSection(n.dataset.section)));
 
         // ===== MOBILE =====
-        function closeMobile() {
-            sidebar.classList.remove('open');
-            mobileOverlay.classList.remove('active');
-        }
+        function closeMobile() { sidebar.classList.remove('open'); mobileOverlay.classList.remove('active'); }
         mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('open'));
         mobileOverlay.addEventListener('click', closeMobile);
 
@@ -1122,60 +1265,66 @@
                     save();
                     renderAll();
                     showToast('Grimoire importe');
-                } catch(err) {
-                    showToast('Erreur d\'import');
-                }
+                } catch(err) { showToast('Erreur d\'import'); }
             };
             reader.readAsText(file);
         }
 
         exportBtn.addEventListener('click', exportData);
         importBtn.addEventListener('click', () => importInput.click());
-        importInput.addEventListener('change', e => {
-            if (e.target.files[0]) importData(e.target.files[0]);
-        });
+        importInput.addEventListener('change', e => { if (e.target.files[0]) importData(e.target.files[0]); });
         undoBtn.addEventListener('click', undo);
-
-        // ===== SEARCH =====
         searchInput.addEventListener('input', renderAll);
 
         // ===== STATS =====
         function updateStats() {
             $('characterCount').textContent = state.characters.length;
-            
-            let eventCount = 0;
-            state.chapters.forEach(ch => eventCount += ch.notes.length);
-            $('eventCount').textContent = eventCount;
-            
-            $('ficheCount').textContent = state.encyclopedia.length;
-            
+            $('placeCount').textContent = state.places.length;
+            $('objectCount').textContent = state.objects.length;
             let words = 0;
-            state.characters.forEach(c => {
-                words += countWords(c.name) + countWords(c.description) + countWords(c.traits) + countWords(c.secret);
-            });
-            state.encyclopedia.forEach(e => {
-                words += countWords(e.title) + countWords(e.description) + countWords(e.secret);
-            });
-            state.chapters.forEach(ch => ch.notes.forEach(n => {
-                words += countWords(n.text) + countWords(n.secret);
-            }));
-            
+            state.characters.forEach(c => words += countWords(c.name) + countWords(c.description) + countWords(c.traits) + countWords(c.secret));
+            state.places.forEach(p => words += countWords(p.name) + countWords(p.description) + countWords(p.secret));
+            state.objects.forEach(o => words += countWords(o.name) + countWords(o.description) + countWords(o.secret));
+            state.encyclopedia.forEach(e => words += countWords(e.title) + countWords(e.description) + countWords(e.secret));
+            state.glossary.forEach(g => words += countWords(g.term) + countWords(g.definition));
+            state.chapters.forEach(ch => ch.notes.forEach(n => words += countWords(n.text) + countWords(n.secret)));
             $('wordCount').textContent = words;
         }
 
-        // ===== SECRET BLOCK =====
+        // ===== HELPERS =====
+        function getPlaceName(id) { const p = state.places.find(p => p.id === id); return p ? p.name : null; }
+        function getCharName(id) { const c = state.characters.find(c => c.id === id); return c ? c.name : null; }
+
+        function populateSelects() {
+            const charPlace = $('charPlace');
+            const objOwner = $('objectOwner');
+            const objLoc = $('objectLocation');
+            charPlace.innerHTML = '<option value="">Aucun</option>' + state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name || 'Sans nom') + '</option>').join('');
+            objOwner.innerHTML = '<option value="">Inconnu</option>' + state.characters.map(c => '<option value="' + c.id + '">' + escapeHtml(c.name || 'Sans nom') + '</option>').join('');
+            objLoc.innerHTML = '<option value="">Inconnue</option>' + state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name || 'Sans nom') + '</option>').join('');
+        }
+
         function createSecretBlock(secret) {
             if (!secret || !secret.trim()) return null;
-            
             const block = document.createElement('div');
             block.className = 'secret-block has-secret' + (hideSecrets ? ' is-blurred' : '');
             block.innerHTML = '<p class="card-text">' + escapeHtml(secret) + '</p>';
-            
-            if (hideSecrets) {
-                block.addEventListener('click', () => block.classList.add('revealed'));
-            }
-            
+            if (hideSecrets) block.addEventListener('click', () => block.classList.add('revealed'));
             return block;
+        }
+
+        function resetAllEditModes() {
+            editingCharacterId = editingPlaceId = editingObjectId = editingEncyclopediaId = editingGlossaryId = editingNoteId = null;
+            $('characterFormTitle').textContent = 'Nouveau personnage';
+            $('placeFormTitle').textContent = 'Nouveau lieu';
+            $('objectFormTitle').textContent = 'Nouvel objet';
+            $('encyclopediaFormTitle').textContent = 'Nouvelle fiche';
+            $('glossaryFormTitle').textContent = 'Nouveau terme';
+            $('cancelEditBtn').style.display = 'none';
+            $('cancelPlaceEditBtn').style.display = 'none';
+            $('cancelObjectEditBtn').style.display = 'none';
+            $('cancelEncyEditBtn').style.display = 'none';
+            $('cancelGlossaryEditBtn').style.display = 'none';
         }
 
         // ===== RENDER CHARACTERS =====
@@ -1183,71 +1332,122 @@
             const grid = $('charactersGrid');
             const empty = $('charactersEmpty');
             const q = searchInput.value.toLowerCase();
-            const filtered = state.characters.filter(c =>
-                (c.name || '').toLowerCase().includes(q) ||
-                (c.role || '').toLowerCase().includes(q) ||
-                (c.race || '').toLowerCase().includes(q) ||
-                (c.description || '').toLowerCase().includes(q)
-            );
-            
+            const filtered = state.characters.filter(c => (c.name || '').toLowerCase().includes(q) || (c.role || '').toLowerCase().includes(q) || (c.race || '').toLowerCase().includes(q) || (c.description || '').toLowerCase().includes(q));
             grid.innerHTML = '';
             empty.style.display = filtered.length ? 'none' : 'block';
             
             filtered.forEach(c => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                
-                // Completion based on filled fields
                 const fields = [c.name, c.role, c.description, c.traits, c.race];
                 const filled = fields.filter(f => f && f.trim()).length;
                 const pct = Math.round((filled / 5) * 100);
                 const circ = 2 * Math.PI * 15;
                 const offset = circ - (pct / 100) * circ;
-                
                 const traits = (c.traits || '').split(',').map(t => t.trim()).filter(Boolean);
+                const placeName = getPlaceName(c.placeId);
                 
-                let cardHtml = '<div class="card-progress"><svg width="30" height="30" viewBox="0 0 36 36">' +
-                    '<circle class="card-progress-bg" cx="18" cy="18" r="15"></circle>' +
-                    '<circle class="card-progress-fill" cx="18" cy="18" r="15" stroke-dasharray="' + circ + '" stroke-dashoffset="' + offset + '"></circle>' +
-                    '</svg><span class="card-progress-text">' + pct + '%</span></div>';
-                
-                cardHtml += '<div class="card-header"><div>' +
-                    '<h3 class="card-name">' + escapeHtml(c.name || 'Sans nom') + '</h3>';
-                
-                if (c.role) cardHtml += '<span class="card-tag">' + escapeHtml(c.role) + '</span>';
-                if (c.race) cardHtml += '<span class="card-tag">' + escapeHtml(c.race) + '</span>';
-                
-                cardHtml += '</div><div class="card-actions">' +
-                    '<button class="btn btn-icon btn-secondary" onclick="editCharacter(\'' + c.id + '\')" title="Modifier">' +
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
-                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteCharacter(\'' + c.id + '\')" title="Supprimer">' +
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>' +
-                    '</div></div><div class="card-body">';
-                
-                if (c.description) {
-                    cardHtml += '<div class="card-section"><div class="card-label">Description</div>' +
-                        '<p class="card-text">' + escapeHtml(c.description) + '</p></div>';
-                }
-                
-                if (traits.length) {
-                    cardHtml += '<div class="card-section"><div class="card-label">Traits</div>' +
-                        '<div class="traits-list">' + traits.map(t => '<span class="trait-tag">' + escapeHtml(t) + '</span>').join('') + '</div></div>';
-                }
-                
-                cardHtml += '</div>';
-                
-                card.innerHTML = cardHtml;
-                
-                // Add secret block if exists
-                if (c.secret && c.secret.trim()) {
-                    const secretBlock = createSecretBlock(c.secret);
-                    if (secretBlock) card.querySelector('.card-body').appendChild(secretBlock);
-                }
-                
+                let html = '<div class="card-progress"><svg width="28" height="28" viewBox="0 0 36 36"><circle class="card-progress-bg" cx="18" cy="18" r="15"></circle><circle class="card-progress-fill" cx="18" cy="18" r="15" stroke-dasharray="' + circ + '" stroke-dashoffset="' + offset + '"></circle></svg><span class="card-progress-text">' + pct + '%</span></div>';
+                html += '<div class="card-header"><div><h3 class="card-name">' + escapeHtml(c.name || 'Sans nom') + '</h3>';
+                if (c.role) html += '<span class="card-tag">' + escapeHtml(c.role) + '</span>';
+                if (c.race) html += '<span class="card-tag">' + escapeHtml(c.race) + '</span>';
+                html += '</div><div class="card-actions"><button class="btn btn-icon btn-secondary" onclick="editCharacter(\'' + c.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteCharacter(\'' + c.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="card-body">';
+                if (c.description) html += '<div class="card-section"><div class="card-label">Description</div><p class="card-text">' + escapeHtml(c.description) + '</p></div>';
+                if (placeName) html += '<div class="card-section"><div class="card-label">Localisation</div><span class="link-tag" onclick="navigateTo(\'places\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>' + escapeHtml(placeName) + '</span></div>';
+                if (traits.length) html += '<div class="card-section"><div class="card-label">Traits</div><div class="traits-list">' + traits.map(t => '<span class="trait-tag">' + escapeHtml(t) + '</span>').join('') + '</div></div>';
+                html += '</div>';
+                card.innerHTML = html;
+                if (c.secret && c.secret.trim()) { const sb = createSecretBlock(c.secret); if (sb) card.querySelector('.card-body').appendChild(sb); }
                 grid.appendChild(card);
+            });
+        }
+
+        // ===== RENDER PLACES =====
+        function renderPlaces() {
+            const grid = $('placesGrid');
+            const empty = $('placesEmpty');
+            const q = searchInput.value.toLowerCase();
+            const filtered = state.places.filter(p => (p.name || '').toLowerCase().includes(q) || (p.type || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q));
+            grid.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+            
+            filtered.forEach(p => {
+                const residents = state.characters.filter(c => c.placeId === p.id);
+                const card = document.createElement('div');
+                card.className = 'card';
+                let html = '<div class="card-header"><div><h3 class="card-name">' + escapeHtml(p.name || 'Sans nom') + '</h3>';
+                if (p.type) html += '<span class="card-tag">' + escapeHtml(p.type) + '</span>';
+                html += '</div><div class="card-actions"><button class="btn btn-icon btn-secondary" onclick="editPlace(\'' + p.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deletePlace(\'' + p.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="card-body">';
+                if (p.description) html += '<div class="card-section"><div class="card-label">Description</div><p class="card-text">' + escapeHtml(p.description) + '</p></div>';
+                if (residents.length) html += '<div class="card-section"><div class="card-label">Habitants</div>' + residents.map(r => '<span class="link-tag" onclick="navigateTo(\'characters\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/></svg>' + escapeHtml(r.name || 'Sans nom') + '</span>').join('') + '</div>';
+                html += '</div>';
+                card.innerHTML = html;
+                if (p.secret && p.secret.trim()) { const sb = createSecretBlock(p.secret); if (sb) card.querySelector('.card-body').appendChild(sb); }
+                grid.appendChild(card);
+            });
+        }
+
+        // ===== RENDER OBJECTS =====
+        function renderObjects() {
+            const grid = $('objectsGrid');
+            const empty = $('objectsEmpty');
+            const q = searchInput.value.toLowerCase();
+            const filtered = state.objects.filter(o => (o.name || '').toLowerCase().includes(q) || (o.type || '').toLowerCase().includes(q) || (o.description || '').toLowerCase().includes(q));
+            grid.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+            
+            filtered.forEach(o => {
+                const ownerName = getCharName(o.ownerId);
+                const locName = getPlaceName(o.locationId);
+                const card = document.createElement('div');
+                card.className = 'card';
+                let html = '<div class="card-header"><div><h3 class="card-name">' + escapeHtml(o.name || 'Sans nom') + '</h3>';
+                if (o.type) html += '<span class="card-tag">' + escapeHtml(o.type) + '</span>';
+                html += '</div><div class="card-actions"><button class="btn btn-icon btn-secondary" onclick="editObject(\'' + o.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteObject(\'' + o.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="card-body">';
+                if (o.description) html += '<div class="card-section"><div class="card-label">Description</div><p class="card-text">' + escapeHtml(o.description) + '</p></div>';
+                let links = '';
+                if (ownerName) links += '<span class="link-tag" onclick="navigateTo(\'characters\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/></svg>' + escapeHtml(ownerName) + '</span>';
+                if (locName) links += '<span class="link-tag" onclick="navigateTo(\'places\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>' + escapeHtml(locName) + '</span>';
+                if (links) html += '<div class="card-section"><div class="card-label">Liens</div>' + links + '</div>';
+                html += '</div>';
+                card.innerHTML = html;
+                if (o.secret && o.secret.trim()) { const sb = createSecretBlock(o.secret); if (sb) card.querySelector('.card-body').appendChild(sb); }
+                grid.appendChild(card);
+            });
+        }
+
+        // ===== RENDER ENCYCLOPEDIA =====
+        function renderEncyclopedia() {
+            const list = $('encyclopediaList');
+            const empty = $('encyclopediaEmpty');
+            const q = searchInput.value.toLowerCase();
+            const filtered = state.encyclopedia.filter(e => (e.title || '').toLowerCase().includes(q) || (e.description || '').toLowerCase().includes(q)).sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            list.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+            
+            filtered.forEach(e => {
+                const item = document.createElement('div');
+                item.className = 'encyclopedia-item';
+                item.innerHTML = '<div class="encyclopedia-content"><span class="encyclopedia-title">' + escapeHtml(e.title || 'Sans titre') + '</span><span class="encyclopedia-cat ' + e.category + '">' + escapeHtml(e.category) + '</span>' + (e.description ? '<p class="encyclopedia-desc">' + escapeHtml(e.description) + '</p>' : '') + '</div><div><button class="btn btn-icon btn-secondary" onclick="editEncyclopedia(\'' + e.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteEncyclopedia(\'' + e.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+                if (e.secret && e.secret.trim()) { const sb = createSecretBlock(e.secret); if (sb) item.querySelector('.encyclopedia-content').appendChild(sb); }
+                list.appendChild(item);
+            });
+        }
+
+        // ===== RENDER GLOSSARY =====
+        function renderGlossary() {
+            const list = $('glossaryList');
+            const empty = $('glossaryEmpty');
+            const q = searchInput.value.toLowerCase();
+            const filtered = state.glossary.filter(g => (g.term || '').toLowerCase().includes(q) || (g.definition || '').toLowerCase().includes(q)).sort((a, b) => (a.term || '').localeCompare(b.term || ''));
+            list.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+            
+            filtered.forEach(g => {
+                const item = document.createElement('div');
+                item.className = 'glossary-item';
+                item.innerHTML = '<div class="glossary-content"><span class="glossary-term">' + escapeHtml(g.term || 'Sans terme') + '</span> <span class="card-tag">' + escapeHtml(g.category) + '</span>' + (g.definition ? '<p class="glossary-def">' + escapeHtml(g.definition) + '</p>' : '') + '</div><div><button class="btn btn-icon btn-secondary" onclick="editGlossary(\'' + g.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteGlossary(\'' + g.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+                list.appendChild(item);
             });
         }
 
@@ -1255,37 +1455,23 @@
         function renderChapters() {
             const list = $('chaptersList');
             list.innerHTML = '<div class="nav-label">Chapitres</div>';
-            
             state.chapters.forEach(ch => {
                 const item = document.createElement('div');
                 item.className = 'chapter-item' + (ch.id === currentChapterId ? ' active' : '');
-                item.innerHTML = '<span>' + escapeHtml(ch.title) + '</span>' +
-                    '<span class="chapter-count">' + ch.notes.length + '</span>';
-                item.addEventListener('click', () => {
-                    currentChapterId = ch.id;
-                    renderChapters();
-                    renderNotes();
-                });
+                item.innerHTML = '<span>' + escapeHtml(ch.title) + '</span><span class="chapter-count">' + ch.notes.length + '</span>';
+                item.addEventListener('click', () => { currentChapterId = ch.id; renderChapters(); renderNotes(); });
                 item.addEventListener('contextmenu', e => {
                     e.preventDefault();
                     const newName = prompt('Renommer le chapitre :', ch.title);
-                    if (newName && newName.trim()) {
-                        recordHistory();
-                        ch.title = newName.trim();
-                        save();
-                        renderChapters();
-                        renderNotes();
-                        showToast('Chapitre renomme');
-                    }
+                    if (newName && newName.trim()) { recordHistory(); ch.title = newName.trim(); save(); renderChapters(); renderNotes(); showToast('Chapitre renomme'); }
                 });
                 list.appendChild(item);
             });
-            
-            const addChapterBtn = document.createElement('button');
-            addChapterBtn.className = 'btn btn-secondary add-chapter-btn';
-            addChapterBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nouveau chapitre';
-            addChapterBtn.addEventListener('click', addChapter);
-            list.appendChild(addChapterBtn);
+            const addBtn = document.createElement('button');
+            addBtn.className = 'btn btn-secondary add-chapter-btn';
+            addBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nouveau chapitre';
+            addBtn.addEventListener('click', () => { const title = prompt('Titre du nouveau chapitre :'); if (title && title.trim()) { recordHistory(); const ch = { id: generateId(), title: title.trim(), notes: [] }; state.chapters.push(ch); currentChapterId = ch.id; save(); renderChapters(); renderNotes(); showToast('Chapitre cree'); } });
+            list.appendChild(addBtn);
         }
 
         // ===== RENDER NOTES =====
@@ -1293,18 +1479,10 @@
             const list = $('notesList');
             const empty = $('notesEmpty');
             const chapter = state.chapters.find(c => c.id === currentChapterId);
-            
-            if (!chapter) {
-                empty.style.display = 'block';
-                list.innerHTML = '';
-                return;
-            }
-            
+            if (!chapter) { empty.style.display = 'block'; list.innerHTML = ''; return; }
             $('noteFormTitle').textContent = 'Ajouter a "' + chapter.title + '"';
-            
             const q = searchInput.value.toLowerCase();
             const filtered = chapter.notes.filter(n => n.text.toLowerCase().includes(q));
-            
             list.innerHTML = '';
             empty.style.display = filtered.length ? 'none' : 'block';
             
@@ -1313,48 +1491,12 @@
                 item.className = 'note-item';
                 item.setAttribute('draggable', 'true');
                 item.setAttribute('data-id', n.id);
+                item.innerHTML = '<div class="note-number">' + (i + 1) + '</div><div class="note-content"><span class="note-category ' + n.category + '">' + escapeHtml(n.category) + '</span><p class="note-text">' + escapeHtml(n.text) + '</p><div class="note-meta"><span class="note-date">' + formatDate(n.date) + '</span><div><button class="btn btn-icon btn-secondary" onclick="editNote(\'' + n.id + '\')" title="Modifier"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteNote(\'' + n.id + '\')" title="Supprimer"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div><div class="drag-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>';
+                if (n.secret && n.secret.trim()) { const sb = createSecretBlock(n.secret); if (sb) item.querySelector('.note-content').insertBefore(sb, item.querySelector('.note-meta')); }
                 
-                item.innerHTML = '<div class="note-number">' + (i + 1) + '</div>' +
-                    '<div class="note-content">' +
-                    '<span class="note-category ' + n.category + '">' + escapeHtml(n.category) + '</span>' +
-                    '<p class="note-text">' + escapeHtml(n.text) + '</p>' +
-                    '<div class="note-meta">' +
-                    '<span class="note-date">' + formatDate(n.date) + '</span>' +
-                    '<div>' +
-                    '<button class="btn btn-icon btn-secondary" onclick="editNote(\'' + n.id + '\')" title="Modifier">' +
-                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
-                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteNote(\'' + n.id + '\')" title="Supprimer">' +
-                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
-                    '</svg></button>' +
-                    '</div></div></div>' +
-                    '<div class="drag-handle">' +
-                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/>' +
-                    '<circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/>' +
-                    '</svg></div>';
-                
-                // Add secret if exists
-                if (n.secret && n.secret.trim()) {
-                    const secretBlock = createSecretBlock(n.secret);
-                    if (secretBlock) item.querySelector('.note-content').insertBefore(secretBlock, item.querySelector('.note-meta'));
-                }
-                
-                // Drag events
-                item.addEventListener('dragstart', e => {
-                    draggedNote = item;
-                    item.classList.add('dragging');
-                });
-                item.addEventListener('dragend', () => {
-                    draggedNote = null;
-                    item.classList.remove('dragging');
-                });
-                item.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    item.classList.add('drag-over');
-                });
+                item.addEventListener('dragstart', e => { draggedNote = item; item.classList.add('dragging'); });
+                item.addEventListener('dragend', () => { draggedNote = null; item.classList.remove('dragging'); });
+                item.addEventListener('dragover', e => { e.preventDefault(); item.classList.add('drag-over'); });
                 item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
                 item.addEventListener('drop', e => {
                     e.preventDefault();
@@ -1365,303 +1507,197 @@
                         const notes = chapter.notes;
                         const fromIdx = notes.findIndex(n => n.id === fromId);
                         const toIdx = notes.findIndex(n => n.id === toId);
-                        if (fromIdx !== -1 && toIdx !== -1) {
-                            const [removed] = notes.splice(fromIdx, 1);
-                            notes.splice(toIdx, 0, removed);
-                            save();
-                            renderNotes();
-                        }
+                        if (fromIdx !== -1 && toIdx !== -1) { const [removed] = notes.splice(fromIdx, 1); notes.splice(toIdx, 0, removed); save(); renderNotes(); }
                     }
                 });
-                
-                list.appendChild(item);
-            });
-        }
-
-        // ===== RENDER ENCYCLOPEDIA =====
-        function renderEncyclopedia() {
-            const list = $('encyclopediaList');
-            const empty = $('encyclopediaEmpty');
-            const q = searchInput.value.toLowerCase();
-            const filtered = state.encyclopedia.filter(e =>
-                (e.title || '').toLowerCase().includes(q) ||
-                (e.description || '').toLowerCase().includes(q)
-            ).sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-            
-            list.innerHTML = '';
-            empty.style.display = filtered.length ? 'none' : 'block';
-            
-            filtered.forEach(e => {
-                const item = document.createElement('div');
-                item.className = 'encyclopedia-item';
-                
-                item.innerHTML = '<div class="encyclopedia-content">' +
-                    '<span class="encyclopedia-title">' + escapeHtml(e.title || 'Sans titre') + '</span>' +
-                    '<span class="encyclopedia-cat ' + e.category + '">' + escapeHtml(e.category) + '</span>' +
-                    (e.description ? '<p class="encyclopedia-desc">' + escapeHtml(e.description) + '</p>' : '') +
-                    '</div>' +
-                    '<div>' +
-                    '<button class="btn btn-icon btn-secondary" onclick="editEncyclopedia(\'' + e.id + '\')" title="Modifier">' +
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
-                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
-                    '<button class="btn btn-icon btn-danger" onclick="deleteEncyclopedia(\'' + e.id + '\')" title="Supprimer">' +
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                    '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
-                    '</svg></button>' +
-                    '</div>';
-                
-                // Add secret if exists
-                if (e.secret && e.secret.trim()) {
-                    const secretBlock = createSecretBlock(e.secret);
-                    if (secretBlock) item.querySelector('.encyclopedia-content').appendChild(secretBlock);
-                }
-                
                 list.appendChild(item);
             });
         }
 
         // ===== RENDER ALL =====
         function renderAll() {
+            populateSelects();
             renderCharacters();
+            renderPlaces();
+            renderObjects();
+            renderEncyclopedia();
+            renderGlossary();
             renderChapters();
             renderNotes();
-            renderEncyclopedia();
             updateStats();
         }
 
-        // ===== RESET EDIT MODES =====
-        function resetEditModes() {
-            editingCharacterId = null;
-            editingEncyclopediaId = null;
-            $('characterFormTitle').textContent = 'Nouveau personnage';
-            $('encyclopediaFormTitle').textContent = 'Nouvelle fiche';
-            $('cancelEditBtn').style.display = 'none';
-            $('cancelEncyEditBtn').style.display = 'none';
-        }
+        // ===== FORM HANDLERS =====
 
-        // ===== CHARACTER FORM =====
+        // Characters
         $('characterForm').addEventListener('submit', e => {
             e.preventDefault();
             recordHistory();
-            
-            const char = {
-                id: editingCharacterId || generateId(),
-                name: $('charName').value.trim(),
-                role: $('charRole').value,
-                race: $('charRace').value.trim(),
-                traits: $('charTraits').value.trim(),
-                description: $('charDescription').value.trim(),
-                secret: $('charSecret').value.trim()
-            };
-            
-            if (editingCharacterId) {
-                const idx = state.characters.findIndex(c => c.id === editingCharacterId);
-                if (idx !== -1) state.characters[idx] = char;
-            } else {
-                state.characters.push(char);
-            }
-            
-            save();
-            renderAll();
-            e.target.reset();
-            resetEditModes();
-            showToast(editingCharacterId ? 'Personnage modifie' : 'Personnage ajoute');
+            const char = { id: editingCharacterId || generateId(), name: $('charName').value.trim(), role: $('charRole').value, race: $('charRace').value.trim(), placeId: $('charPlace').value || null, traits: $('charTraits').value.trim(), description: $('charDescription').value.trim(), secret: $('charSecret').value.trim() };
+            if (editingCharacterId) { const idx = state.characters.findIndex(c => c.id === editingCharacterId); if (idx !== -1) state.characters[idx] = char; }
+            else { state.characters.push(char); }
+            save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast(editingCharacterId ? 'Personnage modifie' : 'Personnage ajoute');
         });
-
-        $('cancelEditBtn').addEventListener('click', () => {
-            $('characterForm').reset();
-            resetEditModes();
-        });
+        $('cancelEditBtn').addEventListener('click', () => { $('characterForm').reset(); resetAllEditModes(); });
 
         window.editCharacter = function(id) {
             const c = state.characters.find(c => c.id === id);
             if (!c) return;
-            
             editingCharacterId = id;
             $('charName').value = c.name || '';
             $('charRole').value = c.role || '';
             $('charRace').value = c.race || '';
+            $('charPlace').value = c.placeId || '';
             $('charTraits').value = c.traits || '';
             $('charDescription').value = c.description || '';
             $('charSecret').value = c.secret || '';
-            
             $('characterFormTitle').textContent = 'Modifier le personnage';
             $('cancelEditBtn').style.display = 'inline-flex';
-            
             $('characterFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
+        window.deleteCharacter = function(id) { if (confirm('Supprimer ce personnage ?')) { recordHistory(); state.characters = state.characters.filter(c => c.id !== id); save(); renderAll(); showToast('Personnage supprime'); } };
 
-        window.deleteCharacter = function(id) {
-            if (confirm('Supprimer ce personnage ?')) {
-                recordHistory();
-                state.characters = state.characters.filter(c => c.id !== id);
-                save();
-                renderAll();
-                showToast('Personnage supprime');
-            }
-        };
-
-        // ===== NOTE FORM =====
-        let editingNoteId = null;
-
-        $('noteForm').addEventListener('submit', e => {
+        // Places
+        $('placeForm').addEventListener('submit', e => {
             e.preventDefault();
-            const chapter = state.chapters.find(c => c.id === currentChapterId);
-            if (!chapter) return;
-            
             recordHistory();
-            
-            const note = {
-                id: editingNoteId || generateId(),
-                text: $('noteText').value.trim(),
-                category: $('noteCategory').value,
-                secret: $('noteSecret').value.trim(),
-                date: editingNoteId ? (chapter.notes.find(n => n.id === editingNoteId)?.date || new Date().toISOString()) : new Date().toISOString()
-            };
-            
-            if (editingNoteId) {
-                const idx = chapter.notes.findIndex(n => n.id === editingNoteId);
-                if (idx !== -1) chapter.notes[idx] = note;
-            } else {
-                chapter.notes.push(note);
-            }
-            
-            save();
-            renderNotes();
-            e.target.reset();
-            editingNoteId = null;
-            showToast(editingNoteId ? 'Note modifiee' : 'Note ajoutee');
+            const place = { id: editingPlaceId || generateId(), name: $('placeName').value.trim(), type: $('placeType').value, description: $('placeDescription').value.trim(), secret: $('placeSecret').value.trim() };
+            if (editingPlaceId) { const idx = state.places.findIndex(p => p.id === editingPlaceId); if (idx !== -1) state.places[idx] = place; }
+            else { state.places.push(place); }
+            save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast(editingPlaceId ? 'Lieu modifie' : 'Lieu ajoute');
         });
+        $('cancelPlaceEditBtn').addEventListener('click', () => { $('placeForm').reset(); resetAllEditModes(); });
 
-        window.editNote = function(id) {
-            const chapter = state.chapters.find(c => c.id === currentChapterId);
-            if (!chapter) return;
-            
-            const n = chapter.notes.find(n => n.id === id);
-            if (!n) return;
-            
-            editingNoteId = id;
-            $('noteText').value = n.text || '';
-            $('noteCategory').value = n.category || 'intrigue';
-            $('noteSecret').value = n.secret || '';
-            
-            $('noteFormContainer').scrollIntoView({ behavior: 'smooth' });
+        window.editPlace = function(id) {
+            const p = state.places.find(p => p.id === id);
+            if (!p) return;
+            editingPlaceId = id;
+            $('placeName').value = p.name || '';
+            $('placeType').value = p.type || '';
+            $('placeDescription').value = p.description || '';
+            $('placeSecret').value = p.secret || '';
+            $('placeFormTitle').textContent = 'Modifier le lieu';
+            $('cancelPlaceEditBtn').style.display = 'inline-flex';
+            $('placeFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
+        window.deletePlace = function(id) { if (confirm('Supprimer ce lieu ?')) { recordHistory(); state.places = state.places.filter(p => p.id !== id); state.characters.forEach(c => { if (c.placeId === id) c.placeId = null; }); state.objects.forEach(o => { if (o.locationId === id) o.locationId = null; }); save(); renderAll(); showToast('Lieu supprime'); } };
 
-        window.deleteNote = function(id) {
-            if (confirm('Supprimer cette note ?')) {
-                recordHistory();
-                const chapter = state.chapters.find(c => c.id === currentChapterId);
-                if (chapter) {
-                    chapter.notes = chapter.notes.filter(n => n.id !== id);
-                    save();
-                    renderNotes();
-                    showToast('Note supprimee');
-                }
-            }
+        // Objects
+        $('objectForm').addEventListener('submit', e => {
+            e.preventDefault();
+            recordHistory();
+            const obj = { id: editingObjectId || generateId(), name: $('objectName').value.trim(), type: $('objectType').value, ownerId: $('objectOwner').value || null, locationId: $('objectLocation').value || null, description: $('objectDescription').value.trim(), secret: $('objectSecret').value.trim() };
+            if (editingObjectId) { const idx = state.objects.findIndex(o => o.id === editingObjectId); if (idx !== -1) state.objects[idx] = obj; }
+            else { state.objects.push(obj); }
+            save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast(editingObjectId ? 'Objet modifie' : 'Objet ajoute');
+        });
+        $('cancelObjectEditBtn').addEventListener('click', () => { $('objectForm').reset(); resetAllEditModes(); });
+
+        window.editObject = function(id) {
+            const o = state.objects.find(o => o.id === id);
+            if (!o) return;
+            editingObjectId = id;
+            $('objectName').value = o.name || '';
+            $('objectType').value = o.type || '';
+            $('objectOwner').value = o.ownerId || '';
+            $('objectLocation').value = o.locationId || '';
+            $('objectDescription').value = o.description || '';
+            $('objectSecret').value = o.secret || '';
+            $('objectFormTitle').textContent = 'Modifier l\'objet';
+            $('cancelObjectEditBtn').style.display = 'inline-flex';
+            $('objectFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
+        window.deleteObject = function(id) { if (confirm('Supprimer cet objet ?')) { recordHistory(); state.objects = state.objects.filter(o => o.id !== id); save(); renderAll(); showToast('Objet supprime'); } };
 
-        // ===== CHAPTER =====
-        function addChapter() {
-            const title = prompt('Titre du nouveau chapitre :');
-            if (title && title.trim()) {
-                recordHistory();
-                const ch = { id: generateId(), title: title.trim(), notes: [] };
-                state.chapters.push(ch);
-                currentChapterId = ch.id;
-                save();
-                renderChapters();
-                renderNotes();
-                showToast('Chapitre cree');
-            }
-        }
-
-        // ===== ENCYCLOPEDIA FORM =====
+        // Encyclopedia
         $('encyclopediaForm').addEventListener('submit', e => {
             e.preventDefault();
             recordHistory();
-            
-            const entry = {
-                id: editingEncyclopediaId || generateId(),
-                title: $('encyTitle').value.trim(),
-                category: $('encyCategory').value,
-                description: $('encyDescription').value.trim(),
-                secret: $('encySecret').value.trim()
-            };
-            
-            if (editingEncyclopediaId) {
-                const idx = state.encyclopedia.findIndex(e => e.id === editingEncyclopediaId);
-                if (idx !== -1) state.encyclopedia[idx] = entry;
-            } else {
-                state.encyclopedia.push(entry);
-            }
-            
-            save();
-            renderAll();
-            e.target.reset();
-            resetEditModes();
-            showToast(editingEncyclopediaId ? 'Fiche modifiee' : 'Fiche ajoutee');
+            const entry = { id: editingEncyclopediaId || generateId(), title: $('encyTitle').value.trim(), category: $('encyCategory').value, description: $('encyDescription').value.trim(), secret: $('encySecret').value.trim() };
+            if (editingEncyclopediaId) { const idx = state.encyclopedia.findIndex(e => e.id === editingEncyclopediaId); if (idx !== -1) state.encyclopedia[idx] = entry; }
+            else { state.encyclopedia.push(entry); }
+            save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast(editingEncyclopediaId ? 'Fiche modifiee' : 'Fiche ajoutee');
         });
-
-        $('cancelEncyEditBtn').addEventListener('click', () => {
-            $('encyclopediaForm').reset();
-            resetEditModes();
-        });
+        $('cancelEncyEditBtn').addEventListener('click', () => { $('encyclopediaForm').reset(); resetAllEditModes(); });
 
         window.editEncyclopedia = function(id) {
             const e = state.encyclopedia.find(en => en.id === id);
             if (!e) return;
-            
             editingEncyclopediaId = id;
             $('encyTitle').value = e.title || '';
             $('encyCategory').value = e.category || 'race';
             $('encyDescription').value = e.description || '';
             $('encySecret').value = e.secret || '';
-            
             $('encyclopediaFormTitle').textContent = 'Modifier la fiche';
             $('cancelEncyEditBtn').style.display = 'inline-flex';
-            
             $('encyclopediaFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
+        window.deleteEncyclopedia = function(id) { if (confirm('Supprimer cette fiche ?')) { recordHistory(); state.encyclopedia = state.encyclopedia.filter(e => e.id !== id); save(); renderAll(); showToast('Fiche supprimee'); } };
 
-        window.deleteEncyclopedia = function(id) {
-            if (confirm('Supprimer cette fiche ?')) {
-                recordHistory();
-                state.encyclopedia = state.encyclopedia.filter(e => e.id !== id);
-                save();
-                renderAll();
-                showToast('Fiche supprimee');
-            }
+        // Glossary
+        $('glossaryForm').addEventListener('submit', e => {
+            e.preventDefault();
+            recordHistory();
+            const term = { id: editingGlossaryId || generateId(), term: $('glossaryTerm').value.trim(), category: $('glossaryCat').value, definition: $('glossaryDef').value.trim() };
+            if (editingGlossaryId) { const idx = state.glossary.findIndex(g => g.id === editingGlossaryId); if (idx !== -1) state.glossary[idx] = term; }
+            else { state.glossary.push(term); }
+            save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast(editingGlossaryId ? 'Terme modifie' : 'Terme ajoute');
+        });
+        $('cancelGlossaryEditBtn').addEventListener('click', () => { $('glossaryForm').reset(); resetAllEditModes(); });
+
+        window.editGlossary = function(id) {
+            const g = state.glossary.find(gl => gl.id === id);
+            if (!g) return;
+            editingGlossaryId = id;
+            $('glossaryTerm').value = g.term || '';
+            $('glossaryCat').value = g.category || 'Langue';
+            $('glossaryDef').value = g.definition || '';
+            $('glossaryFormTitle').textContent = 'Modifier le terme';
+            $('cancelGlossaryEditBtn').style.display = 'inline-flex';
+            $('glossaryFormContainer').scrollIntoView({ behavior: 'smooth' });
         };
+        window.deleteGlossary = function(id) { if (confirm('Supprimer ce terme ?')) { recordHistory(); state.glossary = state.glossary.filter(g => g.id !== id); save(); renderAll(); showToast('Terme supprime'); } };
 
-        // ===== EVENT LISTENERS =====
+        // Notes
+        $('noteForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const chapter = state.chapters.find(c => c.id === currentChapterId);
+            if (!chapter) return;
+            recordHistory();
+            const note = { id: editingNoteId || generateId(), text: $('noteText').value.trim(), category: $('noteCategory').value, secret: $('noteSecret').value.trim(), date: editingNoteId ? (chapter.notes.find(n => n.id === editingNoteId)?.date || new Date().toISOString()) : new Date().toISOString() };
+            if (editingNoteId) { const idx = chapter.notes.findIndex(n => n.id === editingNoteId); if (idx !== -1) chapter.notes[idx] = note; }
+            else { chapter.notes.push(note); }
+            save(); renderNotes(); e.target.reset(); editingNoteId = null; showToast(editingNoteId ? 'Note modifiee' : 'Note ajoutee');
+        });
+
+        window.editNote = function(id) {
+            const chapter = state.chapters.find(c => c.id === currentChapterId);
+            if (!chapter) return;
+            const n = chapter.notes.find(n => n.id === id);
+            if (!n) return;
+            editingNoteId = id;
+            $('noteText').value = n.text || '';
+            $('noteCategory').value = n.category || 'intrigue';
+            $('noteSecret').value = n.secret || '';
+            $('noteFormContainer').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.deleteNote = function(id) { if (confirm('Supprimer cette note ?')) { recordHistory(); const chapter = state.chapters.find(c => c.id === currentChapterId); if (chapter) { chapter.notes = chapter.notes.filter(n => n.id !== id); save(); renderNotes(); showToast('Note supprimee'); } } };
+
+        // Navigation helper
+        window.navigateTo = function(section) { switchSection(section); };
+
+        // Event listeners
         themeToggleBtn.addEventListener('click', toggleTheme);
         focusModeBtn.addEventListener('click', toggleFocus);
         secretsToggleBtn.addEventListener('click', toggleSecrets);
 
         document.addEventListener('keydown', e => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                e.preventDefault();
-                save();
-                showToast('Sauvegarde effectuee');
-            }
-            if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                undo();
-            }
-            if (e.key === 'Escape') {
-                if (editingCharacterId || editingEncyclopediaId || editingNoteId) {
-                    $('characterForm').reset();
-                    $('encyclopediaForm').reset();
-                    $('noteForm').reset();
-                    resetEditModes();
-                    editingNoteId = null;
-                }
-            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); save(); showToast('Sauvegarde effectuee'); }
+            if (e.key === 'z' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undo(); }
+            if (e.key === 'Escape') { $('characterForm').reset(); $('placeForm').reset(); $('objectForm').reset(); $('encyclopediaForm').reset(); $('glossaryForm').reset(); $('noteForm').reset(); resetAllEditModes(); editingNoteId = null; }
         });
 
-        // ===== INIT =====
+        // Init
         load();
         renderAll();
     </script>
