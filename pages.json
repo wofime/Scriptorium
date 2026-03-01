@@ -32,6 +32,12 @@
       "section": "Monde"
     },
     {
+     "id": "magie",
+     "label": "Magie",
+     "file": "magie.html",
+     "section": "Monde"
+    },
+    {
       "id": "chronologie",
       "label": "Chronologie",
       "file": "chronologie.html",
@@ -39,3 +45,4 @@
     }
   ]
 }
+
