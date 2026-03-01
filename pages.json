@@ -1,0 +1,41 @@
+{
+  "pages": [
+    {
+      "id": "personnages",
+      "label": "Personnages",
+      "file": "personnages.html",
+      "section": "Monde",
+      "default": true
+    },
+    {
+      "id": "lieux",
+      "label": "Lieux",
+      "file": "lieux.html",
+      "section": "Monde"
+    },
+    {
+      "id": "objets",
+      "label": "Objets",
+      "file": "objets.html",
+      "section": "Monde"
+    },
+    {
+      "id": "encyclopedie",
+      "label": "Encyclopedie",
+      "file": "encyclopedie.html",
+      "section": "Monde"
+    },
+    {
+      "id": "glossaire",
+      "label": "Glossaire",
+      "file": "glossaire.html",
+      "section": "Monde"
+    },
+    {
+      "id": "chronologie",
+      "label": "Chronologie",
+      "file": "chronologie.html",
+      "section": "Histoire"
+    }
+  ]
+}
