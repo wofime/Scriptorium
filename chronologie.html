@@ -32,6 +32,8 @@
             --cat-lore-bg: rgba(45, 90, 74, 0.12);
             --cat-idee: #6b5b95;
             --cat-idee-bg: rgba(107, 91, 149, 0.12);
+            --cat-histoire: #8b6914; /* Couleur pour Histoire */
+            --cat-histoire-bg: rgba(139, 105, 20, 0.12);
         }
 
         [data-theme="dark"] {
@@ -55,6 +57,8 @@
             --cat-lore-bg: rgba(74, 154, 122, 0.15);
             --cat-idee: #9a8ac4;
             --cat-idee-bg: rgba(154, 138, 196, 0.15);
+            --cat-histoire: #d4a84b;
+            --cat-histoire-bg: rgba(212, 168, 75, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -159,23 +163,10 @@
         .btn-secondary:hover { background: rgba(44, 36, 24, 0.04); }
         [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
 
-        /* Correction : Espace augmenté DANS la section secrète */
-        .secret-section { 
-            background: rgba(139, 105, 20, 0.05); 
-            border: 1px dashed rgba(201, 162, 39, 0.22); 
-            border-radius: 5px; 
-            padding: 0.7rem; 
-            margin-top: 0.45rem; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 0.5rem; /* Espace label-textarea augmenté */
-        }
+        .secret-section { background: rgba(139, 105, 20, 0.05); border: 1px dashed rgba(201, 162, 39, 0.22); border-radius: 5px; padding: 0.7rem; margin-top: 0.45rem; display: flex; flex-direction: column; gap: 0.5rem; }
         .secret-section .form-label { color: var(--accent-sepia); }
 
-        /* Correction : Espace augmenté SOUS la section secrète (au-dessus du bouton) */
-        #noteForm .btn-primary {
-            margin-top: 1rem;
-        }
+        #noteForm .btn-primary { margin-top: 1rem; }
 
         .chapters-layout { display: grid; grid-template-columns: 190px 1fr; gap: 1.1rem; }
         .chapters-list { background: var(--bg-card); border-radius: 8px; padding: 0.8rem; height: fit-content; border: 1px solid var(--border-light); }
@@ -189,6 +180,8 @@
         .note-category.intrigue { background: var(--cat-intrigue-bg); color: var(--cat-intrigue); }
         .note-category.lore { background: var(--cat-lore-bg); color: var(--cat-lore); }
         .note-category.idee { background: var(--cat-idee-bg); color: var(--cat-idee); }
+        .note-category.histoire { background: var(--cat-histoire-bg); color: var(--cat-histoire); }
+        
         .note-text { color: var(--fg-secondary); line-height: 1.44; font-size: 0.88rem; white-space: pre-line; }
         .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--border-light); }
         .note-date { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; }
@@ -298,6 +291,8 @@
                                             <option value="intrigue">Intrigue</option>
                                             <option value="lore">Lore</option>
                                             <option value="idee">Idee</option>
+                                            <!-- AJOUT DU TYPE HISTOIRE -->
+                                            <option value="histoire">Histoire</option>
                                         </select>
                                     </div>
                                 </div>
@@ -311,7 +306,6 @@
                                         <textarea id="noteSecret" class="form-textarea" placeholder="Informations cachees..." style="min-height:42px;"></textarea>
                                     </div>
                                 </div>
-                                <!-- Bouton Ajouter avec marge corrigée via CSS -->
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
                             </form>
                         </div>
@@ -335,12 +329,7 @@
         const $ = id => document.getElementById(id);
 
         let state = {
-            characters: [],
-            places: [],
-            objects: [],
-            encyclopedia: [],
-            glossary: [],
-            magicTypes: [],
+            characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [],
             chapters: []
         };
         let history = [];
@@ -364,12 +353,10 @@
                     state = { ...state, ...parsed };
                     if (!state.magicTypes) state.magicTypes = [];
                 }
-                
                 if (!state.chapters || state.chapters.length === 0) {
                     state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }];
                 }
                 currentChapterId = state.chapters[0].id;
-
                 history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
             } catch (e) { console.error(e); }
 
@@ -377,12 +364,7 @@
             if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
         }
 
-        function recordHistory() {
-            history.push(JSON.stringify(state));
-            if (history.length > 30) history.shift();
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-        }
-        
+        function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
         function undo() {
             if (history.length === 0) { showToast('Rien a annuler'); return; }
             state = JSON.parse(history.pop());
@@ -408,26 +390,9 @@
                 ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
                 : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
         }
-        function toggleTheme() {
-            const curr = document.body.getAttribute('data-theme') || 'light';
-            const next = curr === 'light' ? 'dark' : 'light';
-            document.body.setAttribute('data-theme', next);
-            localStorage.setItem('scriptorium_theme', next);
-            updateThemeIcon(next);
-        }
-        function toggleFocus() {
-            focusMode = !focusMode;
-            $('sidebar').classList.toggle('hidden', focusMode);
-            $('mainContent').classList.toggle('expanded', focusMode);
-            $('focusModeBtn').classList.toggle('active', focusMode);
-            $('noteFormContainer').classList.toggle('hidden', focusMode);
-        }
-        function toggleSecrets() {
-            hideSecrets = !hideSecrets;
-            $('secretsToggleBtn').classList.toggle('active', hideSecrets);
-            renderNotes();
-        }
-
+        function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
+        function toggleFocus() { focusMode = !focusMode; $('sidebar').classList.toggle('hidden', focusMode); $('mainContent').classList.toggle('expanded', focusMode); $('focusModeBtn').classList.toggle('active', focusMode); $('noteFormContainer').classList.toggle('hidden', focusMode); }
+        function toggleSecrets() { hideSecrets = !hideSecrets; $('secretsToggleBtn').classList.toggle('active', hideSecrets); renderNotes(); }
         function updateStats() { $('chapterCountBadge').textContent = state.chapters.length; }
 
         function createSecretBlock(secret) {
@@ -526,12 +491,8 @@
                 secret: $('noteSecret').value.trim(),
                 date: editingNoteId ? (chapter.notes.find(n => n.id === editingNoteId)?.date || new Date().toISOString()) : new Date().toISOString()
             };
-            if (editingNoteId) {
-                const idx = chapter.notes.findIndex(n => n.id === editingNoteId);
-                if (idx !== -1) chapter.notes[idx] = note;
-            } else {
-                chapter.notes.push(note);
-            }
+            if (editingNoteId) { const idx = chapter.notes.findIndex(n => n.id === editingNoteId); if (idx !== -1) chapter.notes[idx] = note; }
+            else { chapter.notes.push(note); }
             save(); $('noteForm').reset(); editingNoteId = null; renderAll();
             showToast('Note sauvegardee');
         });
