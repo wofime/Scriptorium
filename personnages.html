@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scriptorium - L'Atelier de l'Ecrivain</title>
+    <title>Scriptorium - Personnages</title>
     <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/wofime/Scriptorium/main/logo%20Scriptorium.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
     <style>
+        /* CSS IDENTIQUE AU CODE DE BASE */
         :root {
             --bg-primary: #f4ede4;
             --bg-secondary: #e8dfd3;
@@ -26,16 +27,6 @@
             --sidebar-bg: #231d15;
             --sidebar-fg: #e8dfd3;
             --input-bg: rgba(255, 255, 255, 0.75);
-            --cat-intrigue: #8b3a3a;
-            --cat-intrigue-bg: rgba(139, 58, 58, 0.12);
-            --cat-lore: #2d5a4a;
-            --cat-lore-bg: rgba(45, 90, 74, 0.12);
-            --cat-idee: #6b5b95;
-            --cat-idee-bg: rgba(107, 91, 149, 0.12);
-            --cat-race: #7a5c3e;
-            --cat-race-bg: rgba(122, 92, 62, 0.12);
-            --cat-langue: #3e5c7a;
-            --cat-langue-bg: rgba(62, 92, 122, 0.12);
             --cat-magic: #6b5b95;
             --cat-magic-bg: rgba(107, 91, 149, 0.12);
         }
@@ -55,16 +46,6 @@
             --shadow-warm: rgba(0, 0, 0, 0.35);
             --sidebar-bg: #0f0d0a;
             --input-bg: rgba(55, 50, 43, 0.65);
-            --cat-intrigue: #c45c5c;
-            --cat-intrigue-bg: rgba(196, 92, 92, 0.15);
-            --cat-lore: #4a9a7a;
-            --cat-lore-bg: rgba(74, 154, 122, 0.15);
-            --cat-idee: #9a8ac4;
-            --cat-idee-bg: rgba(154, 138, 196, 0.15);
-            --cat-race: #b8966a;
-            --cat-race-bg: rgba(184, 150, 106, 0.15);
-            --cat-langue: #6a8ab8;
-            --cat-langue-bg: rgba(106, 138, 184, 0.15);
             --cat-magic: #9a8ac4;
             --cat-magic-bg: rgba(154, 138, 196, 0.15);
         }
@@ -90,299 +71,99 @@
             z-index: 0;
         }
 
+        /* SIDEBAR & LAYOUT */
         .sidebar {
-            position: fixed;
-            left: 0; top: 0;
+            position: fixed; left: 0; top: 0;
             width: 250px; height: 100vh;
             background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%);
             border-right: 1px solid rgba(201, 162, 39, 0.18);
             z-index: 100;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
         }
-
         .sidebar.hidden { transform: translateX(-100%); }
 
-        .sidebar-header {
-            padding: 1.3rem 1.15rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.12);
-        }
+        .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
+        .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
+        .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
 
-        .logo {
-            font-family: 'Spectral', serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .logo-subtitle {
-            font-size: 0.7rem;
-            color: var(--fg-muted);
-            font-style: italic;
-            margin-top: 0.12rem;
-        }
-
-        .sidebar-actions {
-            padding: 0.65rem 0.95rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.3rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.08);
-        }
-
-        .sidebar-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.22rem;
-            padding: 0.42rem 0.45rem;
-            background: rgba(201, 162, 39, 0.06);
-            border: 1px solid rgba(201, 162, 39, 0.18);
-            border-radius: 5px;
-            color: var(--sidebar-fg);
-            font-family: inherit;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.22s ease;
-        }
-
-        .sidebar-btn:hover {
-            background: rgba(201, 162, 39, 0.12);
-            color: var(--accent-gold);
-        }
-
+        .sidebar-actions { padding: 0.65rem 0.95rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; border-bottom: 1px solid rgba(201, 162, 39, 0.08); }
+        .sidebar-btn { display: flex; align-items: center; justify-content: center; gap: 0.22rem; padding: 0.42rem 0.45rem; background: rgba(201, 162, 39, 0.06); border: 1px solid rgba(201, 162, 39, 0.18); border-radius: 5px; color: var(--sidebar-fg); font-family: inherit; font-size: 0.7rem; cursor: pointer; transition: all 0.22s ease; }
+        .sidebar-btn:hover { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); }
         .sidebar-btn svg { width: 11px; height: 11px; }
         .sidebar-btn.full-width { grid-column: 1 / -1; }
 
         .nav-section { padding: 0.55rem 0; flex: 1; }
+        .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
         
-        .nav-label {
-            padding: 0.32rem 1.15rem;
-            font-size: 0.56rem;
-            text-transform: uppercase;
-            letter-spacing: 0.13em;
-            color: var(--fg-muted);
-            margin-top: 0.35rem;
-        }
-
         .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
             padding: 0.5rem 1.15rem;
-            color: var(--sidebar-fg);
-            cursor: pointer;
+            color: var(--sidebar-fg); cursor: pointer;
             transition: all 0.22s ease;
-            position: relative;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-            font-size: 0.85rem;
+            position: relative; border: none; background: transparent;
+            width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem;
         }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: var(--accent-gold);
-            transform: scaleY(0);
-            transition: transform 0.22s ease;
-        }
-
+        .nav-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); transform: scaleY(0); transition: transform 0.22s ease; }
         .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
         .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
         .nav-item.active::before { transform: scaleY(1); }
-
         .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
         .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
 
-        .sidebar-stats {
-            padding: 0.6rem 1.15rem;
-            border-top: 1px solid rgba(201, 162, 39, 0.12);
-            background: rgba(0, 0, 0, 0.22);
-        }
+        /* SUPPRESSION DU BLOC STATS ICI */
 
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.22rem 0;
-            color: var(--fg-muted);
-            font-size: 0.75rem;
-        }
-
-        .stat-value { color: var(--accent-gold); font-weight: 600; font-family: 'Spectral', serif; }
-        .stat-item.highlight { padding: 0.38rem 0; margin-top: 0.32rem; border-top: 1px solid rgba(201, 162, 39, 0.08); }
-        .stat-item.highlight .stat-value { font-size: 0.92rem; }
-
-        .main-content {
-            margin-left: 250px;
-            min-height: 100vh;
-            background: var(--bg-primary);
-            position: relative;
-            transition: margin-left 0.4s ease;
-        }
+        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
         .main-content.expanded { margin-left: 0; }
 
-        .top-bar {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.6rem 1.35rem;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-light);
-            backdrop-filter: blur(10px);
-            gap: 0.8rem;
-        }
-
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
         .search-container { position: relative; flex: 1; max-width: 300px; }
-        
-        .search-input {
-            width: 100%;
-            padding: 0.42rem 0.7rem 0.42rem 1.9rem;
-            background: var(--input-bg);
-            border: 1px solid var(--border-medium);
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            color: var(--fg-primary);
-            transition: all 0.22s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08);
-        }
+        .search-input { width: 100%; padding: 0.42rem 0.7rem 0.42rem 1.9rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); transition: all 0.22s ease; }
+        .search-input:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08); }
         .search-input::placeholder { color: var(--fg-muted); font-style: italic; }
-
-        .search-icon {
-            position: absolute;
-            left: 0.68rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 11px;
-            height: 11px;
-            color: var(--fg-muted);
-        }
-
+        .search-icon { position: absolute; left: 0.68rem; top: 50%; transform: translateY(-50%); width: 11px; height: 11px; color: var(--fg-muted); }
         .top-actions { display: flex; gap: 0.3rem; }
-
-        .icon-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-medium);
-            border-radius: 5px;
-            color: var(--fg-secondary);
-            cursor: pointer;
-            transition: all 0.22s ease;
-        }
-
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; }
         .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
         .icon-btn.active { background: rgba(201, 162, 39, 0.12); border-color: var(--accent-gold); color: var(--accent-gold); }
         .icon-btn svg { width: 14px; height: 14px; }
 
-        .content-header {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border-light);
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+        
+        /* Titre avec badge compteur */
+        .page-title { 
+            font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); 
+            display: inline-flex; align-items: center; gap: 0.8rem;
+        }
+        .count-badge {
+            background: rgba(201, 162, 39, 0.1);
+            color: var(--accent-sepia);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            vertical-align: middle;
+            font-family: 'Spectral', serif;
         }
 
-        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); }
         .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
 
         .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
 
-        .form-container {
-            background: var(--bg-form);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 1.25rem;
-            margin-bottom: 1.35rem;
-            box-shadow: 0 3px 12px var(--shadow-warm);
-            backdrop-filter: blur(10px);
-            transition: opacity 0.28s ease, transform 0.28s ease;
-            overflow: hidden;
-        }
-
+        .form-container { background: var(--bg-form); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.35rem; box-shadow: 0 3px 12px var(--shadow-warm); backdrop-filter: blur(10px); transition: opacity 0.28s ease, transform 0.28s ease; overflow: hidden; }
         .form-container.hidden { opacity: 0; transform: translateY(-8px); height: 0; padding: 0; margin: 0; border-width: 0; }
-
-        .form-title {
-            font-family: 'Spectral', serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--fg-primary);
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 1px solid var(--border-light);
-        }
-
+        .form-title { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--fg-primary); margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border-light); }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.7rem; }
         .form-group { display: flex; flex-direction: column; gap: 0.22rem; }
         .form-group.full-width { grid-column: 1 / -1; }
-
         .form-label { font-size: 0.65rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
-
-        .form-input, .form-textarea, .form-select {
-            padding: 0.48rem 0.68rem;
-            border: 1px solid var(--border-medium);
-            border-radius: 5px;
-            background: var(--input-bg);
-            font-family: inherit;
-            font-size: 0.85rem;
-            color: var(--fg-primary);
-            transition: all 0.22s ease;
-        }
-
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08);
-        }
-
+        .form-input, .form-textarea, .form-select { padding: 0.48rem 0.68rem; border: 1px solid var(--border-medium); border-radius: 5px; background: var(--input-bg); font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); transition: all 0.22s ease; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08); }
         .form-textarea { min-height: 60px; resize: vertical; line-height: 1.42; }
-        
-        .form-select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%238b7d68' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.68rem center;
-            padding-right: 1.7rem;
-        }
+        .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%238b7d68' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.68rem center; padding-right: 1.7rem; }
 
-        .checkbox-group { display: flex; align-items: center; gap: 0.38rem; cursor: pointer; font-size: 0.82rem; }
-        .checkbox-group input { width: 13px; height: 13px; accent-color: var(--accent-gold); }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.28rem;
-            padding: 0.52rem 1rem;
-            border: none;
-            border-radius: 5px;
-            font-family: 'Spectral', serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.22s ease;
-        }
-
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.28rem; padding: 0.52rem 1rem; border: none; border-radius: 5px; font-family: 'Spectral', serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.22s ease; }
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-copper) 100%); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.28); }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(201, 162, 39, 0.35); }
         .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); }
@@ -390,130 +171,56 @@
         [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
         .btn-danger { background: transparent; color: #a04040; border: 1px solid rgba(160, 64, 64, 0.25); }
         .btn-danger:hover { background: rgba(160, 64, 64, 0.08); }
-        .btn-icon { padding: 0.3rem; border-radius: 4px; }
 
-        .secret-section {
-            background: rgba(139, 105, 20, 0.05);
-            border: 1px dashed rgba(201, 162, 39, 0.22);
-            border-radius: 5px;
-            padding: 0.7rem;
-            margin-top: 0.45rem;
+        /* Correction alignement secret */
+        .secret-section { 
+            background: rgba(139, 105, 20, 0.05); 
+            border: 1px dashed rgba(201, 162, 39, 0.22); 
+            border-radius: 5px; 
+            padding: 0.7rem; 
+            margin-top: 0.45rem; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.22rem; 
         }
-
         .secret-section .form-label { color: var(--accent-sepia); }
 
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px var(--shadow-warm);
-            transition: all 0.28s ease;
-            position: relative;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-copper));
-            opacity: 0;
-            transition: opacity 0.28s ease;
-        }
-
+        .card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow-warm); transition: all 0.28s ease; position: relative; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-gold), var(--accent-copper)); opacity: 0; transition: opacity 0.28s ease; }
         .card:hover { transform: translateY(-2px); box-shadow: 0 5px 16px var(--shadow-warm); }
         .card:hover::before { opacity: 1; }
 
-        .card-progress {
-            position: absolute;
-            top: 5px; right: 5px;
-            width: 28px; height: 28px;
-        }
-
+        .card-progress { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; }
         .card-progress svg { transform: rotate(-90deg); }
         .card-progress-bg { fill: none; stroke: var(--border-light); stroke-width: 2.5; }
         .card-progress-fill { fill: none; stroke: var(--accent-gold); stroke-width: 2.5; stroke-linecap: round; transition: stroke-dashoffset 0.45s ease; }
         .card-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.56rem; font-weight: 600; color: var(--accent-gold); }
 
-        .card-header {
-            padding: 0.7rem 0.95rem;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding-right: 42px;
-        }
-
+        .card-header { padding: 0.7rem 0.95rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: flex-start; padding-right: 42px; }
         .card-name { font-family: 'Spectral', serif; font-size: 1.05rem; font-weight: 600; color: var(--fg-primary); }
-        
-        .card-tag {
-            display: inline-block;
-            padding: 0.1rem 0.4rem;
-            background: rgba(201, 162, 39, 0.1);
-            color: var(--accent-sepia);
-            border-radius: 16px;
-            font-size: 0.65rem;
-            font-weight: 500;
-            margin-top: 0.12rem;
-        }
-
+        .card-tag { display: inline-block; padding: 0.1rem 0.4rem; background: rgba(201, 162, 39, 0.1); color: var(--accent-sepia); border-radius: 16px; font-size: 0.65rem; font-weight: 500; margin-top: 0.12rem; }
         .card-actions { display: flex; gap: 0.22rem; }
         .card-body { padding: 0.7rem 0.95rem; }
         .card-section { margin-bottom: 0.55rem; }
         .card-section:last-child { margin-bottom: 0; }
         .card-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-muted); margin-bottom: 0.12rem; }
         .card-text { color: var(--fg-secondary); line-height: 1.48; font-size: 0.88rem; white-space: pre-line; }
-        .link-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.18rem;
-            padding: 0.12rem 0.38rem;
-            background: rgba(45, 90, 74, 0.08);
-            color: var(--cat-lore);
-            border-radius: 3px;
-            font-size: 0.7rem;
-            margin-right: 0.22rem;
-            margin-bottom: 0.22rem;
-            cursor: pointer;
-            transition: background 0.18s;
-        }
+
+        .link-tag { display: inline-flex; align-items: center; gap: 0.18rem; padding: 0.12rem 0.38rem; background: rgba(45, 90, 74, 0.08); color: var(--cat-lore); border-radius: 3px; font-size: 0.7rem; margin-right: 0.22rem; margin-bottom: 0.22rem; cursor: pointer; transition: background 0.18s; }
         .link-tag:hover { background: rgba(45, 90, 74, 0.14); }
         .link-tag.svg { width: 9px; height: 9px; }
+        .link-tag.magic { background: var(--cat-magic-bg); color: var(--cat-magic); }
 
         .traits-list { display: flex; flex-wrap: wrap; gap: 0.22rem; }
         .trait-tag { padding: 0.1rem 0.38rem; background: rgba(44, 36, 24, 0.05); color: var(--fg-secondary); border-radius: 3px; font-size: 0.7rem; }
         [data-theme="dark"] .trait-tag { background: rgba(232, 223, 211, 0.05); }
 
-        .secret-block {
-            position: relative;
-            margin-top: 0.45rem;
-            padding: 0.55rem 0.7rem;
-            background: rgba(201, 162, 39, 0.04);
-            border-radius: 5px;
-            border-left: 3px solid var(--accent-gold);
-        }
-
+        .secret-block { position: relative; margin-top: 0.45rem; padding: 0.55rem 0.7rem; background: rgba(201, 162, 39, 0.04); border-radius: 5px; border-left: 3px solid var(--accent-gold); }
         .secret-block.has-secret { transition: filter 0.28s ease; }
         .secret-block.is-blurred { filter: blur(6px); user-select: none; cursor: pointer; }
-
-        .secret-block.is-blurred::after {
-            content: 'SECRET';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--accent-gold);
-            color: #fff;
-            padding: 0.18rem 0.45rem;
-            border-radius: 3px;
-            font-size: 0.62rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            pointer-events: none;
-        }
-
+        .secret-block.is-blurred::after { content: 'SECRET'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent-gold); color: #fff; padding: 0.18rem 0.45rem; border-radius: 3px; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em; pointer-events: none; }
         .secret-block.revealed { filter: blur(0); cursor: default; }
         .secret-block.revealed::after { display: none; }
 
@@ -522,59 +229,15 @@
         .empty-title { font-family: 'Spectral', serif; font-size: 1.05rem; color: var(--fg-secondary); margin-bottom: 0.22rem; }
         .empty-text { font-size: 0.85rem; max-width: 230px; margin: 0 auto; }
 
-        .toast {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            padding: 0.65rem 0.9rem;
-            background: var(--sidebar-bg);
-            color: var(--sidebar-fg);
-            border-radius: 5px;
-            border-left: 3px solid var(--accent-gold);
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
-            transform: translateX(150%);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.38rem;
-            font-size: 0.85rem;
-        }
+        .toast { position: fixed; bottom: 1rem; right: 1rem; padding: 0.65rem 0.9rem; background: var(--sidebar-bg); color: var(--sidebar-fg); border-radius: 5px; border-left: 3px solid var(--accent-gold); box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28); transform: translateX(150%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; display: flex; align-items: center; gap: 0.38rem; font-size: 0.85rem; }
         .toast.show { transform: translateX(0); }
         .toast-icon { width: 13px; height: 13px; color: var(--accent-gold); }
 
-        .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 0.5rem; left: 0.5rem;
-            z-index: 200;
-            width: 32px; height: 32px;
-            background: var(--sidebar-bg);
-            border: 1px solid rgba(201, 162, 39, 0.28);
-            border-radius: 5px;
-            color: var(--accent-gold);
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            z-index: 50;
-            opacity: 0;
-            transition: opacity 0.28s ease;
-            pointer-events: none;
-        }
-
+        .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border: 1px solid rgba(201, 162, 39, 0.28); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; }
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 50; opacity: 0; pointer-events: none; }
         .mobile-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .section { display: none; animation: fadeIn 0.28s ease; }
-        .section.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hidden-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
@@ -592,24 +255,11 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--fg-muted); border-radius: 2px; }
-        
-        .hidden-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
     </style>
 </head>
 <body data-theme="light" data-page="personnages">
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <input type="file" id="importInput" class="hidden-input" accept=".json">
@@ -621,74 +271,64 @@
         </div>
 
         <div class="sidebar-actions">
-            <button class="sidebar-btn" id="exportBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Export
-            </button>
-            <button class="sidebar-btn" id="importBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-                Import
-            </button>
-            <button class="sidebar-btn full-width" id="undoBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 7v6h6"/>
-                    <path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/>
-                </svg>
-                Annuler
-            </button>
+            <button class="sidebar-btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+            <button class="sidebar-btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button>
+            <button class="sidebar-btn full-width" id="undoBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/></svg>Annuler</button>
         </div>
 
-        <nav class="nav-section" id="navSection"></nav>
+        <nav class="nav-section">
+            <div class="nav-label">Monde</div>
+            <button class="nav-item active" onclick="navigateTo('personnages')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Personnages
+            </button>
+            <button class="nav-item" onclick="navigateTo('lieux')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Lieux
+            </button>
+            <button class="nav-item" onclick="navigateTo('objets')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                Objets
+            </button>
+            <button class="nav-item" onclick="navigateTo('encyclopedie')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Encyclopedie
+            </button>
+            <button class="nav-item" onclick="navigateTo('glossaire')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                Glossaire
+            </button>
+            <button class="nav-item" onclick="navigateTo('magie')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Magie
+            </button>
 
-        <div class="sidebar-stats">
-            <div class="stat-item"><span>Personnages</span><span class="stat-value" id="characterCount">0</span></div>
-            <div class="stat-item"><span>Lieux</span><span class="stat-value" id="placeCount">0</span></div>
-            <div class="stat-item"><span>Objets</span><span class="stat-value" id="objectCount">0</span></div>
-            <div class="stat-item highlight"><span>Total mots</span><span class="stat-value" id="wordCount">0</span></div>
-        </div>
+            <div class="nav-label">Histoire</div>
+            <button class="nav-item" onclick="navigateTo('chronologie')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Chronologie
+            </button>
+        </nav>
+        <!-- Bloc stats supprimé -->
     </aside>
 
     <main class="main-content" id="mainContent">
         <div class="top-bar">
             <div class="search-container">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                </svg>
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input type="text" class="search-input" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher">
             </div>
             <div class="top-actions">
-                <button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                </button>
-                <button class="icon-btn" id="focusModeBtn" title="Mode Focus">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                </button>
-                <button class="icon-btn" id="themeToggleBtn" title="Theme">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                </button>
+                <button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
+                <button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button>
+                <button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
             </div>
         </div>
 
-<section class="section active" id="charactersSection">
+        <section class="section active" id="charactersSection">
             <header class="content-header">
-                <h1 class="page-title">Personnages</h1>
+                <!-- Badge compteur ajouté -->
+                <h1 class="page-title">Personnages <span class="count-badge" id="characterCountBadge">0</span></h1>
                 <p class="page-subtitle">Les ames de votre histoire</p>
             </header>
             <div class="content-body">
@@ -717,12 +357,10 @@
                             <label class="form-label">Lieu de vie</label>
                             <select id="charPlace" class="form-select"><option value="">Aucun</option></select>
                         </div>
-                        <!-- AJOUT DU CHAMP MAGIE -->
                         <div class="form-group">
                             <label class="form-label">Magie</label>
                             <select id="charMagic" class="form-select"><option value="">Aucune</option></select>
                         </div>
-                        <!-- FIN AJOUT -->
                         <div class="form-group full-width">
                             <label class="form-label">Traits</label>
                             <input type="text" id="charTraits" class="form-input" placeholder="Courageux, Loyal...">
@@ -745,9 +383,7 @@
                 </div>
                 <div class="cards-grid" id="charactersGrid"></div>
                 <div class="empty-state" id="charactersEmpty">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                    </svg>
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                     <h3 class="empty-title">Aucun personnage</h3>
                     <p class="empty-text">Creez vos premiers protagonistes.</p>
                 </div>
@@ -755,304 +391,243 @@
         </section>
     </main>
 
-    <div class="toast" id="toast">
-        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <span id="toastMessage"></span>
-    </div>
+    <div class="toast" id="toast"><svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="toastMessage"></span></div>
 
-    
+    <script>
+        // ===== STATE & CONFIG =====
+        const STORAGE_KEY = 'scriptorium_v4';
+        const HISTORY_KEY = 'scriptorium_history_v4';
+        const $ = id => document.getElementById(id);
 
-<script>
-(function () {
-  const STORAGE_KEY = 'scriptorium_v4';
-  const HISTORY_KEY = 'scriptorium_history_v4';
-  const pageId = document.body.dataset.page || 'personnages';
-  const $ = (id) => document.getElementById(id);
-
-  let state = {
-    characters: [],
-    places: [],
-    objects: [],
-    encyclopedia: [],
-    glossary: [],
-    magicTypes: [], // Ajouté pour supporter la magie
-    chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]
-  };
-  let history = [];
-  let currentChapterId = 'ch1';
-  let hideSecrets = true;
-  let focusMode = false;
-  let edit = { characterId: null, placeId: null, objectId: null, encyclopediaId: null, glossaryId: null, noteId: null };
-
-  const FALLBACK_PAGES = [
-    { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde', default: true },
-    { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
-    { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
-    { id: 'encyclopedie', label: 'Encyclopedie', file: 'encyclopedie.html', section: 'Monde' },
-    { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
-    { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
-    { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
-  ];
-
-  function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; }
-  function generateId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-  function countWords(t) { return (t || '').trim().split(/\s+/).filter(Boolean).length; }
-  function formatDate(iso) { return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
-
-  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-  function showToast(msg) {
-    const toast = $('toast'); const msgEl = $('toastMessage');
-    if (!toast || !msgEl) return;
-    msgEl.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  function load() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) state = { ...state, ...JSON.parse(saved) };
-      if (!state.chapters || !state.chapters.length) state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }];
-      if (!state.magicTypes) state.magicTypes = []; // Initialisation si manquant
-      currentChapterId = state.chapters[0].id;
-      history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-    } catch (e) { console.error(e); }
-
-    const theme = localStorage.getItem('scriptorium_theme');
-    if (theme) {
-      document.body.setAttribute('data-theme', theme);
-      updateThemeIcon(theme);
-    }
-  }
-
-  function recordHistory() {
-    history.push(JSON.stringify(state));
-    if (history.length > 30) history.shift();
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-  }
-
-  function undo() {
-    if (!history.length) return showToast('Rien a annuler');
-    state = JSON.parse(history.pop());
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-    save();
-    resetAllEditModes();
-    renderAll();
-    showToast('Action annulee');
-  }
-
-  function updateThemeIcon(theme) {
-    const themeIcon = $('themeIcon');
-    if (!themeIcon) return;
-    themeIcon.innerHTML = theme === 'dark'
-      ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
-      : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-  }
-
-  function toggleTheme() {
-    const curr = document.body.getAttribute('data-theme') || 'light';
-    const next = curr === 'light' ? 'dark' : 'light';
-    document.body.setAttribute('data-theme', next);
-    localStorage.setItem('scriptorium_theme', next);
-    updateThemeIcon(next);
-  }
-
-  async function switchPage(id) {
-    let pages = FALLBACK_PAGES;
-    try {
-      const data = await fetch('pages.json').then(r => r.json());
-      if (data && Array.isArray(data.pages) && data.pages.length) pages = data.pages;
-    } catch (_) {}
-    const p = pages.find(x => x.id === id);
-    if (p) window.location.href = p.file;
-  }
-
-  window.navigateTo = switchPage;
-
-  function updateStats() {
-    if ($('characterCount')) $('characterCount').textContent = state.characters.length;
-    if ($('placeCount')) $('placeCount').textContent = state.places.length;
-    if ($('objectCount')) $('objectCount').textContent = state.objects.length;
-    let words = 0;
-    state.characters.forEach(c => words += countWords(c.name) + countWords(c.description) + countWords(c.traits) + countWords(c.secret));
-    state.places.forEach(p => words += countWords(p.name) + countWords(p.description) + countWords(p.secret));
-    state.objects.forEach(o => words += countWords(o.name) + countWords(o.description) + countWords(o.secret));
-    state.encyclopedia.forEach(e => words += countWords(e.title) + countWords(e.description) + countWords(e.secret));
-    state.glossary.forEach(g => words += countWords(g.term) + countWords(g.definition));
-    state.chapters.forEach(ch => ch.notes.forEach(n => words += countWords(n.text) + countWords(n.secret)));
-    state.magicTypes.forEach(m => words += countWords(m.name) + countWords(m.description) + countWords(m.limits) + countWords(m.secret));
-    if ($('wordCount')) $('wordCount').textContent = words;
-  }
-
-  function createSecretBlock(secret) {
-    if (!secret || !secret.trim()) return null;
-    const block = document.createElement('div');
-    block.className = 'secret-block has-secret' + (hideSecrets ? ' is-blurred' : '');
-    block.innerHTML = '<p class="card-text">' + escapeHtml(secret) + '</p>';
-    if (hideSecrets) block.addEventListener('click', () => block.classList.add('revealed'));
-    return block;
-  }
-
-  function getPlaceName(id) { const p = state.places.find(p => p.id === id); return p ? p.name : null; }
-  function getCharName(id) { const c = state.characters.find(c => c.id === id); return c ? c.name : null; }
-  function getMagicName(id) { const m = (state.magicTypes || []).find(m => m.id === id); return m ? m.name : null; }
-
-  function populateSelects() {
-    if ($('charPlace')) $('charPlace').innerHTML = '<option value="">Aucun</option>' + state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name || 'Sans nom') + '</option>').join('');
-    if ($('charMagic')) $('charMagic').innerHTML = '<option value="">Aucune</option>' + (state.magicTypes || []).map(m => '<option value="' + m.id + '">' + escapeHtml(m.name || 'Sans nom') + '</option>').join('');
-    if ($('objectOwner')) $('objectOwner').innerHTML = '<option value="">Inconnu</option>' + state.characters.map(c => '<option value="' + c.id + '">' + escapeHtml(c.name || 'Sans nom') + '</option>').join('');
-    if ($('objectLocation')) $('objectLocation').innerHTML = '<option value="">Inconnue</option>' + state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name || 'Sans nom') + '</option>').join('');
-  }
-
-  function resetAllEditModes() {
-    edit = { characterId: null, placeId: null, objectId: null, encyclopediaId: null, glossaryId: null, noteId: null };
-    if ($('characterFormTitle')) $('characterFormTitle').textContent = 'Nouveau personnage';
-    if ($('placeFormTitle')) $('placeFormTitle').textContent = 'Nouveau lieu';
-    if ($('objectFormTitle')) $('objectFormTitle').textContent = 'Nouvel objet';
-    if ($('encyclopediaFormTitle')) $('encyclopediaFormTitle').textContent = 'Nouvelle fiche';
-    if ($('glossaryFormTitle')) $('glossaryFormTitle').textContent = 'Nouveau terme';
-    ['cancelEditBtn','cancelPlaceEditBtn','cancelObjectEditBtn','cancelEncyEditBtn','cancelGlossaryEditBtn'].forEach(id => { if ($(id)) $(id).style.display='none'; });
-  }
-
-  function renderCharacters() {
-    const grid = $('charactersGrid'); if (!grid) return;
-    const empty = $('charactersEmpty');
-    const q = (($('searchInput')?.value)||'').toLowerCase();
-    const filtered = state.characters.filter(c => (c.name||'').toLowerCase().includes(q) || (c.role||'').toLowerCase().includes(q) || (c.race||'').toLowerCase().includes(q) || (c.description||'').toLowerCase().includes(q));
-    grid.innerHTML = '';
-    if (empty) empty.style.display = filtered.length ? 'none' : 'block';
-    filtered.forEach(c => {
-      const card = document.createElement('div'); card.className='card';
-      const traits = (c.traits||'').split(',').map(t=>t.trim()).filter(Boolean);
-      const placeName = getPlaceName(c.placeId);
-      const magicName = getMagicName(c.magicTypeId); // Récupération du nom de magie
-      
-      let html = '<div class="card-header"><div><h3 class="card-name">'+escapeHtml(c.name||'Sans nom')+'</h3>';
-      if (c.role) html += '<span class="card-tag">'+escapeHtml(c.role)+'</span>';
-      if (c.race) html += '<span class="card-tag">'+escapeHtml(c.race)+'</span>';
-      html += '</div><div class="card-actions"><button class="btn btn-icon btn-secondary" onclick="editCharacter(\''+c.id+'\')">✎</button><button class="btn btn-icon btn-danger" onclick="deleteCharacter(\''+c.id+'\')">×</button></div></div><div class="card-body">';
-      if (c.description) html += '<div class="card-section"><div class="card-label">Description</div><p class="card-text">'+escapeHtml(c.description)+'</p></div>';
-      
-      // Affichage Lieu et Magie côte à côte ou l'un sous l'autre
-      if (placeName || magicName) {
-        html += '<div class="card-section"><div class="card-label">Liens</div>';
-        if (placeName) html += '<span class="link-tag" onclick="navigateTo(\'lieux\')">'+escapeHtml(placeName)+'</span>';
-        if (magicName) html += '<span class="link-tag" onclick="navigateTo(\'magie\')" style="background:var(--cat-magic-bg);color:var(--cat-magic);">'+escapeHtml(magicName)+'</span>';
-        html += '</div>';
-      }
-
-      if (traits.length) html += '<div class="card-section"><div class="card-label">Traits</div><div class="traits-list">'+traits.map(t=>'<span class="trait-tag">'+escapeHtml(t)+'</span>').join('')+'</div></div>';
-      html += '</div>'; card.innerHTML = html;
-      if (c.secret && c.secret.trim()) { const sb = createSecretBlock(c.secret); if (sb) card.querySelector('.card-body').appendChild(sb); }
-      grid.appendChild(card);
-    });
-  }
-
-  // Les autres fonctions render (renderPlaces, renderObjects, etc.) restent inchangées mais sont présentes dans le script global
-  function renderPlaces() { /* ... implementation inchangée ... */ }
-  function renderObjects() { /* ... implementation inchangée ... */ }
-  function renderEncyclopedia() { /* ... implementation inchangée ... */ }
-  function renderGlossary() { /* ... implementation inchangée ... */ }
-  function renderChronology() { /* ... implementation inchangée ... */ }
-  function renderNotes() { /* ... implementation inchangée ... */ }
-
-  function renderAll() {
-    populateSelects();
-    renderCharacters(); 
-    // Appels aux autres render si nécessaire
-    updateStats();
-  }
-
-  function bindForms() {
-    if ($('characterForm')) {
-      $('characterForm').addEventListener('submit', e => {
-        e.preventDefault(); recordHistory();
-        const c = { 
-            id: edit.characterId || generateId(), 
-            name: $('charName').value.trim(), 
-            role: $('charRole').value.trim(), 
-            race: $('charRace').value.trim(), 
-            placeId: $('charPlace').value || null, 
-            magicTypeId: $('charMagic').value || null, // Sauvegarde Magie
-            traits: $('charTraits').value.trim(), 
-            description: $('charDescription').value.trim(), 
-            secret: $('charSecret').value.trim() 
+        let state = {
+            characters: [],
+            places: [],
+            objects: [],
+            encyclopedia: [],
+            glossary: [],
+            magicTypes: [],
+            chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]
         };
-        if (edit.characterId) state.characters[state.characters.findIndex(x => x.id === edit.characterId)] = c; else state.characters.push(c);
-        save(); renderAll(); e.target.reset(); resetAllEditModes(); showToast('Personnage sauvegarde');
-      });
-      if ($('cancelEditBtn')) $('cancelEditBtn').addEventListener('click', () => { $('characterForm').reset(); resetAllEditModes(); });
-      window.editCharacter = id => { const c = state.characters.find(x => x.id === id); if (!c) return; edit.characterId=id; $('charName').value=c.name||''; $('charRole').value=c.role||''; $('charRace').value=c.race||''; $('charPlace').value=c.placeId||''; $('charMagic').value=c.magicTypeId||''; $('charTraits').value=c.traits||''; $('charDescription').value=c.description||''; $('charSecret').value=c.secret||''; if ($('characterFormTitle')) $('characterFormTitle').textContent='Modifier le personnage'; if ($('cancelEditBtn')) $('cancelEditBtn').style.display='inline-flex'; };
-      window.deleteCharacter = id => { if (confirm('Supprimer ce personnage ?')) { recordHistory(); state.characters = state.characters.filter(c => c.id !== id); save(); renderAll(); showToast('Personnage supprime'); } };
-    }
-    
-    // Les autres bindForms (places, objects) sont conservés mais omis ici pour la brièveté du snippet, 
-    // mais ils doivent être présents dans le fichier final.
-    // Je vais inclure les stubs vides pour éviter les erreurs si le code original les attend.
-  }
+        let history = [];
+        let hideSecrets = true;
+        let focusMode = false;
+        let editingCharacterId = null;
 
-  async function buildNavigation() {
-    const nav = $('navSection'); if (!nav) return;
-    let pages = FALLBACK_PAGES;
-    try {
-      const cfg = await fetch('pages.json').then(r => r.json());
-      if (cfg && Array.isArray(cfg.pages) && cfg.pages.length) pages = cfg.pages;
-    } catch (_) {}
-    const groups = {};
-    pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
-    nav.innerHTML = Object.keys(groups).map(section => {
-      const items = groups[section].map(p => '<button class="nav-item' + (p.id === pageId ? ' active' : '') + '" data-section="' + p.id + '">' + escapeHtml(p.label) + '</button>').join('');
-      return '<div class="nav-label">' + escapeHtml(section) + '</div>' + items;
-    }).join('');
-    nav.querySelectorAll('.nav-item').forEach(btn => btn.addEventListener('click', () => switchPage(btn.dataset.section)));
-  }
+        // ===== UTILITIES =====
+        const escapeHtml = t => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
+        const countWords = t => (t || '').trim().split(/\s+/).filter(w => w.length > 0).length;
+        const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
 
-  function bindCommonEvents() {
-    if ($('themeToggleBtn')) $('themeToggleBtn').addEventListener('click', toggleTheme);
-    if ($('focusModeBtn')) $('focusModeBtn').addEventListener('click', () => {
-      focusMode = !focusMode;
-      if ($('sidebar')) $('sidebar').classList.toggle('hidden', focusMode);
-      if ($('mainContent')) $('mainContent').classList.toggle('expanded', focusMode);
-      $('focusModeBtn').classList.toggle('active', focusMode);
-      document.querySelectorAll('.form-container').forEach(el => el.classList.toggle('hidden', focusMode));
-    });
-    if ($('secretsToggleBtn')) $('secretsToggleBtn').addEventListener('click', () => { hideSecrets = !hideSecrets; $('secretsToggleBtn').classList.toggle('active', hideSecrets); renderAll(); });
-    if ($('mobileMenuBtn') && $('sidebar')) $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
-    if ($('mobileOverlay') && $('sidebar')) $('mobileOverlay').addEventListener('click', () => { $('sidebar').classList.remove('open'); $('mobileOverlay').classList.remove('active'); });
-    if ($('undoBtn')) $('undoBtn').addEventListener('click', undo);
-    if ($('searchInput')) $('searchInput').addEventListener('input', renderAll);
-    if ($('exportBtn')) $('exportBtn').addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify({ ...state, exportDate: new Date().toISOString() }, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'scriptorium_' + new Date().toISOString().slice(0,10) + '.json'; a.click();
-      showToast('Grimoire exporte');
-    });
-    if ($('importBtn') && $('importInput')) $('importBtn').addEventListener('click', () => $('importInput').click());
-    if ($('importInput')) $('importInput').addEventListener('change', e => {
-      if (!e.target.files[0]) return;
-      const fr = new FileReader();
-      fr.onload = ev => {
-        try { state = { ...state, ...JSON.parse(ev.target.result) }; save(); renderAll(); showToast('Grimoire importe'); }
-        catch (_) { showToast('Erreur d\'import'); }
-      };
-      fr.readAsText(e.target.files[0]);
-    });
+        function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        function showToast(msg) { const t = $('toast'); $('toastMessage').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
 
-    document.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); save(); showToast('Sauvegarde effectuee'); }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); }
-      if (e.key === 'Escape') { ['characterForm','placeForm','objectForm','encyclopediaForm','glossaryForm','noteForm'].forEach(id => { if ($(id)) $(id).reset(); }); resetAllEditModes(); }
-    });
-  }
+        function load() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = { ...state, ...parsed };
+                    if (!state.magicTypes) state.magicTypes = [];
+                } catch(e) { console.error(e); }
+            }
+            const theme = localStorage.getItem('scriptorium_theme');
+            if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
+        }
 
-  load();
-  buildNavigation();
-  bindCommonEvents();
-  bindForms();
-  renderAll();
-})();
-</script>
+        function recordHistory() {
+            history.push(JSON.stringify(state));
+            if (history.length > 30) history.shift();
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        }
+        
+        function undo() {
+            if (history.length === 0) { showToast('Rien a annuler'); return; }
+            state = JSON.parse(history.pop());
+            save();
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            editingCharacterId = null;
+            $('characterForm').reset();
+            $('characterFormTitle').textContent = 'Nouveau personnage';
+            $('cancelEditBtn').style.display = 'none';
+            renderAll();
+            showToast('Action annulee');
+        }
 
+        // ===== NAVIGATION =====
+        const pages = {
+            'personnages': 'personnages.html',
+            'lieux': 'lieux.html',
+            'objets': 'objets.html',
+            'encyclopedie': 'encyclopedie.html',
+            'glossaire': 'glossaire.html',
+            'chronologie': 'chronologie.html',
+            'magie': 'magie.html'
+        };
+
+        function navigateTo(id) {
+            if (pages[id]) window.location.href = pages[id];
+        }
+
+        // ===== THEME & UI =====
+        function updateThemeIcon(theme) {
+            const icon = $('themeIcon');
+            icon.innerHTML = theme === 'dark'
+                ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+                : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+        function toggleTheme() {
+            const curr = document.body.getAttribute('data-theme') || 'light';
+            const next = curr === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', next);
+            localStorage.setItem('scriptorium_theme', next);
+            updateThemeIcon(next);
+        }
+        function toggleFocus() {
+            focusMode = !focusMode;
+            $('sidebar').classList.toggle('hidden', focusMode);
+            $('mainContent').classList.toggle('expanded', focusMode);
+            $('focusModeBtn').classList.toggle('active', focusMode);
+            $('characterFormContainer').classList.toggle('hidden', focusMode);
+        }
+        function toggleSecrets() {
+            hideSecrets = !hideSecrets;
+            $('secretsToggleBtn').classList.toggle('active', hideSecrets);
+            renderCharacters();
+        }
+
+        // ===== STATS =====
+        function updateStats() {
+            // Met à jour uniquement le badge dans le titre
+            $('characterCountBadge').textContent = state.characters.length;
+        }
+
+        // ===== HELPERS =====
+        function getPlaceName(id) { const p = state.places.find(p => p.id === id); return p ? p.name : null; }
+        function getMagicName(id) { const m = (state.magicTypes || []).find(m => m.id === id); return m ? m.name : null; }
+
+        function populateSelects() {
+            $('charPlace').innerHTML = '<option value="">Aucun</option>' + state.places.map(p => '<option value="' + p.id + '">' + escapeHtml(p.name || 'Sans nom') + '</option>').join('');
+            $('charMagic').innerHTML = '<option value="">Aucune</option>' + (state.magicTypes || []).map(m => '<option value="' + m.id + '">' + escapeHtml(m.name || 'Sans nom') + '</option>').join('');
+        }
+
+        function createSecretBlock(secret) {
+            if (!secret || !secret.trim()) return null;
+            const block = document.createElement('div');
+            block.className = 'secret-block has-secret' + (hideSecrets ? ' is-blurred' : '');
+            block.innerHTML = '<p class="card-text">' + escapeHtml(secret) + '</p>';
+            if (hideSecrets) block.addEventListener('click', () => block.classList.add('revealed'));
+            return block;
+        }
+
+        // ===== RENDER =====
+        function renderCharacters() {
+            const grid = $('charactersGrid');
+            const empty = $('charactersEmpty');
+            const q = $('searchInput').value.toLowerCase();
+            const filtered = state.characters.filter(c => (c.name || '').toLowerCase().includes(q) || (c.role || '').toLowerCase().includes(q) || (c.description || '').toLowerCase().includes(q));
+            grid.innerHTML = '';
+            empty.style.display = filtered.length ? 'none' : 'block';
+
+            filtered.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const fields = [c.name, c.role, c.description, c.traits, c.race];
+                const filled = fields.filter(f => f && f.trim()).length;
+                const pct = Math.round((filled / 5) * 100);
+                const circ = 2 * Math.PI * 15;
+                const offset = circ - (pct / 100) * circ;
+                const traits = (c.traits || '').split(',').map(t => t.trim()).filter(Boolean);
+                const placeName = getPlaceName(c.placeId);
+                const magicName = getMagicName(c.magicTypeId);
+
+                let html = '<div class="card-progress"><svg width="28" height="28" viewBox="0 0 36 36"><circle class="card-progress-bg" cx="18" cy="18" r="15"></circle><circle class="card-progress-fill" cx="18" cy="18" r="15" stroke-dasharray="' + circ + '" stroke-dashoffset="' + offset + '"></circle></svg><span class="card-progress-text">' + pct + '%</span></div>';
+                html += '<div class="card-header"><div><h3 class="card-name">' + escapeHtml(c.name || 'Sans nom') + '</h3>';
+                if (c.role) html += '<span class="card-tag">' + escapeHtml(c.role) + '</span>';
+                if (c.race) html += '<span class="card-tag">' + escapeHtml(c.race) + '</span>';
+                html += '</div><div class="card-actions"><button class="btn btn-icon btn-secondary" onclick="editCharacter(\'' + c.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteCharacter(\'' + c.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="card-body">';
+                
+                if (c.description) html += '<div class="card-section"><div class="card-label">Description</div><p class="card-text">' + escapeHtml(c.description) + '</p></div>';
+                
+                if (placeName || magicName) {
+                    html += '<div class="card-section"><div class="card-label">Liens</div>';
+                    if (placeName) html += '<span class="link-tag" onclick="navigateTo(\'lieux\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>' + escapeHtml(placeName) + '</span>';
+                    if (magicName) html += '<span class="link-tag magic" onclick="navigateTo(\'magie\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>' + escapeHtml(magicName) + '</span>';
+                    html += '</div>';
+                }
+
+                if (traits.length) html += '<div class="card-section"><div class="card-label">Traits</div><div class="traits-list">' + traits.map(t => '<span class="trait-tag">' + escapeHtml(t) + '</span>').join('') + '</div></div>';
+                html += '</div>';
+                card.innerHTML = html;
+                if (c.secret && c.secret.trim()) { const sb = createSecretBlock(c.secret); if (sb) card.querySelector('.card-body').appendChild(sb); }
+                grid.appendChild(card);
+            });
+        }
+
+        function renderAll() {
+            populateSelects();
+            renderCharacters();
+            updateStats();
+        }
+
+        // ===== FORM LOGIC =====
+        $('characterForm').addEventListener('submit', e => {
+            e.preventDefault();
+            recordHistory();
+            const char = {
+                id: editingCharacterId || generateId(),
+                name: $('charName').value.trim(),
+                role: $('charRole').value,
+                race: $('charRace').value.trim(),
+                placeId: $('charPlace').value || null,
+                magicTypeId: $('charMagic').value || null,
+                traits: $('charTraits').value.trim(),
+                description: $('charDescription').value.trim(),
+                secret: $('charSecret').value.trim()
+            };
+            if (editingCharacterId) { const idx = state.characters.findIndex(c => c.id === editingCharacterId); if (idx !== -1) state.characters[idx] = char; }
+            else { state.characters.push(char); }
+            save(); renderAll(); e.target.reset(); editingCharacterId = null;
+            $('characterFormTitle').textContent = 'Nouveau personnage';
+            $('cancelEditBtn').style.display = 'none';
+            showToast(editingCharacterId ? 'Personnage modifie' : 'Personnage ajoute');
+        });
+        $('cancelEditBtn').addEventListener('click', () => { $('characterForm').reset(); editingCharacterId = null; $('characterFormTitle').textContent = 'Nouveau personnage'; $('cancelEditBtn').style.display = 'none'; });
+
+        window.editCharacter = function(id) {
+            const c = state.characters.find(c => c.id === id);
+            if (!c) return;
+            editingCharacterId = id;
+            $('charName').value = c.name || '';
+            $('charRole').value = c.role || '';
+            $('charRace').value = c.race || '';
+            $('charPlace').value = c.placeId || '';
+            $('charMagic').value = c.magicTypeId || '';
+            $('charTraits').value = c.traits || '';
+            $('charDescription').value = c.description || '';
+            $('charSecret').value = c.secret || '';
+            $('characterFormTitle').textContent = 'Modifier le personnage';
+            $('cancelEditBtn').style.display = 'inline-flex';
+            $('characterFormContainer').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.deleteCharacter = function(id) { if (confirm('Supprimer ce personnage ?')) { recordHistory(); state.characters = state.characters.filter(c => c.id !== id); save(); renderAll(); showToast('Personnage supprime'); } };
+
+        // ===== COMMON EVENTS =====
+        $('themeToggleBtn').addEventListener('click', toggleTheme);
+        $('focusModeBtn').addEventListener('click', toggleFocus);
+        $('secretsToggleBtn').addEventListener('click', toggleSecrets);
+        $('undoBtn').addEventListener('click', undo);
+        $('searchInput').addEventListener('input', renderCharacters);
+        $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
+        $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        
+        // Export/Import
+        $('exportBtn').addEventListener('click', () => { const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'scriptorium_' + new Date().toISOString().slice(0,10) + '.json'; a.click(); showToast('Grimoire exporte'); });
+        $('importBtn').addEventListener('click', () => $('importInput').click());
+        $('importInput').addEventListener('change', e => { if (!e.target.files[0]) return; const fr = new FileReader(); fr.onload = ev => { try { state = { ...state, ...JSON.parse(ev.target.result) }; save(); renderAll(); showToast('Grimoire importe'); } catch(_) { showToast('Erreur d\'import'); } }; fr.readAsText(e.target.files[0]); });
+
+        // Init
+        load();
+        renderAll();
+    </script>
 </body>
 </html>
