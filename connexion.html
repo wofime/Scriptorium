@@ -28,17 +28,22 @@
         }
         [data-theme="dark"] {
             --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92);
+            --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%);
             --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a;
-            --accent-gold: #d4a84b; --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65);
+            --accent-gold: #d4a84b; --accent-copper: #cd8c4a;
+            --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2);
+            --shadow-warm: rgba(0, 0, 0, 0.35); --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65);
             --success: #4a9a7a; --success-bg: rgba(74, 154, 122, 0.15);
+            --error: #c45c5c; --error-bg: rgba(196, 92, 92, 0.15);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
         body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; }
         body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
-        
-        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s; overflow-y: auto; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .sidebar.hidden { transform: translateX(-100%); }
         .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
         .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
+        .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
         .nav-section { padding: 0.55rem 0; flex: 1; }
         .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
         .nav-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.15rem; color: var(--sidebar-fg); cursor: pointer; transition: all 0.22s ease; position: relative; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem; }
@@ -46,26 +51,28 @@
         .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
         .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
         .nav-item.active::before { transform: scaleY(1); }
-        .nav-icon { width: 14px; height: 14px; opacity: 0.62; }
-        
-        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); transition: margin-left 0.4s ease; }
-        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
+        .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
         .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
-        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; }
-        .icon-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; }
+        .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn svg { width: 14px; height: 14px; }
         .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
-        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
         .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
         .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
         
-        /* Connection Styles */
+        /* Specific Styles for Connection Page */
         .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 768px) { .connection-grid { grid-template-columns: 1fr; } }
+        
         .connect-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; box-shadow: 0 3px 12px var(--shadow-warm); }
         .connect-card h3 { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; }
         
         .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; }
+        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
         .form-input { width: 100%; padding: 0.6rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-primary); font-family: inherit; font-size: 1rem; }
         .form-input:focus { outline: none; border-color: var(--accent-gold); }
         
@@ -74,7 +81,6 @@
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(201, 162, 39, 0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .btn-success { background: var(--success); color: white; }
-        .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); margin-top: 0.5rem; }
 
         .status-box { margin-top: 1rem; padding: 0.8rem; border-radius: 5px; font-size: 0.85rem; display: none; }
         .status-box.active { display: block; }
@@ -82,21 +88,19 @@
         .status-error { background: var(--error-bg); color: var(--error); border: 1px solid var(--error); }
         .status-info { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
 
+        /* Style pour le code à 5 chiffres */
         .code-display { 
             font-family: 'Spectral', serif; font-size: 2.5rem; font-weight: 700; 
             background: var(--bg-primary); padding: 1rem; border-radius: 8px; 
             text-align: center; border: 1px solid var(--accent-gold); 
             margin: 1rem 0; letter-spacing: 0.5em; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             user-select: all;
         }
-        
-        /* Manual Backup Styles */
-        .backup-section { background: var(--bg-card); border-radius: 8px; padding: 1.5rem; border: 1px dashed var(--border-medium); margin-top: 2rem; }
-        .backup-title { font-family: 'Spectral'; color: var(--fg-primary); margin-bottom: 0.5rem; font-weight: 600; }
-        .backup-textarea { width: 100%; height: 120px; font-family: monospace; font-size: 0.7rem; padding: 0.5rem; border: 1px solid var(--border-medium); border-radius: 5px; background: var(--input-bg); color: var(--fg-primary); resize: vertical; }
 
         .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; border: none; }
         .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; }
+        
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; }
@@ -107,11 +111,16 @@
     </style>
 </head>
 <body data-theme="light" data-page="connexion">
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header"><div class="logo">Scriptorium</div><div class="logo-subtitle">L'atelier de l'ecrivain</div></div>
+        <div class="sidebar-header">
+            <div class="logo">Scriptorium</div>
+            <div class="logo-subtitle">L'atelier de l'ecrivain</div>
+        </div>
         <nav class="nav-section" id="navSection"></nav>
     </aside>
 
@@ -129,50 +138,39 @@
                 <p class="page-subtitle">Partagez votre monde avec un autre appareil en direct</p>
             </header>
             <div class="content-body">
-                <!-- CONNEXION P2P AUTOMATIQUE -->
                 <div class="connection-grid">
                     <!-- HOST SIDE -->
                     <div class="connect-card">
                         <h3>Partager mon monde</h3>
-                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Generer un code simple.</p>
+                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Generer un code simple a communiquer.</p>
                         <button class="btn btn-primary" id="createBtn">Generer un Code</button>
                         <div id="hostStatus" class="status-box"></div>
                         <div id="codeArea" style="display:none; margin-top:1rem;">
                             <label class="form-label">Votre code partenaire</label>
                             <div class="code-display" id="myCode">00000</div>
+                            <div style="font-size:0.8rem; color:var(--fg-muted); text-align:center;">Communiquez ces 5 chiffres a votre partenaire.</div>
                         </div>
                     </div>
 
                     <!-- CLIENT SIDE -->
                     <div class="connect-card">
                         <h3>Rejoindre un monde</h3>
-                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Entrez le code a 5 chiffres.</p>
+                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Entrez le code a 5 chiffres recu.</p>
                         <div class="form-group">
                             <label class="form-label">Code partenaire</label>
-                            <input type="text" id="peerIdInput" class="form-input" placeholder="Ex: 48291" maxlength="5" inputmode="numeric">
+                            <input type="text" id="peerIdInput" class="form-input" placeholder="Ex: 48291" maxlength="5" inputmode="numeric" pattern="[0-9]*">
                         </div>
                         <button class="btn btn-primary" id="joinBtn">Se connecter</button>
                         <div id="clientStatus" class="status-box"></div>
                         <div id="receivedDataArea" style="display:none; margin-top:1rem;">
                             <div style="padding:1rem; background:var(--success-bg); border-radius:5px; color:var(--success); text-align:center;">
                                 <strong>Monde reçu !</strong>
-                                <button class="btn btn-success" style="margin-top:1rem;" onclick="loadReceivedData()">Explorer</button>
+                                <div id="receivedStats" style="font-size:0.9rem; margin-top:0.3rem;"></div>
+                                <button class="btn btn-success" style="margin-top:1rem;" onclick="loadReceivedData()">Explorer ce monde</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- SOLUTION DE SECOURS MANUELLE -->
-                <div class="backup-section">
-                    <h3 class="backup-title">Solution de secours (Manuel)</h3>
-                    <p style="font-size:0.85rem; color:var(--fg-secondary); margin-bottom:1rem;">Si la connexion automatique echoue (Opera/VPN), utilisez ces boutons. Copiez le texte ci-dessous et envoyez-le par message.</p>
-                    <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
-                        <button class="btn btn-secondary" style="width:auto; flex:1" onclick="manualCopy()">Copier le monde</button>
-                        <button class="btn btn-secondary" style="width:auto; flex:1" onclick="manualPaste()">Coller un monde</button>
-                    </div>
-                    <textarea id="manualData" class="backup-textarea" placeholder="Les donnees copiees ou a coller apparaitront ici..."></textarea>
-                </div>
-
             </div>
         </section>
     </main>
@@ -207,9 +205,9 @@
             ];
             const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
-            let html = '';
             const groups = {};
             pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            let html = '';
             for (const sec in groups) {
                 html += `<div class="nav-label">${sec}</div>`;
                 groups[sec].forEach(p => {
@@ -220,35 +218,19 @@
             nav.innerHTML = html;
         }
         
-        // ===== THEME =====
-        function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
+        // ===== THEME & UI =====
+        function updateThemeIcon(theme) {
+            const icon = $('themeIcon');
+            icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
         
-        // ===== MANUAL BACKUP (Toujours fiable) =====
-        function manualCopy() {
-            const data = localStorage.getItem('scriptorium_v4');
-            $('manualData').value = data;
-            $('manualData').select();
-            document.execCommand('copy');
-            alert('Monde copie ! Collez-le a votre partenaire.');
-        }
-        function manualPaste() {
-            const data = $('manualData').value;
-            if(!data) { alert('Champ vide'); return; }
-            try {
-                JSON.parse(data);
-                localStorage.setItem('scriptorium_v4', data);
-                alert('Monde colle avec succes !');
-                window.location.href = 'personnages.html';
-            } catch(e) {
-                alert('Donnees invalides.');
-            }
-        }
-
-        // ===== P2P LOGIC =====
+        // ===== P2P LOGIC (Robust options added) =====
         let peer = null;
         let conn = null;
         let receivedState = null;
+
+        function getStorageKey() { return 'scriptorium_v4'; }
 
         function showStatus(elId, msg, type) {
             const el = $(elId);
@@ -263,7 +245,7 @@
             const randomCode = Math.floor(10000 + Math.random() * 90000);
             const myId = 'scr-' + randomCode;
             
-            // Configuration robuste
+            // Ajout de debug:2 pour voir les erreurs dans la console (F12)
             peer = new Peer(myId, { debug: 2 });
 
             peer.on('open', (id) => {
@@ -277,8 +259,8 @@
             peer.on('connection', (connection) => {
                 conn = connection;
                 conn.on('open', () => {
-                    showStatus('hostStatus', "Connecte ! Envoi...", 'success');
-                    const data = localStorage.getItem('scriptorium_v4');
+                    showStatus('hostStatus', "Partenaire connecte ! Envoi...", 'success');
+                    const data = localStorage.getItem(getStorageKey());
                     conn.send(data);
                     showStatus('hostStatus', "Donnees envoyees !", 'success');
                 });
@@ -294,39 +276,56 @@
 
         // CLIENT LOGIC
         $('joinBtn').addEventListener('click', () => {
-            let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
-            if (remoteCode.length !== 5) { showStatus('clientStatus', "5 chiffres requis.", 'error'); return; }
+            let remoteCode = $('peerIdInput').value.trim();
+            remoteCode = remoteCode.replace(/\D/g,'');
+            if (remoteCode.length !== 5) {
+                showStatus('clientStatus', "Code 5 chiffres requis.", 'error');
+                return;
+            }
 
             const remoteId = 'scr-' + remoteCode;
             if (peer) peer.destroy();
             
-            peer = new Peer({ debug: 2 });
+            // Ajout de debug:2
+            peer = new Peer({ debug: 2 }); 
 
             peer.on('open', () => {
+                // Ajout de reliable:true pour la stabilité
                 conn = peer.connect(remoteId, { reliable: true });
                 
-                conn.on('open', () => showStatus('clientStatus', "Connecte ! Reception...", 'info'));
+                conn.on('open', () => {
+                    showStatus('clientStatus', "Connecte ! Reception...", 'info');
+                });
 
                 conn.on('data', (data) => {
                     try {
                         receivedState = JSON.parse(data);
                         showStatus('clientStatus', "Recu !", 'success');
+                        
+                        const stats = `Personnages: ${(receivedState.characters||[]).length}, Lieux: ${(receivedState.places||[]).length}`;
+                        $('receivedStats').textContent = stats;
                         $('receivedDataArea').style.display = 'block';
                         $('joinBtn').disabled = true;
-                    } catch(e) { showStatus('clientStatus', "Erreur format.", 'error'); }
+                    } catch(e) {
+                        showStatus('clientStatus', "Erreur format.", 'error');
+                    }
                 });
+                
+                conn.on('close', () => showStatus('clientStatus', "Ferme.", 'info'));
             });
-            
+
             peer.on('error', (err) => {
-                let msg = (err.type === 'peer-unavailable') ? "Code introuvable." : "Erreur reseau.";
-                showStatus('clientStatus', msg, 'error');
-                $('joinBtn').disabled = false;
+                if(err.type === 'peer-unavailable') {
+                     showStatus('clientStatus', "Code introuvable.", 'error');
+                } else {
+                     showStatus('clientStatus', "Erreur reseau.", 'error');
+                }
             });
         });
 
         function loadReceivedData() {
             if(receivedState) {
-                localStorage.setItem('scriptorium_v4', JSON.stringify(receivedState));
+                localStorage.setItem(getStorageKey(), JSON.stringify(receivedState));
                 window.location.href = 'personnages.html';
             }
         }
@@ -335,11 +334,6 @@
         $('themeToggleBtn').addEventListener('click', toggleTheme);
         $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
         $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
-        
-        // Warning for file protocol
-        if (window.location.protocol === 'file:') {
-            console.warn("Mode fichier detecte. Pour la connexion P2P, utilisez Live Server.");
-        }
         
         buildNavigation();
         const theme = localStorage.getItem('scriptorium_theme');
