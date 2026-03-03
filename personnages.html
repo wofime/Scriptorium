@@ -247,7 +247,8 @@
         let focusMode = false;
         let editingCharacterId = null;
 
-        // Map pour la navigation
+        // Map pour la navigation (Récupéré depuis scriptorium_config.js)
+        // Si le fichier config ne charge pas, on utilise une sécurité
         let pageMap = {};
 
         // ===== UTILITIES =====
@@ -272,23 +273,19 @@
             renderAll(); showToast('Action annulee');
         }
 
-        // ===== DYNAMIC NAVIGATION (CORRECTED) =====
+        // ===== DYNAMIC NAVIGATION =====
         function buildNavigation() {
             const nav = $('navSection'); if (!nav) return;
             
-            // CORRECTION ICI : Utilisation correcte de la variable
-            // Si SCRIPTORIUM_PAGES n'existe pas (fichier absent), on utilise le tableau par défaut
-            const defaultPages = [
+            // On récupère la config globale chargée via <script src="scriptorium_config.js">
+            // Si elle n'existe pas (erreur chargement), on met un fallback
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : [
                 { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
-                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
-                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
-                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
-                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
-                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
-                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' }
             ];
-
-            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            
+            // On récupère les icones globales
+            const icons = (typeof iconMap !== 'undefined') ? iconMap : {};
 
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
             const groups = {};
@@ -299,11 +296,9 @@
                 html += `<div class="nav-label">${escapeHtml(sectionName)}</div>`;
                 groups[sectionName].forEach(p => {
                     const isActive = (p.id === pageId) ? ' active' : '';
-                    const iconSvg = iconMap[p.id] || '';
-                    html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>
-                        ${escapeHtml(p.label)}
-                    </button>`;
+                    // On utilise l'icone de la config, ou rien si inconnu
+                    const iconSvg = icons[p.id] || '';
+                    html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`;
                 });
             }
             nav.innerHTML = html;
@@ -392,9 +387,8 @@
 
         // Init
         load();
-        buildNavigation(); // Appel de la fonction corrigée
+        buildNavigation();
         renderAll();
     </script>
 </body>
-
 </html>
