@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
     
-    <!-- BIBLIOTHEQUE P2P (PeerJS) -->
+    <!-- BIBLIOTHEQUE P2P -->
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <!-- CONFIG -->
     <script src="scriptorium_config.js"></script>
@@ -28,7 +28,6 @@
         }
         [data-theme="dark"] {
             --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92);
-            --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%);
             --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a;
             --accent-gold: #d4a84b; --accent-copper: #cd8c4a;
             --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2);
@@ -39,11 +38,19 @@
         * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
         body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; }
         body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
-        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        
+        /* --- SIDEBAR --- */
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s; overflow-y: auto; }
         .sidebar.hidden { transform: translateX(-100%); }
         .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
         .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
         .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
+        
+        .sidebar-actions { padding: 0.65rem 0.95rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; border-bottom: 1px solid rgba(201, 162, 39, 0.08); }
+        .sidebar-btn { display: flex; align-items: center; justify-content: center; gap: 0.22rem; padding: 0.42rem 0.45rem; background: rgba(201, 162, 39, 0.06); border: 1px solid rgba(201, 162, 39, 0.18); border-radius: 5px; color: var(--sidebar-fg); font-family: inherit; font-size: 0.7rem; cursor: pointer; transition: all 0.22s ease; }
+        .sidebar-btn:hover { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); }
+        .sidebar-btn svg { width: 11px; height: 11px; } .sidebar-btn.full-width { grid-column: 1 / -1; }
+        
         .nav-section { padding: 0.55rem 0; flex: 1; }
         .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
         .nav-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.15rem; color: var(--sidebar-fg); cursor: pointer; transition: all 0.22s ease; position: relative; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem; }
@@ -53,6 +60,7 @@
         .nav-item.active::before { transform: scaleY(1); }
         .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
         .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+
         .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
         .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
         .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
@@ -88,7 +96,6 @@
         .status-error { background: var(--error-bg); color: var(--error); border: 1px solid var(--error); }
         .status-info { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
 
-        /* Style pour le code à 5 chiffres */
         .code-display { 
             font-family: 'Spectral', serif; font-size: 2.5rem; font-weight: 700; 
             background: var(--bg-primary); padding: 1rem; border-radius: 8px; 
@@ -115,12 +122,21 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </button>
     <div class="mobile-overlay" id="mobileOverlay"></div>
+    <input type="file" id="importInput" style="display:none" accept=".json">
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo">Scriptorium</div>
             <div class="logo-subtitle">L'atelier de l'ecrivain</div>
         </div>
+        
+        <!-- BOUTONS D'ACTION RESTAURES -->
+        <div class="sidebar-actions">
+            <button class="sidebar-btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+            <button class="sidebar-btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button>
+            <button class="sidebar-btn full-width" id="undoBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/></svg>Annuler</button>
+        </div>
+
         <nav class="nav-section" id="navSection"></nav>
     </aside>
 
@@ -180,6 +196,7 @@
         const $ = id => document.getElementById(id);
         const pageId = 'connexion';
         let pageMap = {};
+        let history = [];
         const iconMap = {
             'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
             'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
@@ -218,11 +235,11 @@
             nav.innerHTML = html;
         }
         
-        // ===== THEME =====
+        // ===== THEME & UI =====
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
         
-        // ===== P2P LOGIC (Based on robust MindSync approach) =====
+        // ===== P2P LOGIC (Robuste) =====
         let peer = null;
         let conn = null;
         let receivedState = null;
@@ -235,14 +252,13 @@
             el.className = 'status-box active status-' + type;
         }
 
-        // LOGIQUE HOTE (Initiation robuste avec retry)
+        // HOST LOGIC (Génération de code avec réessai automatique)
         function initHostPeer() {
             if (peer && !peer.destroyed) peer.destroy();
             
-            showStatus('hostStatus', "Generation du code...", 'info');
+            showStatus('hostStatus', "Generation...", 'info');
             $('createBtn').disabled = true;
 
-            // Generation code 5 chiffres
             const shortId = Math.floor(10000 + Math.random() * 90000).toString();
             const myId = 'scr-' + shortId;
 
@@ -253,20 +269,25 @@
                     $('myCode').textContent = shortId;
                     $('codeArea').style.display = 'block';
                     $('createBtn').textContent = "En attente...";
-                    showStatus('hostStatus', "Pret. Communiquez le code.", 'success');
+                    showStatus('hostStatus', "Pret. Envoyez le code.", 'success');
                 });
 
                 peer.on('connection', (connection) => {
                     conn = connection;
-                    setupConnection(conn);
+                    conn.on('open', () => {
+                        showStatus('hostStatus', "Connecte ! Envoi...", 'success');
+                        const data = localStorage.getItem(getStorageKey());
+                        conn.send(data);
+                        showStatus('hostStatus', "Monde envoye !", 'success');
+                    });
+                    conn.on('close', () => showStatus('hostStatus', "Deconnecte.", 'info'));
                 });
 
                 peer.on('error', (err) => {
-                    console.error(err);
                     if (err.type === 'unavailable-id') {
-                        // Retry automatique si le code est deja pris (Logique MindSync)
+                        // Code déjà pris, on réessaie (LOGIQUE MINDSYNC)
                         showStatus('hostStatus', "Code occupe, nouvel essai...", 'info');
-                        setTimeout(initHostPeer, 100);
+                        setTimeout(initHostPeer, 200);
                     } else {
                         showStatus('hostStatus', "Erreur: " + err.type, 'error');
                         $('createBtn').disabled = false;
@@ -278,27 +299,7 @@
             }
         }
 
-        // Connexion entrante/sortante
-        function setupConnection(c) {
-            conn = c;
-            conn.on('open', () => {
-                showStatus('hostStatus', "Connecte ! Envoi...", 'success');
-                const data = localStorage.getItem(getStorageKey());
-                conn.send(data);
-                showStatus('hostStatus', "Monde envoye !", 'success');
-            });
-            conn.on('data', (data) => {
-                try {
-                    receivedState = JSON.parse(data);
-                    showStatus('clientStatus', "Recu !", 'success');
-                    $('receivedDataArea').style.display = 'block';
-                    $('joinBtn').disabled = true;
-                } catch(e) { showStatus('clientStatus', "Erreur format.", 'error'); }
-            });
-            conn.on('close', () => showStatus('hostStatus', "Deconnecte.", 'info'));
-        }
-
-        // LOGIQUE CLIENT
+        // CLIENT LOGIC
         function joinPeer() {
             let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
             if (remoteCode.length !== 5) {
@@ -308,7 +309,7 @@
 
             const remoteId = 'scr-' + remoteCode;
             
-            // Si peer n'existe pas (pas cliqué sur Generer), on en cree un generique
+            // Si pas de peer, on en crée un anonyme pour se connecter
             if (!peer || peer.destroyed) {
                 peer = new Peer(); 
                 peer.on('open', () => {
@@ -326,7 +327,7 @@
             showStatus('clientStatus', "Connexion...", 'info');
             $('joinBtn').disabled = true;
             
-            conn = peer.connect(remoteId, { reliable: true }); // Fiable pour gros JSON
+            conn = peer.connect(remoteId, { reliable: true });
             
             conn.on('open', () => showStatus('clientStatus', "Connecte ! Reception...", 'info'));
             conn.on('data', (data) => {
@@ -348,18 +349,43 @@
             }
         }
 
+        // ===== HELPERS (Export/Import/Undo) =====
+        function save() { localStorage.setItem(getStorageKey(), JSON.stringify(state)); }
+        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] };
+        function loadState() { const saved = localStorage.getItem(getStorageKey()); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; if (!state.magicTypes) state.magicTypes = []; } catch(e) {} } }
+        function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem('scriptorium_history_v4', JSON.stringify(history)); }
+        function undo() { if (history.length === 0) { alert("Rien à annuler"); return; } state = JSON.parse(history.pop()); save(); localStorage.setItem('scriptorium_history_v4', JSON.stringify(history)); alert("Action annulée"); location.reload(); }
+
         // Event Listeners
         $('createBtn').addEventListener('click', initHostPeer);
         $('joinBtn').addEventListener('click', joinPeer);
-
-        // ===== INIT =====
         $('themeToggleBtn').addEventListener('click', toggleTheme);
         $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
         $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
         
+        $('exportBtn').addEventListener('click', () => {
+            const blob = new Blob([localStorage.getItem(getStorageKey())], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = 'scriptorium_' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+        });
+        $('importBtn').addEventListener('click', () => $('importInput').click());
+        $('importInput').addEventListener('change', e => {
+            if(!e.target.files[0]) return;
+            const fr = new FileReader();
+            fr.onload = ev => { try { localStorage.setItem(getStorageKey(), ev.target.result); alert('Import réussi !'); location.reload(); } catch(e) { alert('Erreur fichier'); } };
+            fr.readAsText(e.target.files[0]);
+        });
+        $('undoBtn').addEventListener('click', undo);
+
+        // INIT
+        loadState();
         buildNavigation();
         const theme = localStorage.getItem('scriptorium_theme');
         if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
+        
+        // Load History for Undo
+        const hist = localStorage.getItem('scriptorium_history_v4');
+        if(hist) history = JSON.parse(hist);
     </script>
 </body>
 </html>
