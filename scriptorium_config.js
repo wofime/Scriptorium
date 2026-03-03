@@ -1,4 +1,4 @@
-// Configuration des pages du menu
+// Configuration des pages
 const SCRIPTORIUM_PAGES = [
     { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde', default: true },
     { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
@@ -10,7 +10,7 @@ const SCRIPTORIUM_PAGES = [
     { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
 ];
 
-// Configuration des icônes SVG (couleur blanche pour la sidebar)
+// Icônes globales
 var iconMap = {
     'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
     'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
