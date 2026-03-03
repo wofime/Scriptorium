@@ -79,7 +79,27 @@
         function load() { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; if (!state.magicTypes) state.magicTypes = []; } catch(e) { console.error(e); } } const theme = localStorage.getItem('scriptorium_theme'); if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); } }
         function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
         function undo() { if (history.length === 0) { showToast('Rien a annuler'); return; } state = JSON.parse(history.pop()); save(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); editingGlossaryId = null; $('glossaryForm').reset(); $('glossaryFormTitle').textContent = 'Nouveau terme'; $('cancelGlossaryEditBtn').style.display = 'none'; renderAll(); showToast('Action annulee'); }
-        function buildNavigation() { const nav = $('navSection'); if (!nav) return; const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : []; const icons = (typeof iconMap !== 'undefined') ? iconMap : {}; pageMap = Object.fromEntries(pages.map(p => [p.id, p])); const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); }); let html = ''; for (const sec in groups) { html += `<div class="nav-label">${escapeHtml(sec)}</div>`; groups[sec].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html; }
+        
+        // FALLBACK MENU RESTAURE
+        function buildNavigation() {
+            const nav = $('navSection'); if (!nav) return;
+            const defaultPages = [
+                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+            ];
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            const icons = (typeof iconMap !== 'undefined') ? iconMap : {};
+            pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
+            const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            let html = ''; for (const sec in groups) { html += `<div class="nav-label">${escapeHtml(sec)}</div>`; groups[sec].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html;
+        }
+        
         function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; } window.navigateTo = navigateTo;
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
