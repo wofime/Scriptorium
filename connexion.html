@@ -9,45 +9,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
     <script src="scriptorium_config.js"></script>
-    <!-- PEERJS -->
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <style>
-        :root { --bg-primary: #f4ede4; --bg-secondary: #e8dfd3; --bg-card: rgba(244, 237, 228, 0.9); --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%); --fg-primary: #2c2418; --fg-secondary: #5c4f3d; --fg-muted: #8b7d68; --accent-gold: #c9a227; --accent-copper: #b87333; --accent-sepia: #8b6914; --border-light: rgba(44, 36, 24, 0.12); --border-medium: rgba(44, 36, 24, 0.25); --shadow-warm: rgba(139, 105, 20, 0.12); --sidebar-bg: #231d15; --sidebar-fg: #e8dfd3; --input-bg: rgba(255, 255, 255, 0.75); }
-        [data-theme="dark"] { --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92); --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%); --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a; --accent-gold: #d4a84b; --accent-copper: #cd8c4a; --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2); --shadow-warm: rgba(0, 0, 0, 0.35); --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65); }
-        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
-        body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; transition: background 0.5s ease, color 0.4s ease; }
-        body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
-        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; } .sidebar.hidden { transform: translateX(-100%); }
-        .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); } .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; } .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
+        :root { --bg-primary: #f4ede4; --bg-secondary: #e8dfd3; --bg-card: rgba(244, 237, 228, 0.9); --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%); --fg-primary: #2c2418; --fg-secondary: #5c4f3d; --fg-muted: #8b7d68; --accent-gold: #c9a227; --accent-copper: #b87333; --border-light: rgba(44, 36, 24, 0.12); --border-medium: rgba(44, 36, 24, 0.25); --shadow-warm: rgba(139, 105, 20, 0.12); --sidebar-bg: #231d15; --sidebar-fg: #e8dfd3; --input-bg: rgba(255, 255, 255, 0.75); }
+        [data-theme="dark"] { --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92); --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a; --accent-gold: #d4a84b; --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65); }
+        * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; }
+        body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s; overflow-y: auto; }
+        .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); } .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
         .nav-section { padding: 0.55rem 0; flex: 1; } .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
         .nav-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.15rem; color: var(--sidebar-fg); cursor: pointer; transition: all 0.22s ease; position: relative; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem; }
-        .nav-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); transform: scaleY(0); transition: transform 0.22s ease; } .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); } .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); } .nav-item.active::before { transform: scaleY(1); }
-        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; } .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
-        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; } .main-content.expanded { margin-left: 0; }
-        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
+        .nav-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); transform: scaleY(0); transition: transform 0.22s; }
+        .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); } .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); } .nav-item.active::before { transform: scaleY(1); }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; }
+        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); transition: margin-left 0.4s; }
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); }
         .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
-        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; } .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); } .icon-btn svg { width: 14px; height: 14px; }
-        .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
-        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s; } .icon-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); }
         .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
-        .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
+        .content-body { padding: 1.25rem 1.5rem; }
         
         /* Connection Layout */
-        .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
         @media (max-width: 850px) { .connection-grid { grid-template-columns: 1fr; } }
         .connect-card { background: var(--bg-card); border-radius: 8px; padding: 1.5rem; box-shadow: 0 3px 12px var(--shadow-warm); border: 1px solid var(--border-light); }
         .connect-card h3 { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; }
         
         .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; }
         .form-input { width: 100%; padding: 0.6rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); }
         .form-input:focus { outline: none; border-color: var(--accent-gold); }
         
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.6rem 1.2rem; border: none; border-radius: 5px; font-family: 'Spectral', serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.22s; width: 100%; }
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: white; }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(201, 162, 39, 0.3); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .btn-success { background: linear-gradient(135deg, #2d5a4a, #3d7a6a); color: white; }
+        .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); margin-top: 0.5rem; }
+        .btn-success { background: #2d5a4a; color: white; }
 
         .status-box { margin-top: 1rem; padding: 0.8rem; border-radius: 5px; font-size: 0.85rem; display: none; text-align: center; }
         .status-box.active { display: block; }
@@ -55,82 +54,78 @@
         .status-error { background: rgba(139, 58, 58, 0.15); color: #8b3a3a; border: 1px solid #8b3a3a; }
         .status-info { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
 
-        .code-display { 
-            font-family: 'Spectral', serif; font-size: 2.8rem; font-weight: 700; 
-            background: var(--bg-primary); padding: 1rem; border-radius: 8px; 
-            text-align: center; border: 1px solid var(--border-medium); 
-            margin: 1rem 0; letter-spacing: 0.4em; color: var(--accent-gold);
-            user-select: all;
-        }
+        .code-display { font-family: 'Spectral', serif; font-size: 2.5rem; font-weight: 700; background: var(--bg-primary); padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid var(--border-medium); margin: 1rem 0; letter-spacing: 0.4em; color: var(--accent-gold); user-select: all; }
 
-        .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border: 1px solid rgba(201, 162, 39, 0.28); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; }
-        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 50; opacity: 0; pointer-events: none; } .mobile-overlay.active { opacity: 1; pointer-events: auto; }
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; } .mobile-menu-btn { display: flex; }
-            .mobile-overlay { display: block; }
-            .top-bar { padding: 0.5rem 0.65rem; padding-top: 3rem; }
-        }
+        /* Manual Backup Section */
+        .backup-section { background: var(--bg-card); border-radius: 8px; padding: 1.5rem; border: 1px dashed var(--border-medium); margin-top: 1rem; }
+        .backup-title { font-family: 'Spectral'; color: var(--fg-primary); margin-bottom: 1rem; font-weight: 600; }
+        .backup-textarea { width: 100%; height: 100px; font-family: monospace; font-size: 0.7rem; padding: 0.5rem; border: 1px solid var(--border-medium); border-radius: 5px; background: var(--input-bg); color: var(--fg-primary); resize: vertical; }
+
+        .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; border: none; }
+        @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .main-content { margin-left: 0; } .mobile-menu-btn { display: flex; } }
     </style>
 </head>
 <body data-theme="light" data-page="connexion">
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header"><div class="logo">Scriptorium</div><div class="logo-subtitle">L'atelier de l'ecrivain</div></div>
+        <div class="sidebar-header"><div class="logo">Scriptorium</div></div>
         <nav class="nav-section" id="navSection"></nav>
     </aside>
     <main class="main-content" id="mainContent">
-        <div class="top-bar"><div style="flex:1"></div><div class="top-actions"><button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
+        <div class="top-bar"><div style="flex:1"></div><div class="top-actions"><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
         <section class="section active">
-            <header class="content-header"><h1 class="page-title">Connexion P2P</h1><p class="page-subtitle">Partage instantane</p></header>
+            <header class="content-header"><h1 class="page-title">Connexion</h1><p class="page-subtitle">Synchronisation instantanee</p></header>
             <div class="content-body">
+                
+                <!-- P2P SECTION -->
                 <div class="connection-grid">
-                    <!-- HOST -->
                     <div class="connect-card">
-                        <h3>Partager</h3>
-                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Genere un code.</p>
-                        <button class="btn btn-primary" id="createBtn">Generer</button>
+                        <h3>Partager (Hote)</h3>
+                        <button class="btn btn-primary" id="createBtn">Generer un Code</button>
                         <div id="hostStatus" class="status-box"></div>
                         <div id="codeArea" style="display:none; margin-top:1rem;">
-                            <label class="form-label">Code</label>
+                            <label class="form-label">Code a communiquer</label>
                             <div class="code-display" id="myCode">00000</div>
                         </div>
                     </div>
-                    <!-- CLIENT -->
                     <div class="connect-card">
-                        <h3>Rejoindre</h3>
+                        <h3>Rejoindre (Client)</h3>
                         <div class="form-group">
-                            <label class="form-label">Code</label>
-                            <input type="text" id="peerIdInput" class="form-input" placeholder="5 chiffres" maxlength="5" inputmode="numeric">
+                            <input type="text" id="peerIdInput" class="form-input" placeholder="Code a 5 chiffres" maxlength="5" inputmode="numeric">
                         </div>
-                        <button class="btn btn-primary" id="joinBtn">Connexion</button>
+                        <button class="btn btn-primary" id="joinBtn">Se connecter</button>
                         <div id="clientStatus" class="status-box"></div>
                         <div id="receivedDataArea" style="display:none; margin-top:1rem;">
                             <div style="padding:1rem; background:rgba(45, 90, 74, 0.1); border-radius:5px; color:#2d5a4a; text-align:center;">
-                                <strong>Recu !</strong>
-                                <button class="btn btn-success" style="margin-top:1rem;" onclick="loadReceivedData()">Charger</button>
+                                <strong>Monde recu !</strong>
+                                <button class="btn btn-success" style="margin-top:1rem;" onclick="loadReceivedData()">Charger ce monde</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- MANUAL FALLBACK SECTION -->
+                <div class="backup-section">
+                    <h3 class="backup-title">Solution de secours (Manuel)</h3>
+                    <p style="font-size:0.85rem; color:var(--fg-secondary); margin-bottom:1rem;">Si la connexion echoue, utilisez ces boutons. Copiez le texte ci-dessous et envoyez-le a votre partenaire (email, discord...).</p>
+                    <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
+                        <button class="btn btn-secondary" style="width:auto; flex:1" onclick="manualCopy()">Copier mon monde</button>
+                        <button class="btn btn-secondary" style="width:auto; flex:1" onclick="manualPaste()">Coller un monde</button>
+                    </div>
+                    <textarea id="manualData" class="backup-textarea" placeholder="Les donnees copiees ou a coller apparaitront ici..."></textarea>
+                </div>
+
             </div>
         </section>
     </main>
     <div class="toast" id="toast"><svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="toastMessage"></span></div>
     <script>
-        // WARNING: File Protocol Check
-        if (window.location.protocol === 'file:') {
-            alert("ATTENTION : Si vous ouvrez le fichier directement (file://), la connexion ne marchera pas a cause des securites navigateur.\n\nUtilisez l'extension 'Live Server' sur VS Code ou placez les fichiers sur un serveur web.");
-        }
-
         const STORAGE_KEY = 'scriptorium_v4'; const $ = id => document.getElementById(id); const pageId = 'connexion';
-        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] }; let history = []; let focusMode = false; let receivedState = null; let pageMap = {};
-        const escapeHtml = t => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
+        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] }; let receivedState = null; let pageMap = {};
         function showToast(msg) { const t = $('toast'); $('toastMessage').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
-        function load() { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; } catch(e) { console.error(e); } } const theme = localStorage.getItem('scriptorium_theme'); if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); } }
+        function load() { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {} } const theme = localStorage.getItem('scriptorium_theme'); if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); } }
         
-        // FALLBACK MENU
+        // Navigation
         function buildNavigation() {
             const nav = $('navSection'); if (!nav) return;
             const defaultPages = [
@@ -149,44 +144,52 @@
             const icons = (typeof iconMap !== 'undefined') ? iconMap : fallbackIconMap;
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
             const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
-            let html = ''; for (const s in groups) { html += `<div class="nav-label">${escapeHtml(s)}</div>`; groups[s].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html;
+            let html = ''; for (const s in groups) { html += `<div class="nav-label">${s}</div>`; groups[s].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${icons[p.id] || ''}</svg>${p.label}</button>`; }); } nav.innerHTML = html;
         }
         function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; } window.navigateTo = navigateTo;
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
-        function toggleFocus() { focusMode = !focusMode; $('sidebar').classList.toggle('hidden', focusMode); $('mainContent').classList.toggle('expanded', focusMode); $('focusModeBtn').classList.toggle('active', focusMode); }
         
-        // ===== P2P LOGIC (ROBUST) =====
+        // ===== MANUAL BACKUP (Infaillible) =====
+        function manualCopy() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            $('manualData').value = data;
+            $('manualData').select();
+            document.execCommand('copy');
+            showToast('Monde copie ! Collez-le a votre partenaire.');
+        }
+        function manualPaste() {
+            const data = $('manualData').value;
+            if(!data) { showToast('Champ vide'); return; }
+            try {
+                JSON.parse(data); // Test validite
+                receivedState = JSON.parse(data);
+                $('clientStatus').textContent = "Donnees pretes a charger."; $('clientStatus').className = 'status-box active status-success';
+                $('receivedDataArea').style.display = 'block';
+                showToast('Donnees validees ! Cliquez sur Charger.');
+            } catch(e) {
+                $('clientStatus').textContent = "Format invalide."; $('clientStatus').className = 'status-box active status-error';
+            }
+        }
+        function loadReceivedData() {
+            if(receivedState) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(receivedState));
+                window.location.href = 'personnages.html';
+            }
+        }
+
+        // ===== P2P LOGIC =====
         let peer = null;
-        let conn = null;
-
-        // Configuration pour traverser les pare-feux (Opera/FF)
-        const peerConfig = {
-            debug: 2, // Affiche les logs dans la console (F12)
-            config: {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' },
-                    { urls: 'stun:global.stun.twilio.com:3478' }
-                ]
-            }
-        };
-
-        // 1. CREATE HOST
         $('createBtn').addEventListener('click', () => {
-            if (typeof Peer === 'undefined') {
-                alert("Erreur: Librairie non chargee.");
-                return;
-            }
+            if (typeof Peer === 'undefined') { alert("Librairie non chargee."); return; }
             if (peer) peer.destroy();
-
             const randomCode = Math.floor(10000 + Math.random() * 90000);
             const myId = 'scr-' + randomCode;
-
-            $('hostStatus').textContent = "Connexion serveur..."; $('hostStatus').className = 'status-box active status-info';
+            $('hostStatus').textContent = "Connexion..."; $('hostStatus').className = 'status-box active status-info';
             $('createBtn').disabled = true;
             
-            // Passage de la configuration robuste
-            peer = new Peer(myId, peerConfig);
+            // Simple config (Defaults are usually best for Opera)
+            peer = new Peer(myId); 
 
             peer.on('open', (id) => {
                 $('myCode').textContent = randomCode;
@@ -198,81 +201,53 @@
 
             peer.on('connection', (connection) => {
                 conn = connection;
-                // Force JSON serialization
-                conn.serialization = 'json';
-                
                 conn.on('open', () => {
-                    $('hostStatus').textContent = "Connecte ! Envoi...";
-                    const data = localStorage.getItem(STORAGE_KEY);
-                    conn.send(data);
+                    $('hostStatus').textContent = "Envoi...";
+                    conn.send(localStorage.getItem(STORAGE_KEY));
                     $('hostStatus').textContent = "Envoye !";
                 });
-                conn.on('close', () => $('hostStatus').textContent = "Deconnecte.");
-                conn.on('error', (err) => console.error("Conn error", err));
             });
 
             peer.on('error', (err) => {
-                console.error(err);
-                $('hostStatus').textContent = "Erreur: " + err.type;
+                $('hostStatus').textContent = "Erreur (voir console F12): " + err.type;
                 $('hostStatus').className = 'status-box active status-error';
                 $('createBtn').disabled = false; $('createBtn').textContent = "Reessayer";
+                console.error(err);
             });
         });
 
-        // 2. JOIN HOST
         $('joinBtn').addEventListener('click', () => {
-            if (typeof Peer === 'undefined') {
-                alert("Erreur: Librairie non chargee.");
-                return;
-            }
-
+            if (typeof Peer === 'undefined') { alert("Librairie non chargee."); return; }
             let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
-            if (remoteCode.length !== 5) {
-                $('clientStatus').textContent = "5 chiffres requis."; $('clientStatus').className = 'status-box active status-error'; return;
-            }
-
+            if (remoteCode.length !== 5) { $('clientStatus').textContent = "Code 5 chiffres requis."; $('clientStatus').className = 'status-box active status-error'; return; }
             const remoteId = 'scr-' + remoteCode;
             if (peer) peer.destroy();
-
-            $('clientStatus').textContent = "Tentative..."; $('clientStatus').className = 'status-box active status-info';
+            
+            $('clientStatus').textContent = "Recherche..."; $('clientStatus').className = 'status-box active status-info';
             $('joinBtn').disabled = true;
 
-            peer = new Peer(peerConfig); // Use robust config
-            
+            peer = new Peer();
             peer.on('open', () => {
-                conn = peer.connect(remoteId, { reliable: true });
-                conn.serialization = 'json'; // Force JSON
-
-                conn.on('open', () => $('clientStatus').textContent = "Connecte ! Attente...");
+                conn = peer.connect(remoteId);
+                conn.on('open', () => $('clientStatus').textContent = "Connecte...");
                 conn.on('data', (data) => {
                     try {
-                        // Handle string or object
                         receivedState = (typeof data === 'string') ? JSON.parse(data) : data;
                         $('clientStatus').textContent = "Recu !";
                         $('clientStatus').className = 'status-box active status-success';
                         $('receivedDataArea').style.display = 'block';
-                    } catch(e) { $('clientStatus').textContent = "Erreur format."; $('clientStatus').className = 'status-box active status-error'; }
+                    } catch(e) { $('clientStatus').textContent = "Erreur format."; }
                 });
-                conn.on('close', () => $('clientStatus').textContent = "Ferme.");
             });
-            
             peer.on('error', (err) => {
-                console.error(err);
-                if(err.type === 'peer-unavailable') $('clientStatus').textContent = "Code invalide ou hote offline.";
-                else $('clientStatus').textContent = "Erreur: " + err.type;
+                $('clientStatus').textContent = "Erreur: " + (err.type === 'peer-unavailable' ? "Code introuvable" : err.type);
                 $('clientStatus').className = 'status-box active status-error';
                 $('joinBtn').disabled = false;
             });
         });
 
-        function loadReceivedData() {
-            if(receivedState) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(receivedState));
-                window.location.href = 'personnages.html';
-            }
-        }
-
-        $('themeToggleBtn').addEventListener('click', toggleTheme); $('focusModeBtn').addEventListener('click', toggleFocus); $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open')); $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        $('themeToggleBtn').addEventListener('click', toggleTheme);
+        $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
         load(); buildNavigation();
     </script>
 </body>
