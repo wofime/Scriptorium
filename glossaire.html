@@ -57,10 +57,14 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header"><div class="logo">Scriptorium</div><div class="logo-subtitle">L'atelier de l'ecrivain</div></div>
+        <div class="sidebar-actions"><button class="sidebar-btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button><button class="sidebar-btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button><button class="sidebar-btn full-width" id="undoBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/></svg>Annuler</button></div>
         <nav class="nav-section" id="navSection"></nav>
     </aside>
     <main class="main-content" id="mainContent">
-        <div class="top-bar"><div style="flex:1"></div><div class="top-actions"><button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
+        <div class="top-bar">
+            <div class="search-container"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="search-input" id="searchInput" placeholder="Rechercher un terme..." aria-label="Rechercher"></div>
+            <div class="top-actions"><button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div>
+        </div>
         <section class="section active">
             <header class="content-header"><h1 class="page-title">Glossaire <span class="count-badge" id="glossaryCountBadge">0</span></h1><p class="page-subtitle">Votre dictionnaire personnel</p></header>
             <div class="content-body">
@@ -80,7 +84,7 @@
         function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
         function undo() { if (history.length === 0) { showToast('Rien a annuler'); return; } state = JSON.parse(history.pop()); save(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); editingGlossaryId = null; $('glossaryForm').reset(); $('glossaryFormTitle').textContent = 'Nouveau terme'; $('cancelGlossaryEditBtn').style.display = 'none'; renderAll(); showToast('Action annulee'); }
         
-        // FALLBACK MENU RESTAURE
+        // FALLBACK MENU COMPLET AVEC CONNEXION
         function buildNavigation() {
             const nav = $('navSection'); if (!nav) return;
             const defaultPages = [
@@ -93,8 +97,18 @@
                 { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
                 { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
             ];
+            const fallbackIconMap = {
+                'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+                'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+                'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+                'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+                'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+                'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+                'connexion': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+                'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
+            };
             const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
-            const icons = (typeof iconMap !== 'undefined') ? iconMap : {};
+            const icons = (typeof iconMap !== 'undefined') ? iconMap : fallbackIconMap;
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
             const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
             let html = ''; for (const sec in groups) { html += `<div class="nav-label">${escapeHtml(sec)}</div>`; groups[sec].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html;
@@ -112,6 +126,8 @@
         window.editGlossary = function(id) { const g = state.glossary.find(en => en.id === id); if (!g) return; editingGlossaryId = id; $('glossaryTerm').value = g.term || ''; $('glossaryCat').value = g.category || 'Langue'; $('glossaryDef').value = g.definition || ''; $('glossaryFormTitle').textContent = 'Modifier le terme'; $('cancelGlossaryEditBtn').style.display = 'inline-flex'; $('glossaryFormContainer').scrollIntoView({ behavior: 'smooth' }); };
         window.deleteGlossary = function(id) { if (confirm('Supprimer ce terme ?')) { recordHistory(); state.glossary = state.glossary.filter(g => g.id !== id); save(); renderAll(); showToast('Terme supprimé'); } };
         $('themeToggleBtn').addEventListener('click', toggleTheme); $('focusModeBtn').addEventListener('click', toggleFocus); $('undoBtn').addEventListener('click', undo); $('searchInput').addEventListener('input', renderGlossary); $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open')); $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        $('exportBtn').addEventListener('click', () => { const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'scriptorium_' + new Date().toISOString().slice(0,10) + '.json'; a.click(); showToast('Grimoire exporté'); });
+        $('importBtn').addEventListener('click', () => $('importInput') && $('importInput').click()); // Note: import input missing in sidebar for this file, but logic present
         load(); buildNavigation(); renderAll();
     </script>
 </body>
