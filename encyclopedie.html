@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scriptorium - Encyclopédie</title>
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/wofime/Scriptorium/main/logo%20Scriptorium.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
+    
+    <!-- CHARGEMENT DE LA CONFIG -->
+    <script src="scriptorium_config.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #f4ede4; --bg-secondary: #e8dfd3; --bg-card: rgba(244, 237, 228, 0.9);
+            --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%);
+            --fg-primary: #2c2418; --fg-secondary: #5c4f3d; --fg-muted: #8b7d68;
+            --accent-gold: #c9a227; --accent-copper: #b87333; --accent-sepia: #8b6914;
+            --border-light: rgba(44, 36, 24, 0.12); --border-medium: rgba(44, 36, 24, 0.25);
+            --shadow-warm: rgba(139, 105, 20, 0.12); --sidebar-bg: #231d15; --sidebar-fg: #e8dfd3;
+            --input-bg: rgba(255, 255, 255, 0.75);
+            --cat-race: #7a5c3e; --cat-race-bg: rgba(122, 92, 62, 0.12);
+            --cat-langue: #3e5c7a; --cat-langue-bg: rgba(62, 92, 122, 0.12);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92);
+            --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%);
+            --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a;
+            --accent-gold: #d4a84b; --accent-copper: #cd8c4a;
+            --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2);
+            --shadow-warm: rgba(0, 0, 0, 0.35); --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65);
+            --cat-race: #b8966a; --cat-race-bg: rgba(184, 150, 106, 0.15);
+            --cat-langue: #6a8ab8; --cat-langue-bg: rgba(106, 138, 184, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; transition: background 0.5s ease, color 0.4s ease; }
+        body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .sidebar.hidden { transform: translateX(-100%); }
+        .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
+        .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
+        .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
+        .sidebar-actions { padding: 0.65rem 0.95rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; border-bottom: 1px solid rgba(201, 162, 39, 0.08); }
+        .sidebar-btn { display: flex; align-items: center; justify-content: center; gap: 0.22rem; padding: 0.42rem 0.45rem; background: rgba(201, 162, 39, 0.06); border: 1px solid rgba(201, 162, 39, 0.18); border-radius: 5px; color: var(--sidebar-fg); font-family: inherit; font-size: 0.7rem; cursor: pointer; transition: all 0.22s ease; }
+        .sidebar-btn:hover { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); }
+        .sidebar-btn svg { width: 11px; height: 11px; } .sidebar-btn.full-width { grid-column: 1 / -1; }
+        .nav-section { padding: 0.55rem 0; flex: 1; }
+        .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
+        .nav-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.15rem; color: var(--sidebar-fg); cursor: pointer; transition: all 0.22s ease; position: relative; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem; }
+        .nav-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); transform: scaleY(0); transition: transform 0.22s ease; }
+        .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
+        .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
+        .nav-item.active::before { transform: scaleY(1); }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
+        .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
+        .main-content.expanded { margin-left: 0; }
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
+        .search-container { position: relative; flex: 1; max-width: 300px; }
+        .search-input { width: 100%; padding: 0.42rem 0.7rem 0.42rem 1.9rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); transition: all 0.22s ease; }
+        .search-input:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08); }
+        .search-input::placeholder { color: var(--fg-muted); font-style: italic; }
+        .search-icon { position: absolute; left: 0.68rem; top: 50%; transform: translateY(-50%); width: 11px; height: 11px; color: var(--fg-muted); }
+        .top-actions { display: flex; gap: 0.3rem; }
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; }
+        .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn.active { background: rgba(201, 162, 39, 0.12); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn svg { width: 14px; height: 14px; }
+        .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
+        .count-badge { background: rgba(201, 162, 39, 0.1); color: var(--accent-sepia); font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 12px; vertical-align: middle; font-family: 'Spectral', serif; }
+        .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
+        .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
+        .form-container { background: var(--bg-form); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.35rem; box-shadow: 0 3px 12px var(--shadow-warm); backdrop-filter: blur(10px); transition: opacity 0.28s ease, transform 0.28s ease; overflow: hidden; }
+        .form-container.hidden { opacity: 0; transform: translateY(-8px); height: 0; padding: 0; margin: 0; border-width: 0; }
+        .form-title { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--fg-primary); margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border-light); }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.7rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.22rem; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-label { font-size: 0.65rem; font-weight: 500; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
+        .form-input, .form-textarea, .form-select { padding: 0.48rem 0.68rem; border: 1px solid var(--border-medium); border-radius: 5px; background: var(--input-bg); font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); transition: all 0.22s ease; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08); }
+        .form-textarea { min-height: 60px; resize: vertical; line-height: 1.42; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.28rem; padding: 0.52rem 1rem; border: none; border-radius: 5px; font-family: 'Spectral', serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.22s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-copper) 100%); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.28); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(201, 162, 39, 0.35); }
+        .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); }
+        .btn-secondary:hover { background: rgba(44, 36, 24, 0.04); }
+        [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
+        .secret-section { background: rgba(139, 105, 20, 0.05); border: 1px dashed rgba(201, 162, 39, 0.22); border-radius: 5px; padding: 0.7rem; margin-top: 0.45rem; display: flex; flex-direction: column; gap: 0.22rem; }
+        .secret-section .form-label { color: var(--accent-sepia); }
+        .encyclopedia-list, .glossary-list { display: flex; flex-direction: column; gap: 0.55rem; }
+        .encyclopedia-item, .glossary-item { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 0.8rem 0.95rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        .encyclopedia-content, .glossary-content { flex: 1; }
+        .encyclopedia-title, .glossary-term { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--accent-gold); }
+        .encyclopedia-cat { display: inline-block; padding: 0.08rem 0.38rem; border-radius: 3px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; margin-left: 0.35rem; }
+        .encyclopedia-cat.race { background: var(--cat-race-bg); color: var(--cat-race); }
+        .encyclopedia-cat.langue { background: var(--cat-langue-bg); color: var(--cat-langue); }
+        .encyclopedia-desc, .glossary-def { color: var(--fg-secondary); font-size: 0.85rem; margin-top: 0.3rem; line-height: 1.42; white-space: pre-line; }
+        .empty-state { text-align: center; padding: 2rem 1.3rem; color: var(--fg-muted); }
+        .empty-icon { width: 42px; height: 42px; margin: 0 auto 0.8rem; opacity: 0.35; }
+        .empty-title { font-family: 'Spectral', serif; font-size: 1.05rem; color: var(--fg-secondary); margin-bottom: 0.22rem; }
+        .empty-text { font-size: 0.85rem; max-width: 230px; margin: 0 auto; }
+        .toast { position: fixed; bottom: 1rem; right: 1rem; padding: 0.65rem 0.9rem; background: var(--sidebar-bg); color: var(--sidebar-fg); border-radius: 5px; border-left: 3px solid var(--accent-gold); box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28); transform: translateX(150%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; display: flex; align-items: center; gap: 0.38rem; font-size: 0.85rem; }
+        .toast.show { transform: translateX(0); }
+        .toast-icon { width: 13px; height: 13px; color: var(--accent-gold); }
+        .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border: 1px solid rgba(201, 162, 39, 0.28); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; }
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 50; opacity: 0; pointer-events: none; }
+        .mobile-overlay.active { opacity: 1; pointer-events: auto; }
+        .hidden-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; } .mobile-menu-btn { display: flex; }
+            .mobile-overlay { display: block; }
+            .top-bar { padding: 0.5rem 0.65rem; padding-top: 3rem; }
+            .content-header { padding: 1rem 0.85rem; } .content-body { padding: 1rem 0.85rem; }
+            .top-actions { position: fixed; top: 0.5rem; right: 0.5rem; z-index: 60; }
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--fg-muted); border-radius: 2px; }
+    </style>
+</head>
+<body data-theme="light" data-page="encyclopedie">
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <input type="file" id="importInput" class="hidden-input" accept=".json">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Scriptorium</div>
+            <div class="logo-subtitle">L'atelier de l'ecrivain</div>
+        </div>
+
+        <div class="sidebar-actions">
+            <button class="sidebar-btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+            <button class="sidebar-btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button>
+            <button class="sidebar-btn full-width" id="undoBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/></svg>Annuler</button>
+        </div>
+
+        <!-- MENU GENERE ICI -->
+        <nav class="nav-section" id="navSection"></nav>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <div class="top-bar">
+            <div class="search-container">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="Rechercher une fiche..." aria-label="Rechercher">
+            </div>
+            <div class="top-actions">
+                <button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
+                <button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button>
+                <button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+            </div>
+        </div>
+
+        <section class="section active" id="encyclopediaSection">
+            <header class="content-header">
+                <h1 class="page-title">Encyclopédie <span class="count-badge" id="encyclopediaCountBadge">0</span></h1>
+                <p class="page-subtitle">Savoirs et traditions</p>
+            </header>
+            <div class="content-body">
+                <div class="form-container" id="encyclopediaFormContainer">
+                    <h2 class="form-title" id="encyclopediaFormTitle">Nouvelle fiche</h2>
+                    <form id="encyclopediaForm" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Titre</label>
+                            <input type="text" id="encyTitle" class="form-input" placeholder="Titre de la fiche">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categorie</label>
+                            <select id="encyCategory" class="form-select">
+                                <option value="race">Race / Peuple</option>
+                                <option value="langue">Langue</option>
+                                <option value="histoire">Histoire</option>
+                                <option value="culture">Culture</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Description</label>
+                            <textarea id="encyDescription" class="form-textarea" placeholder="Details historiques, coutumes..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <div class="secret-section">
+                                <label class="form-label">Zone secrete (optionnel)</label>
+                                <textarea id="encySecret" class="form-textarea" placeholder="Verites caches..." style="min-height:48px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="cancelEncyEditBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="encyclopedia-list" id="encyclopediaList"></div>
+                <div class="empty-state" id="encyclopediaEmpty">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <h3 class="empty-title">Encyclopédie vide</h3>
+                    <p class="empty-text">Documentez votre monde.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast"><svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="toastMessage"></span></div>
+
+    <script>
+        // ===== CONFIG & STATE =====
+        const STORAGE_KEY = 'scriptorium_v4';
+        const HISTORY_KEY = 'scriptorium_history_v4';
+        const $ = id => document.getElementById(id);
+        const pageId = document.body.dataset.page; // "encyclopedie"
+
+        let state = {
+            characters: [], places: [], objects: [], encyclopedia: [],
+            glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]
+        };
+        let history = [];
+        let hideSecrets = true;
+        let focusMode = false;
+        let editingEncyclopediaId = null;
+
+        // Map pour la navigation
+        let pageMap = {};
+        // Map pour les icônes SVG
+        const iconMap = {
+            'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+            'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+            'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+            'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+            'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+            'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+            'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
+        };
+
+        // ===== UTILITIES =====
+        const escapeHtml = t => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
+        const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
+
+        function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        function showToast(msg) { const t = $('toast'); $('toastMessage').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+
+        function load() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) { try { state = { ...state, ...JSON.parse(saved) }; if (!state.magicTypes) state.magicTypes = []; } catch(e) { console.error(e); } }
+            const theme = localStorage.getItem('scriptorium_theme');
+            if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
+        }
+
+        function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
+        function undo() {
+            if (history.length === 0) { showToast('Rien a annuler'); return; }
+            state = JSON.parse(history.pop()); save(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            editingEncyclopediaId = null; $('encyclopediaForm').reset(); $('encyclopediaFormTitle').textContent = 'Nouvelle fiche'; $('cancelEncyEditBtn').style.display = 'none';
+            renderAll(); showToast('Action annulee');
+        }
+
+        // ===== DYNAMIC NAVIGATION =====
+        function buildNavigation() {
+            const nav = $('navSection'); if (!nav) return;
+            const defaultPages = [
+                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+            ];
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
+            const groups = {};
+            pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            let html = '';
+            for (const sectionName in groups) {
+                html += `<div class="nav-label">${escapeHtml(sectionName)}</div>`;
+                groups[sectionName].forEach(p => {
+                    const isActive = (p.id === pageId) ? ' active' : '';
+                    const iconSvg = iconMap[p.id] || '';
+                    html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`;
+                });
+            }
+            nav.innerHTML = html;
+        }
+        
+        function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; else if(id) window.location.href = id + '.html'; }
+        window.navigateTo = navigateTo;
+
+        // ===== THEME & UI =====
+        function updateThemeIcon(theme) {
+            const icon = $('themeIcon');
+            icon.innerHTML = theme === 'dark'
+                ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+                : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+        function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
+        function toggleFocus() { focusMode = !focusMode; $('sidebar').classList.toggle('hidden', focusMode); $('mainContent').classList.toggle('expanded', focusMode); $('focusModeBtn').classList.toggle('active', focusMode); $('encyclopediaFormContainer').classList.toggle('hidden', focusMode); }
+        function toggleSecrets() { hideSecrets = !hideSecrets; $('secretsToggleBtn').classList.toggle('active', hideSecrets); renderEncyclopedia(); }
+
+        // ===== STATS =====
+        function updateStats() { $('encyclopediaCountBadge').textContent = state.encyclopedia.length; }
+
+        // ===== HELPERS =====
+        function createSecretBlock(secret) {
+            if (!secret || !secret.trim()) return null;
+            const block = document.createElement('div');
+            block.className = 'secret-block has-secret' + (hideSecrets ? ' is-blurred' : '');
+            block.innerHTML = '<p class="card-text">' + escapeHtml(secret) + '</p>';
+            if (hideSecrets) block.addEventListener('click', () => block.classList.add('revealed'));
+            return block;
+        }
+
+        // ===== RENDER =====
+        function renderEncyclopedia() {
+            const list = $('encyclopediaList'); if (!list) return;
+            const empty = $('encyclopediaEmpty');
+            const q = $('searchInput').value.toLowerCase();
+            const filtered = state.encyclopedia.filter(e => (e.title||'').toLowerCase().includes(q) || (e.category||'').toLowerCase().includes(q) || (e.description||'').toLowerCase().includes(q));
+            list.innerHTML = ''; empty.style.display = filtered.length ? 'none' : 'block';
+
+            filtered.forEach(e => {
+                const item = document.createElement('div'); item.className='encyclopedia-item';
+                let html = '<div class="encyclopedia-content"><span class="encyclopedia-title">' + escapeHtml(e.title || 'Sans titre') + '</span><span class="encyclopedia-cat ' + (e.category || '') + '">' + escapeHtml(e.category || '') + '</span>' + (e.description ? '<p class="encyclopedia-desc">' + escapeHtml(e.description) + '</p>' : '') + '</div><div><button class="btn btn-icon btn-secondary" onclick="editEncyclopedia(\'' + e.id + '\')" title="Modifier"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-icon btn-danger" onclick="deleteEncyclopedia(\'' + e.id + '\')" title="Supprimer"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div>';
+                item.innerHTML = html;
+                if (e.secret && e.secret.trim()) { const sb = createSecretBlock(e.secret); if (sb) item.querySelector('.encyclopedia-content').appendChild(sb); }
+                list.appendChild(item);
+            });
+        }
+        function renderAll() { renderEncyclopedia(); updateStats(); }
+
+        // ===== FORM LOGIC =====
+        $('encyclopediaForm').addEventListener('submit', e => {
+            e.preventDefault(); recordHistory();
+            const en = { id: editingEncyclopediaId || generateId(), title: $('encyTitle').value.trim(), category: $('encyCategory').value, description: $('encyDescription').value.trim(), secret: $('encySecret').value.trim() };
+            if (editingEncyclopediaId) { const idx = state.encyclopedia.findIndex(e => e.id === editingEncyclopediaId); if (idx !== -1) state.encyclopedia[idx] = en; }
+            else { state.encyclopedia.push(en); }
+            save(); renderAll(); e.target.reset(); editingEncyclopediaId = null;
+            $('encyclopediaFormTitle').textContent = 'Nouvelle fiche';
+            $('cancelEncyEditBtn').style.display = 'none';
+            showToast(editingEncyclopediaId ? 'Fiche modifiée' : 'Fiche ajoutée');
+        });
+        $('cancelEncyEditBtn').addEventListener('click', () => { $('encyclopediaForm').reset(); editingEncyclopediaId = null; $('encyclopediaFormTitle').textContent = 'Nouvelle fiche'; $('cancelEncyEditBtn').style.display = 'none'; });
+
+        window.editEncyclopedia = function(id) {
+            const e = state.encyclopedia.find(en => en.id === id);
+            if (!e) return;
+            editingEncyclopediaId = id;
+            $('encyTitle').value = e.title || '';
+            $('encyCategory').value = e.category || 'race';
+            $('encyDescription').value = e.description || '';
+            $('encySecret').value = e.secret || '';
+            $('encyclopediaFormTitle').textContent = 'Modifier la fiche';
+            $('cancelEncyEditBtn').style.display = 'inline-flex';
+            $('encyclopediaFormContainer').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.deleteEncyclopedia = function(id) { 
+            if (confirm('Supprimer cette fiche ?')) { 
+                recordHistory(); 
+                state.encyclopedia = state.encyclopedia.filter(e => e.id !== id); 
+                save(); renderAll(); showToast('Fiche supprimée'); 
+            } 
+        };
+
+        // ===== COMMON EVENTS =====
+        $('themeToggleBtn').addEventListener('click', toggleTheme);
+        $('focusModeBtn').addEventListener('click', toggleFocus);
+        $('secretsToggleBtn').addEventListener('click', toggleSecrets);
+        $('undoBtn').addEventListener('click', undo);
+        $('searchInput').addEventListener('input', renderEncyclopedia);
+        $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
+        $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        
+        // Export/Import
+        $('exportBtn').addEventListener('click', () => { const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'scriptorium_' + new Date().toISOString().slice(0,10) + '.json'; a.click(); showToast('Grimoire exporté'); });
+        $('importBtn').addEventListener('click', () => $('importInput').click());
+        $('importInput').addEventListener('change', e => { if (!e.target.files[0]) return; const fr = new FileReader(); fr.onload = ev => { try { state = { ...state, ...JSON.parse(ev.target.result) }; save(); renderAll(); showToast('Grimoire importé'); } catch(_) { showToast('Erreur d\'import'); } }; fr.readAsText(e.target.files[0]); });
+
+        // Init
+        load();
+        buildNavigation();
+        renderAll();
+    </script>
+</body>
+</html>

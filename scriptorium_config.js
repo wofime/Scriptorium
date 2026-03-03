@@ -1,0 +1,12 @@
+// Configuration du menu
+const SCRIPTORIUM_PAGES = [
+    { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde', default: true },
+    { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+    { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+    { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+    { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+    { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+    // Nouvelle section Partage
+    { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+    { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+];

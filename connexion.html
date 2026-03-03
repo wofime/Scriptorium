@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scriptorium - Connexion P2P</title>
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/wofime/Scriptorium/main/logo%20Scriptorium.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
+    
+    <!-- BIBLIOTHEQUE P2P (PeerJS) -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <!-- CONFIG -->
+    <script src="scriptorium_config.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #f4ede4; --bg-secondary: #e8dfd3; --bg-card: rgba(244, 237, 228, 0.9);
+            --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%);
+            --fg-primary: #2c2418; --fg-secondary: #5c4f3d; --fg-muted: #8b7d68;
+            --accent-gold: #c9a227; --accent-copper: #b87333; --accent-sepia: #8b6914;
+            --border-light: rgba(44, 36, 24, 0.12); --border-medium: rgba(44, 36, 24, 0.25);
+            --shadow-warm: rgba(139, 105, 20, 0.12); --sidebar-bg: #231d15; --sidebar-fg: #e8dfd3;
+            --input-bg: rgba(255, 255, 255, 0.75);
+            --success: #2d5a4a; --success-bg: rgba(45, 90, 74, 0.15);
+            --error: #8b3a3a; --error-bg: rgba(139, 58, 58, 0.15);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92);
+            --bg-form: linear-gradient(135deg, rgba(45, 40, 33, 0.85) 0%, rgba(35, 30, 25, 0.92) 100%);
+            --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a;
+            --accent-gold: #d4a84b; --accent-copper: #cd8c4a;
+            --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2);
+            --shadow-warm: rgba(0, 0, 0, 0.35); --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65);
+            --success: #4a9a7a; --success-bg: rgba(74, 154, 122, 0.15);
+            --error: #c45c5c; --error-bg: rgba(196, 92, 92, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; }
+        body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .sidebar.hidden { transform: translateX(-100%); }
+        .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
+        .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
+        .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
+        .nav-section { padding: 0.55rem 0; flex: 1; }
+        .nav-label { padding: 0.32rem 1.15rem; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--fg-muted); margin-top: 0.35rem; }
+        .nav-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.15rem; color: var(--sidebar-fg); cursor: pointer; transition: all 0.22s ease; position: relative; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; font-size: 0.85rem; }
+        .nav-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-gold); transform: scaleY(0); transition: transform 0.22s ease; }
+        .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
+        .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
+        .nav-item.active::before { transform: scaleY(1); }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
+        .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+        .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
+        .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; }
+        .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
+        .icon-btn svg { width: 14px; height: 14px; }
+        .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
+        .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
+        .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
+        
+        /* Specific Styles for Connection Page */
+        .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 768px) { .connection-grid { grid-template-columns: 1fr; } }
+        
+        .connect-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; box-shadow: 0 3px 12px var(--shadow-warm); }
+        .connect-card h3 { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; }
+        
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-input { width: 100%; padding: 0.6rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-primary); font-family: inherit; font-size: 1rem; }
+        .form-input:focus { outline: none; border-color: var(--accent-gold); }
+        
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.6rem 1.2rem; border: none; border-radius: 5px; font-family: 'Spectral', serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.22s; width: 100%; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.2); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(201, 162, 39, 0.3); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-success { background: var(--success); color: white; }
+
+        .status-box { margin-top: 1rem; padding: 0.8rem; border-radius: 5px; font-size: 0.85rem; display: none; }
+        .status-box.active { display: block; }
+        .status-success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
+        .status-error { background: var(--error-bg); color: var(--error); border: 1px solid var(--error); }
+        .status-info { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+
+        /* Style pour le code à 5 chiffres */
+        .code-display { 
+            font-family: 'Spectral', serif; font-size: 2.5rem; font-weight: 700; 
+            background: var(--bg-primary); padding: 1rem; border-radius: 8px; 
+            text-align: center; border: 1px solid var(--accent-gold); 
+            margin: 1rem 0; letter-spacing: 0.5em; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            user-select: all;
+        }
+
+        .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; border: none; }
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; }
+        
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+            .mobile-menu-btn { display: flex; }
+            .mobile-overlay.active { display: block; }
+            .top-bar { padding-top: 3rem; }
+        }
+    </style>
+</head>
+<body data-theme="light" data-page="connexion">
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Scriptorium</div>
+            <div class="logo-subtitle">L'atelier de l'ecrivain</div>
+        </div>
+        <nav class="nav-section" id="navSection"></nav>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <div class="top-bar">
+            <div style="flex:1"></div>
+            <div class="top-actions">
+                <button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+            </div>
+        </div>
+
+        <section class="section active">
+            <header class="content-header">
+                <h1 class="page-title">Connexion P2P</h1>
+                <p class="page-subtitle">Partagez votre monde avec un autre appareil en direct</p>
+            </header>
+            <div class="content-body">
+                <div class="connection-grid">
+                    <!-- HOST SIDE -->
+                    <div class="connect-card">
+                        <h3>Partager mon monde</h3>
+                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Generer un code simple a communiquer.</p>
+                        <button class="btn btn-primary" id="createBtn">Generer un Code</button>
+                        <div id="hostStatus" class="status-box"></div>
+                        <div id="codeArea" style="display:none; margin-top:1rem;">
+                            <label class="form-label">Votre code partenaire</label>
+                            <div class="code-display" id="myCode">00000</div>
+                            <div style="font-size:0.8rem; color:var(--fg-muted); text-align:center;">Communiquez ces 5 chiffres a votre partenaire.</div>
+                        </div>
+                    </div>
+
+                    <!-- CLIENT SIDE -->
+                    <div class="connect-card">
+                        <h3>Rejoindre un monde</h3>
+                        <p style="font-size:0.9rem; color:var(--fg-secondary); margin-bottom:1rem;">Entrez le code a 5 chiffres recu.</p>
+                        <div class="form-group">
+                            <label class="form-label">Code partenaire</label>
+                            <input type="text" id="peerIdInput" class="form-input" placeholder="Ex: 48291" maxlength="5" inputmode="numeric" pattern="[0-9]*">
+                        </div>
+                        <button class="btn btn-primary" id="joinBtn">Se connecter</button>
+                        <div id="clientStatus" class="status-box"></div>
+                        <div id="receivedDataArea" style="display:none; margin-top:1rem;">
+                            <div style="padding:1rem; background:var(--success-bg); border-radius:5px; color:var(--success); text-align:center;">
+                                <strong>Monde reçu !</strong>
+                                <div id="receivedStats" style="font-size:0.9rem; margin-top:0.3rem;"></div>
+                                <button class="btn btn-success" style="margin-top:1rem;" onclick="loadReceivedData()">Explorer ce monde</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // ===== CONFIG & NAVIGATION =====
+        const $ = id => document.getElementById(id);
+        const pageId = 'connexion';
+        let pageMap = {};
+        const iconMap = {
+            'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+            'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+            'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+            'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+            'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+            'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+            'connexion': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+            'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
+        };
+
+        function buildNavigation() {
+            const nav = $('navSection'); if(!nav) return;
+            const defaultPages = [
+                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+            ];
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
+            const groups = {};
+            pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            let html = '';
+            for (const sec in groups) {
+                html += `<div class="nav-label">${sec}</div>`;
+                groups[sec].forEach(p => {
+                    const isActive = (p.id === pageId) ? ' active' : '';
+                    html += `<button class="nav-item${isActive}" onclick="window.location.href='${p.file}'"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconMap[p.id] || ''}</svg>${p.label}</button>`;
+                });
+            }
+            nav.innerHTML = html;
+        }
+        
+        function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; }
+        window.navigateTo = navigateTo;
+
+        // ===== THEME & UI =====
+        function updateThemeIcon(theme) {
+            const icon = $('themeIcon');
+            icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+        function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
+        
+        // ===== P2P LOGIC =====
+        let peer = null;
+        let conn = null;
+        let receivedState = null;
+
+        function getStorageKey() { return 'scriptorium_v4'; }
+
+        function showStatus(elId, msg, type) {
+            const el = $(elId);
+            el.textContent = msg;
+            el.className = 'status-box active status-' + type;
+        }
+
+        // HOST LOGIC
+        $('createBtn').addEventListener('click', () => {
+            if (peer) peer.destroy();
+            
+            // Génération d'un code à 5 chiffres (10000 à 99999)
+            const randomCode = Math.floor(10000 + Math.random() * 90000);
+            const myId = 'scr-' + randomCode; // Préfixe 'scr-' pour éviter les conflits avec d'autres utilisateurs PeerJS
+            
+            peer = new Peer(myId);
+
+            peer.on('open', (id) => {
+                // On affiche juste les chiffres
+                $('myCode').textContent = randomCode; 
+                $('codeArea').style.display = 'block';
+                $('createBtn').disabled = true;
+                $('createBtn').textContent = "En attente...";
+                showStatus('hostStatus', "Pret. Envoyez les 5 chiffres.", 'info');
+            });
+
+            peer.on('connection', (connection) => {
+                conn = connection;
+                conn.on('open', () => {
+                    showStatus('hostStatus', "Partenaire connecte ! Envoi en cours...", 'success');
+                    const data = localStorage.getItem(getStorageKey());
+                    conn.send(data);
+                    showStatus('hostStatus', "Donnees envoyees avec succes !", 'success');
+                });
+                conn.on('close', () => showStatus('hostStatus', "Partenaire deconnecte.", 'info'));
+            });
+
+            peer.on('error', (err) => {
+                showStatus('hostStatus', "Erreur: " + err.type, 'error');
+                $('createBtn').disabled = false;
+                $('createBtn').textContent = "Reessayer";
+            });
+        });
+
+        // CLIENT LOGIC
+        $('joinBtn').addEventListener('click', () => {
+            let remoteCode = $('peerIdInput').value.trim();
+            // Nettoyage : on garde que les chiffres
+            remoteCode = remoteCode.replace(/\D/g,'');
+            if (remoteCode.length !== 5) {
+                showStatus('clientStatus', "Le code doit contenir 5 chiffres.", 'error');
+                return;
+            }
+
+            const remoteId = 'scr-' + remoteCode; // On rajoute le préfixe pour l'ID PeerJS
+
+            if (peer) peer.destroy();
+            peer = new Peer(); 
+
+            peer.on('open', () => {
+                conn = peer.connect(remoteId);
+                
+                conn.on('open', () => {
+                    showStatus('clientStatus', "Connecte ! Reception...", 'info');
+                });
+
+                conn.on('data', (data) => {
+                    try {
+                        receivedState = JSON.parse(data);
+                        showStatus('clientStatus', "Synchronisation reussie !", 'success');
+                        
+                        const stats = `Personnages: ${(receivedState.characters||[]).length}, Lieux: ${(receivedState.places||[]).length}`;
+                        $('receivedStats').textContent = stats;
+                        $('receivedDataArea').style.display = 'block';
+                        $('joinBtn').disabled = true;
+                    } catch(e) {
+                        showStatus('clientStatus', "Erreur de reception.", 'error');
+                    }
+                });
+                
+                conn.on('close', () => showStatus('clientStatus', "Connexion fermee.", 'info'));
+            });
+
+            peer.on('error', (err) => {
+                if(err.type === 'peer-unavailable') {
+                     showStatus('clientStatus', "Code invalide ou hote deconnecte.", 'error');
+                } else {
+                     showStatus('clientStatus', "Erreur de connexion.", 'error');
+                }
+            });
+        });
+
+        function loadReceivedData() {
+            if(receivedState) {
+                localStorage.setItem(getStorageKey(), JSON.stringify(receivedState));
+                window.location.href = 'personnages.html';
+            }
+        }
+
+        // ===== INIT =====
+        $('themeToggleBtn').addEventListener('click', toggleTheme);
+        $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
+        $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        
+        buildNavigation();
+        const theme = localStorage.getItem('scriptorium_theme');
+        if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
+    </script>
+</body>
+</html>
