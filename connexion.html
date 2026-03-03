@@ -218,14 +218,11 @@
             nav.innerHTML = html;
         }
         
-        // ===== THEME & UI =====
-        function updateThemeIcon(theme) {
-            const icon = $('themeIcon');
-            icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        }
+        // ===== THEME =====
+        function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
         
-        // ===== P2P LOGIC (Robust options added) =====
+        // ===== P2P LOGIC (Based on robust MindSync approach) =====
         let peer = null;
         let conn = null;
         let receivedState = null;
@@ -238,90 +235,111 @@
             el.className = 'status-box active status-' + type;
         }
 
-        // HOST LOGIC
-        $('createBtn').addEventListener('click', () => {
-            if (peer) peer.destroy();
+        // LOGIQUE HOTE (Initiation robuste avec retry)
+        function initHostPeer() {
+            if (peer && !peer.destroyed) peer.destroy();
             
-            const randomCode = Math.floor(10000 + Math.random() * 90000);
-            const myId = 'scr-' + randomCode;
-            
-            // Ajout de debug:2 pour voir les erreurs dans la console (F12)
-            peer = new Peer(myId, { debug: 2 });
+            showStatus('hostStatus', "Generation du code...", 'info');
+            $('createBtn').disabled = true;
 
-            peer.on('open', (id) => {
-                $('myCode').textContent = randomCode; 
-                $('codeArea').style.display = 'block';
-                $('createBtn').disabled = true;
-                $('createBtn').textContent = "En attente...";
-                showStatus('hostStatus', "Pret. Envoyez les 5 chiffres.", 'info');
-            });
+            // Generation code 5 chiffres
+            const shortId = Math.floor(10000 + Math.random() * 90000).toString();
+            const myId = 'scr-' + shortId;
 
-            peer.on('connection', (connection) => {
-                conn = connection;
-                conn.on('open', () => {
-                    showStatus('hostStatus', "Partenaire connecte ! Envoi...", 'success');
-                    const data = localStorage.getItem(getStorageKey());
-                    conn.send(data);
-                    showStatus('hostStatus', "Donnees envoyees !", 'success');
+            try {
+                peer = new Peer(myId);
+
+                peer.on('open', (id) => {
+                    $('myCode').textContent = shortId;
+                    $('codeArea').style.display = 'block';
+                    $('createBtn').textContent = "En attente...";
+                    showStatus('hostStatus', "Pret. Communiquez le code.", 'success');
                 });
-                conn.on('close', () => showStatus('hostStatus', "Deconnecte.", 'info'));
-            });
 
-            peer.on('error', (err) => {
-                showStatus('hostStatus', "Erreur: " + err.type, 'error');
-                $('createBtn').disabled = false;
-                $('createBtn').textContent = "Reessayer";
-            });
-        });
+                peer.on('connection', (connection) => {
+                    conn = connection;
+                    setupConnection(conn);
+                });
 
-        // CLIENT LOGIC
-        $('joinBtn').addEventListener('click', () => {
-            let remoteCode = $('peerIdInput').value.trim();
-            remoteCode = remoteCode.replace(/\D/g,'');
+                peer.on('error', (err) => {
+                    console.error(err);
+                    if (err.type === 'unavailable-id') {
+                        // Retry automatique si le code est deja pris (Logique MindSync)
+                        showStatus('hostStatus', "Code occupe, nouvel essai...", 'info');
+                        setTimeout(initHostPeer, 100);
+                    } else {
+                        showStatus('hostStatus', "Erreur: " + err.type, 'error');
+                        $('createBtn').disabled = false;
+                        $('createBtn').textContent = "Reessayer";
+                    }
+                });
+            } catch(e) {
+                setTimeout(initHostPeer, 500);
+            }
+        }
+
+        // Connexion entrante/sortante
+        function setupConnection(c) {
+            conn = c;
+            conn.on('open', () => {
+                showStatus('hostStatus', "Connecte ! Envoi...", 'success');
+                const data = localStorage.getItem(getStorageKey());
+                conn.send(data);
+                showStatus('hostStatus', "Monde envoye !", 'success');
+            });
+            conn.on('data', (data) => {
+                try {
+                    receivedState = JSON.parse(data);
+                    showStatus('clientStatus', "Recu !", 'success');
+                    $('receivedDataArea').style.display = 'block';
+                    $('joinBtn').disabled = true;
+                } catch(e) { showStatus('clientStatus', "Erreur format.", 'error'); }
+            });
+            conn.on('close', () => showStatus('hostStatus', "Deconnecte.", 'info'));
+        }
+
+        // LOGIQUE CLIENT
+        function joinPeer() {
+            let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
             if (remoteCode.length !== 5) {
-                showStatus('clientStatus', "Code 5 chiffres requis.", 'error');
+                showStatus('clientStatus', "5 chiffres requis.", 'error');
                 return;
             }
 
             const remoteId = 'scr-' + remoteCode;
-            if (peer) peer.destroy();
             
-            // Ajout de debug:2
-            peer = new Peer({ debug: 2 }); 
-
-            peer.on('open', () => {
-                // Ajout de reliable:true pour la stabilité
-                conn = peer.connect(remoteId, { reliable: true });
-                
-                conn.on('open', () => {
-                    showStatus('clientStatus', "Connecte ! Reception...", 'info');
+            // Si peer n'existe pas (pas cliqué sur Generer), on en cree un generique
+            if (!peer || peer.destroyed) {
+                peer = new Peer(); 
+                peer.on('open', () => {
+                    connectToRemote(remoteId);
                 });
-
-                conn.on('data', (data) => {
-                    try {
-                        receivedState = JSON.parse(data);
-                        showStatus('clientStatus', "Recu !", 'success');
-                        
-                        const stats = `Personnages: ${(receivedState.characters||[]).length}, Lieux: ${(receivedState.places||[]).length}`;
-                        $('receivedStats').textContent = stats;
-                        $('receivedDataArea').style.display = 'block';
-                        $('joinBtn').disabled = true;
-                    } catch(e) {
-                        showStatus('clientStatus', "Erreur format.", 'error');
-                    }
-                });
-                
-                conn.on('close', () => showStatus('clientStatus', "Ferme.", 'info'));
-            });
-
-            peer.on('error', (err) => {
-                if(err.type === 'peer-unavailable') {
-                     showStatus('clientStatus', "Code introuvable.", 'error');
-                } else {
+                peer.on('error', (err) => {
                      showStatus('clientStatus', "Erreur reseau.", 'error');
-                }
+                });
+            } else {
+                connectToRemote(remoteId);
+            }
+        }
+
+        function connectToRemote(remoteId) {
+            showStatus('clientStatus', "Connexion...", 'info');
+            $('joinBtn').disabled = true;
+            
+            conn = peer.connect(remoteId, { reliable: true }); // Fiable pour gros JSON
+            
+            conn.on('open', () => showStatus('clientStatus', "Connecte ! Reception...", 'info'));
+            conn.on('data', (data) => {
+                try {
+                    receivedState = JSON.parse(data);
+                    showStatus('clientStatus', "Recu !", 'success');
+                    $('receivedDataArea').style.display = 'block';
+                    $('joinBtn').disabled = true;
+                } catch(e) { showStatus('clientStatus', "Erreur format.", 'error'); }
             });
-        });
+            conn.on('close', () => showStatus('clientStatus', "Ferme.", 'info'));
+            conn.on('error', () => showStatus('clientStatus', "Erreur lien.", 'error'));
+        }
 
         function loadReceivedData() {
             if(receivedState) {
@@ -329,6 +347,10 @@
                 window.location.href = 'personnages.html';
             }
         }
+
+        // Event Listeners
+        $('createBtn').addEventListener('click', initHostPeer);
+        $('joinBtn').addEventListener('click', joinPeer);
 
         // ===== INIT =====
         $('themeToggleBtn').addEventListener('click', toggleTheme);
