@@ -11,15 +11,12 @@
     
     <!-- BIBLIOTHEQUE P2P -->
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-    <!-- CONFIG -->
-    <script src="scriptorium_config.js"></script>
-
+    
     <style>
         :root {
             --bg-primary: #f4ede4; --bg-secondary: #e8dfd3; --bg-card: rgba(244, 237, 228, 0.9);
-            --bg-form: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 243, 236, 0.85) 100%);
             --fg-primary: #2c2418; --fg-secondary: #5c4f3d; --fg-muted: #8b7d68;
-            --accent-gold: #c9a227; --accent-copper: #b87333; --accent-sepia: #8b6914;
+            --accent-gold: #c9a227; --accent-copper: #b87333;
             --border-light: rgba(44, 36, 24, 0.12); --border-medium: rgba(44, 36, 24, 0.25);
             --shadow-warm: rgba(139, 105, 20, 0.12); --sidebar-bg: #231d15; --sidebar-fg: #e8dfd3;
             --input-bg: rgba(255, 255, 255, 0.75);
@@ -29,19 +26,15 @@
         [data-theme="dark"] {
             --bg-primary: #1a1714; --bg-secondary: #252019; --bg-card: rgba(35, 30, 24, 0.92);
             --fg-primary: #e8dfd3; --fg-secondary: #c4b8a4; --fg-muted: #8a7d6a;
-            --accent-gold: #d4a84b; --accent-copper: #cd8c4a;
-            --border-light: rgba(232, 223, 211, 0.1); --border-medium: rgba(232, 223, 211, 0.2);
+            --accent-gold: #d4a84b; --border-light: rgba(232, 223, 211, 0.1);
             --shadow-warm: rgba(0, 0, 0, 0.35); --sidebar-bg: #0f0d0a; --input-bg: rgba(55, 50, 43, 0.65);
-            --success: #4a9a7a; --success-bg: rgba(74, 154, 122, 0.15);
-            --error: #c45c5c; --error-bg: rgba(196, 92, 92, 0.15);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-primary); color: var(--fg-primary); min-height: 100vh; }
         body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.022; pointer-events: none; z-index: 0; }
         
-        /* --- SIDEBAR --- */
+        /* SIDEBAR */
         .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0a0806 100%); border-right: 1px solid rgba(201, 162, 39, 0.18); z-index: 100; display: flex; flex-direction: column; transition: transform 0.4s; overflow-y: auto; }
-        .sidebar.hidden { transform: translateX(-100%); }
         .sidebar-header { padding: 1.3rem 1.15rem; border-bottom: 1px solid rgba(201, 162, 39, 0.12); }
         .logo { font-family: 'Spectral', serif; font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.08em; text-transform: uppercase; }
         .logo-subtitle { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; margin-top: 0.12rem; }
@@ -58,21 +51,19 @@
         .nav-item:hover { background: rgba(201, 162, 39, 0.06); color: var(--accent-gold); }
         .nav-item.active { background: rgba(201, 162, 39, 0.1); color: var(--accent-gold); }
         .nav-item.active::before { transform: scaleY(1); }
-        .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; }
-        .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+        .nav-icon { width: 14px; height: 14px; opacity: 0.62; }
 
         .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; }
-        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
+        .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); }
         .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
-        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; }
-        .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); }
-        .icon-btn svg { width: 14px; height: 14px; }
+        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; }
+        .icon-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
         .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
-        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
+        .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); }
         .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
         .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
         
-        /* Specific Styles for Connection Page */
+        /* CONNECTION GRID */
         .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 768px) { .connection-grid { grid-template-columns: 1fr; } }
         
@@ -80,14 +71,13 @@
         .connect-card h3 { font-family: 'Spectral', serif; font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; }
         
         .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-label { display: block; font-size: 0.8rem; color: var(--fg-muted); margin-bottom: 0.3rem; text-transform: uppercase; }
         .form-input { width: 100%; padding: 0.6rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-primary); font-family: inherit; font-size: 1rem; }
         .form-input:focus { outline: none; border-color: var(--accent-gold); }
         
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.6rem 1.2rem; border: none; border-radius: 5px; font-family: 'Spectral', serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.22s; width: 100%; }
-        .btn-primary { background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.2); }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(201, 162, 39, 0.3); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-gold), var(--accent-copper)); color: #fff; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-success { background: var(--success); color: white; }
 
         .status-box { margin-top: 1rem; padding: 0.8rem; border-radius: 5px; font-size: 0.85rem; display: none; }
@@ -101,7 +91,6 @@
             background: var(--bg-primary); padding: 1rem; border-radius: 8px; 
             text-align: center; border: 1px solid var(--accent-gold); 
             margin: 1rem 0; letter-spacing: 0.5em; 
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             user-select: all;
         }
 
@@ -190,11 +179,18 @@
     </main>
 
     <script>
-        // ===== CONFIG & NAVIGATION =====
-        const $ = id => document.getElementById(id);
-        const pageId = 'connexion';
-        let pageMap = {};
-        let history = [];
+        // ===== 1. CONFIGURATION MENU (INTEGREE) =====
+        // J'intègre les données ici pour que le menu s'affiche même sans fichier externe
+        const SCRIPTORIUM_PAGES = [
+            { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+            { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+            { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+            { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+            { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+            { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+            { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+            { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+        ];
         const iconMap = {
             'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
             'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
@@ -206,19 +202,15 @@
             'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
         };
 
+        const $ = id => document.getElementById(id);
+        const pageId = 'connexion';
+        let pageMap = {};
+        let history = [];
+        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] };
+
         function buildNavigation() {
             const nav = $('navSection'); if(!nav) return;
-            const defaultPages = [
-                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
-                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
-                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
-                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
-                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
-                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
-                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
-                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
-            ];
-            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            const pages = SCRIPTORIUM_PAGES; // Utilisation de la variable locale
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
             const groups = {};
             pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
@@ -233,11 +225,10 @@
             nav.innerHTML = html;
         }
         
-        // ===== THEME =====
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
         
-        // ===== P2P LOGIC (Copie exacte de MindSync qui marchait) =====
+        // ===== 2. P2P LOGIC (Robuste) =====
         let peer = null;
         let conn = null;
         let receivedState = null;
@@ -250,22 +241,24 @@
             el.className = 'status-box active status-' + type;
         }
 
-        // LOGIQUE HOTE (Copie exacte MindSync)
-        function initShortPeer() {
-            if (peer && !peer.destroyed) { peer.destroy(); peer = null; }
+        // HOST LOGIC
+        function initHostPeer() {
+            if (typeof Peer === 'undefined') {
+                showStatus('hostStatus', "Erreur: Librairie P2P non chargee. Verifiez votre connexion internet.", 'error');
+                return;
+            }
+            if (peer && !peer.destroyed) peer.destroy();
             
             showStatus('hostStatus', "Generation...", 'info');
             $('createBtn').disabled = true;
 
-            // IDs numériques simples (comme dans le code qui marchait)
             const shortId = Math.floor(10000 + Math.random() * 90000).toString();
             
             try {
-                // Pas de préfixe 'scr-', juste l'ID nu
                 peer = new Peer(shortId);
 
                 peer.on('open', (id) => {
-                    $('myCode').textContent = id; // Affiche l'ID généré
+                    $('myCode').textContent = id;
                     $('codeArea').style.display = 'block';
                     $('createBtn').textContent = "En attente...";
                     showStatus('hostStatus', "Pret. Envoyez le code.", 'success');
@@ -284,8 +277,8 @@
 
                 peer.on('error', (err) => {
                     if (err.type === 'unavailable-id') {
-                        // Réessai automatique si l'ID est pris (Logique clé)
-                        initShortPeer();
+                        showStatus('hostStatus', "Code occupe, nouvel essai...", 'info');
+                        setTimeout(initHostPeer, 100);
                     } else {
                         showStatus('hostStatus', "Erreur: " + err.type, 'error');
                         $('createBtn').disabled = false;
@@ -293,29 +286,26 @@
                     }
                 });
             } catch(e) {
-                setTimeout(initShortPeer, 2000);
+                showStatus('hostStatus', "Erreur critique: " + e.message, 'error');
             }
         }
 
-        // LOGIQUE CLIENT
+        // CLIENT LOGIC
         function joinPeer() {
-            let remoteCode = $('peerIdInput').value.trim();
-            // Nettoyage : on garde que les chiffres
-            remoteCode = remoteCode.replace(/\D/g,'');
+            if (typeof Peer === 'undefined') {
+                showStatus('clientStatus', "Erreur: Librairie P2P non chargee.", 'error');
+                return;
+            }
+            let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
             if (remoteCode.length !== 5) {
                 showStatus('clientStatus', "5 chiffres requis.", 'error');
                 return;
             }
 
-            // Si on n'a pas cliqué sur Generer, on crée un peer temporaire
             if (!peer || peer.destroyed) {
                 peer = new Peer(); 
-                peer.on('open', () => {
-                    connectToRemote(remoteCode);
-                });
-                peer.on('error', (err) => {
-                     showStatus('clientStatus', "Erreur reseau.", 'error');
-                });
+                peer.on('open', () => { connectToRemote(remoteCode); });
+                peer.on('error', (err) => { showStatus('clientStatus', "Erreur: " + err.type, 'error'); });
             } else {
                 connectToRemote(remoteCode);
             }
@@ -325,7 +315,6 @@
             showStatus('clientStatus', "Connexion...", 'info');
             $('joinBtn').disabled = true;
             
-            // Reliable true pour gros JSON
             conn = peer.connect(remoteId, { reliable: true });
             
             conn.on('open', () => showStatus('clientStatus', "Connecte ! Reception...", 'info'));
@@ -349,14 +338,12 @@
         }
 
         // ===== HELPERS =====
-        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] };
         function loadState() { const saved = localStorage.getItem(getStorageKey()); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {} } }
         function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem('scriptorium_history_v4', JSON.stringify(history)); }
-        function undo() { if (history.length === 0) { alert("Rien à annuler"); return; } state = JSON.parse(history.pop()); save(); localStorage.setItem('scriptorium_history_v4', JSON.stringify(history)); alert("Action annulée"); location.reload(); }
-        function save() { localStorage.setItem(getStorageKey(), JSON.stringify(state)); }
+        function undo() { if (history.length === 0) { alert("Rien à annuler"); return; } state = JSON.parse(history.pop()); localStorage.setItem(getStorageKey(), JSON.stringify(state)); localStorage.setItem('scriptorium_history_v4', JSON.stringify(history)); alert("Action annulée"); location.reload(); }
 
         // Event Listeners
-        $('createBtn').addEventListener('click', initShortPeer);
+        $('createBtn').addEventListener('click', initHostPeer);
         $('joinBtn').addEventListener('click', joinPeer);
         $('themeToggleBtn').addEventListener('click', toggleTheme);
         $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
@@ -378,11 +365,10 @@
 
         // INIT
         loadState();
-        buildNavigation();
+        buildNavigation(); // Appel immédiat de la construction du menu
         const theme = localStorage.getItem('scriptorium_theme');
         if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
         
-        // Load History for Undo
         const hist = localStorage.getItem('scriptorium_history_v4');
         if(hist) history = JSON.parse(hist);
     </script>
