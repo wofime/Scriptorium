@@ -120,135 +120,195 @@
     </main>
     <div class="toast" id="toast"><svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="toastMessage"></span></div>
     <script>
-        const STORAGE_KEY = 'scriptorium_v4'; const $ = id => document.getElementById(id); const pageId = 'connexion';
-        let state = { characters: [], places: [], objects: [], encyclopedia: [], glossary: [], magicTypes: [], chapters: [{ id: 'ch1', title: 'Chapitre 1', notes: [] }] }; let receivedState = null; let pageMap = {};
-        function showToast(msg) { const t = $('toast'); $('toastMessage').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
-        function load() { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {} } const theme = localStorage.getItem('scriptorium_theme'); if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); } }
-        
-        // Navigation
+        // ===== CONFIG & NAVIGATION =====
+        const $ = id => document.getElementById(id);
+        const pageId = 'connexion';
+        let pageMap = {};
+        const iconMap = {
+            'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+            'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+            'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+            'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+            'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+            'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+            'connexion': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+            'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
+        };
+
         function buildNavigation() {
-            const nav = $('navSection'); if (!nav) return;
+            const nav = $('navSection'); if(!nav) return;
             const defaultPages = [
-                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' }, { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
-                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' }, { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
-                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' }, { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
-                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' }, { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
             ];
-            const fallbackIconMap = {
-                'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>', 'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
-                'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>', 'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
-                'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>', 'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
-                'connexion': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>', 'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
-            };
             const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
-            const icons = (typeof iconMap !== 'undefined') ? iconMap : fallbackIconMap;
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
-            const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
-            let html = ''; for (const s in groups) { html += `<div class="nav-label">${s}</div>`; groups[s].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${icons[p.id] || ''}</svg>${p.label}</button>`; }); } nav.innerHTML = html;
+            let html = '';
+            const groups = {};
+            pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            for (const sec in groups) {
+                html += `<div class="nav-label">${sec}</div>`;
+                groups[sec].forEach(p => {
+                    const isActive = (p.id === pageId) ? ' active' : '';
+                    html += `<button class="nav-item${isActive}" onclick="window.location.href='${p.file}'"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconMap[p.id] || ''}</svg>${p.label}</button>`;
+                });
+            }
+            nav.innerHTML = html;
         }
-        function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; } window.navigateTo = navigateTo;
+
+        // ===== THEME =====
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
-        
-        // ===== MANUAL BACKUP (Infaillible) =====
+
+        // ===== MANUAL BACKUP =====
         function manualCopy() {
-            const data = localStorage.getItem(STORAGE_KEY);
+            const data = localStorage.getItem('scriptorium_v4');
+            if(!data) { alert('Rien à copier !'); return; }
             $('manualData').value = data;
             $('manualData').select();
             document.execCommand('copy');
-            showToast('Monde copie ! Collez-le a votre partenaire.');
+            alert('Monde copié ! Envoyez ce texte à votre partenaire.');
         }
         function manualPaste() {
             const data = $('manualData').value;
-            if(!data) { showToast('Champ vide'); return; }
+            if(!data) { alert('Le champ est vide.'); return; }
             try {
-                JSON.parse(data); // Test validite
-                receivedState = JSON.parse(data);
-                $('clientStatus').textContent = "Donnees pretes a charger."; $('clientStatus').className = 'status-box active status-success';
-                $('receivedDataArea').style.display = 'block';
-                showToast('Donnees validees ! Cliquez sur Charger.');
-            } catch(e) {
-                $('clientStatus').textContent = "Format invalide."; $('clientStatus').className = 'status-box active status-error';
-            }
-        }
-        function loadReceivedData() {
-            if(receivedState) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(receivedState));
+                JSON.parse(data);
+                localStorage.setItem('scriptorium_v4', data);
+                alert('Monde collé avec succès ! Redirection...');
                 window.location.href = 'personnages.html';
-            }
+            } catch(e) { alert('Données invalides.'); }
         }
 
-        // ===== P2P LOGIC =====
+        // ===== P2P LOGIC (UPDATED FOR COMPATIBILITY) =====
         let peer = null;
+        let conn = null;
+        let receivedState = null;
+
+        const peerConfig = {
+            host: '0.peerjs.com',
+            port: 443,
+            secure: true,
+            debug: 2,
+            config: {
+                'iceServers': [
+                    { url: 'stun:stun.l.google.com:19302' },
+                    { url: 'stun:stun1.l.google.com:19302' },
+                    { url: 'stun:stun2.l.google.com:19302' }
+                ]
+            }
+        };
+
+        function showStatus(elId, msg, type) {
+            const el = $(elId);
+            el.textContent = msg;
+            el.className = 'status-box active status-' + type;
+        }
+
+        // HOST LOGIC
         $('createBtn').addEventListener('click', () => {
-            if (typeof Peer === 'undefined') { alert("Librairie non chargee."); return; }
             if (peer) peer.destroy();
             const randomCode = Math.floor(10000 + Math.random() * 90000);
             const myId = 'scr-' + randomCode;
-            $('hostStatus').textContent = "Connexion..."; $('hostStatus').className = 'status-box active status-info';
-            $('createBtn').disabled = true;
             
-            // Simple config (Defaults are usually best for Opera)
-            peer = new Peer(myId); 
+            peer = new Peer(myId, peerConfig);
 
             peer.on('open', (id) => {
-                $('myCode').textContent = randomCode;
+                $('myCode').textContent = randomCode; 
                 $('codeArea').style.display = 'block';
-                $('hostStatus').textContent = "Pret.";
-                $('hostStatus').className = 'status-box active status-success';
+                $('createBtn').disabled = true;
                 $('createBtn').textContent = "En attente...";
+                showStatus('hostStatus', "Serveur prêt. En attente du partenaire...", 'info');
             });
 
             peer.on('connection', (connection) => {
                 conn = connection;
+                showStatus('hostStatus', "Lien détecté...", 'info');
+
                 conn.on('open', () => {
-                    $('hostStatus').textContent = "Envoi...";
-                    conn.send(localStorage.getItem(STORAGE_KEY));
-                    $('hostStatus').textContent = "Envoye !";
+                    showStatus('hostStatus', "Connecté ! Préparation de l'envoi...", 'success');
+                    // Délai de 800ms pour Opera/Mobile afin de stabiliser le canal de données
+                    setTimeout(() => {
+                        const data = localStorage.getItem('scriptorium_v4');
+                        if (data) {
+                            conn.send(data);
+                            showStatus('hostStatus', "Données transmises avec succès !", 'success');
+                        } else {
+                            showStatus('hostStatus', "Erreur: Pas de données locales à envoyer.", 'error');
+                        }
+                    }, 800);
                 });
             });
 
             peer.on('error', (err) => {
-                $('hostStatus').textContent = "Erreur (voir console F12): " + err.type;
-                $('hostStatus').className = 'status-box active status-error';
-                $('createBtn').disabled = false; $('createBtn').textContent = "Reessayer";
                 console.error(err);
+                showStatus('hostStatus', "Erreur : " + err.type, 'error');
+                $('createBtn').disabled = false;
             });
         });
 
+        // CLIENT LOGIC
         $('joinBtn').addEventListener('click', () => {
-            if (typeof Peer === 'undefined') { alert("Librairie non chargee."); return; }
             let remoteCode = $('peerIdInput').value.trim().replace(/\D/g,'');
-            if (remoteCode.length !== 5) { $('clientStatus').textContent = "Code 5 chiffres requis."; $('clientStatus').className = 'status-box active status-error'; return; }
+            if (remoteCode.length !== 5) { showStatus('clientStatus', "Code à 5 chiffres requis.", 'error'); return; }
+
             const remoteId = 'scr-' + remoteCode;
             if (peer) peer.destroy();
             
-            $('clientStatus').textContent = "Recherche..."; $('clientStatus').className = 'status-box active status-info';
-            $('joinBtn').disabled = true;
+            peer = new Peer(peerConfig);
 
-            peer = new Peer();
             peer.on('open', () => {
-                conn = peer.connect(remoteId);
-                conn.on('open', () => $('clientStatus').textContent = "Connecte...");
+                showStatus('clientStatus', "Tentative de connexion...", 'info');
+                conn = peer.connect(remoteId, { reliable: true });
+
+                conn.on('open', () => {
+                    showStatus('clientStatus', "Connecté ! Réception du monde...", 'info');
+                });
+
                 conn.on('data', (data) => {
                     try {
                         receivedState = (typeof data === 'string') ? JSON.parse(data) : data;
-                        $('clientStatus').textContent = "Recu !";
-                        $('clientStatus').className = 'status-box active status-success';
+                        showStatus('clientStatus', "Données reçues !", 'success');
                         $('receivedDataArea').style.display = 'block';
-                    } catch(e) { $('clientStatus').textContent = "Erreur format."; }
+                        $('joinBtn').disabled = true;
+                    } catch(e) { 
+                        showStatus('clientStatus', "Erreur de format.", 'error'); 
+                    }
                 });
             });
+            
             peer.on('error', (err) => {
-                $('clientStatus').textContent = "Erreur: " + (err.type === 'peer-unavailable' ? "Code introuvable" : err.type);
-                $('clientStatus').className = 'status-box active status-error';
-                $('joinBtn').disabled = false;
+                let msg = (err.type === 'peer-unavailable') ? "Code introuvable. Vérifiez que le partenaire est prêt." : "Erreur de réseau (Opera/VPN ?).";
+                showStatus('clientStatus', msg, 'error');
             });
         });
 
+        function loadReceivedData() {
+            if(receivedState) {
+                localStorage.setItem('scriptorium_v4', JSON.stringify(receivedState));
+                window.location.href = 'personnages.html';
+            }
+        }
+
+        // ===== INIT =====
         $('themeToggleBtn').addEventListener('click', toggleTheme);
         $('mobileMenuBtn').addEventListener('click', () => $('sidebar').classList.add('open'));
-        load(); buildNavigation();
+        $('mobileOverlay').addEventListener('click', () => $('sidebar').classList.remove('open'));
+        
+        if (window.location.protocol === 'file:') {
+            alert("ATTENTION : Le mode P2P nécessite un hébergement HTTPS (GitHub Pages, Netlify, etc.) pour fonctionner sur la plupart des navigateurs.");
+        }
+        
+        buildNavigation();
+        const theme = localStorage.getItem('scriptorium_theme');
+        if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); }
     </script>
 </body>
 </html>
+
