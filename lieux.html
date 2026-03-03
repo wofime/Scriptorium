@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Spectral:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet">
     
-    <!-- CHARGEMENT DE LA CONFIG -->
+    <!-- CONFIG -->
     <script src="scriptorium_config.js"></script>
 
     <style>
@@ -148,14 +148,11 @@
             <div class="logo">Scriptorium</div>
             <div class="logo-subtitle">L'atelier de l'ecrivain</div>
         </div>
-
         <div class="sidebar-actions">
             <button class="sidebar-btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
             <button class="sidebar-btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button>
             <button class="sidebar-btn full-width" id="undoBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.83-6.36L3 7"/></svg>Annuler</button>
         </div>
-
-        <!-- MENU GENERE ICI -->
         <nav class="nav-section" id="navSection"></nav>
     </aside>
 
@@ -245,17 +242,7 @@
 
         // Map pour la navigation
         let pageMap = {};
-        // Map pour les icônes SVG
-        const iconMap = {
-            'personnages': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
-            'lieux': '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
-            'objets': '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
-            'encyclopedie': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
-            'glossaire': '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
-            'magie': '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
-            'chronologie': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
-        };
-
+        
         // ===== UTILITIES =====
         const escapeHtml = t => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
         const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -281,16 +268,10 @@
         // ===== DYNAMIC NAVIGATION =====
         function buildNavigation() {
             const nav = $('navSection'); if (!nav) return;
-            const defaultPages = [
-                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
-                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
-                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
-                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
-                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
-                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
-                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
-            ];
-            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            // On utilise les variables globales de scriptorium_config.js
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : [];
+            const icons = (typeof iconMap !== 'undefined') ? iconMap : {};
+
             pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
             const groups = {};
             pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
@@ -299,7 +280,7 @@
                 html += `<div class="nav-label">${escapeHtml(sectionName)}</div>`;
                 groups[sectionName].forEach(p => {
                     const isActive = (p.id === pageId) ? ' active' : '';
-                    const iconSvg = iconMap[p.id] || '';
+                    const iconSvg = icons[p.id] || '';
                     html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`;
                 });
             }
@@ -324,7 +305,6 @@
         function updateStats() { $('placeCountBadge').textContent = state.places.length; }
 
         // ===== HELPERS =====
-        function getCharNames(ids) { if(!ids || !ids.length) return []; return ids.map(id => { const c = state.characters.find(c => c.id === id); return c ? c.name : null; }).filter(Boolean); }
         function createSecretBlock(secret) {
             if (!secret || !secret.trim()) return null;
             const block = document.createElement('div');
