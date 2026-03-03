@@ -24,25 +24,20 @@
         .nav-icon { width: 14px; height: 14px; opacity: 0.62; transition: opacity 0.22s ease; } .nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
         .main-content { margin-left: 250px; min-height: 100vh; background: var(--bg-primary); position: relative; transition: margin-left 0.4s ease; } .main-content.expanded { margin-left: 0; }
         .top-bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.35rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); gap: 0.8rem; }
-        .search-container { position: relative; flex: 1; max-width: 300px; display: none; } /* Caché pour cette page */
-        .top-actions { display: flex; gap: 0.3rem; margin-left: auto; }
-        .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; } .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); } .icon-btn svg { width: 14px; height: 14px; }
+        .search-container { position: relative; flex: 1; max-width: 300px; } .search-input { width: 100%; padding: 0.42rem 0.7rem 0.42rem 1.9rem; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; font-family: inherit; font-size: 0.85rem; color: var(--fg-primary); transition: all 0.22s ease; } .search-input:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.08); } .search-input::placeholder { color: var(--fg-muted); font-style: italic; } .search-icon { position: absolute; left: 0.68rem; top: 50%; transform: translateY(-50%); width: 11px; height: 11px; color: var(--fg-muted); }
+        .top-actions { display: flex; gap: 0.3rem; } .icon-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--input-bg); border: 1px solid var(--border-medium); border-radius: 5px; color: var(--fg-secondary); cursor: pointer; transition: all 0.22s ease; } .icon-btn:hover { background: rgba(201, 162, 39, 0.08); border-color: var(--accent-gold); color: var(--accent-gold); } .icon-btn svg { width: 14px; height: 14px; }
         .content-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
         .page-title { font-family: 'Spectral', serif; font-size: 1.55rem; font-weight: 700; color: var(--fg-primary); display: inline-flex; align-items: center; gap: 0.8rem; }
         .page-subtitle { color: var(--fg-secondary); font-size: 0.88rem; margin-top: 0.2rem; font-style: italic; }
         .content-body { padding: 1.25rem 1.5rem; position: relative; z-index: 1; }
-        
-        /* Specific Layout for Chronologie */
         .chapters-layout { display: grid; grid-template-columns: 190px 1fr; gap: 1.1rem; }
         @media (max-width: 850px) { .chapters-layout { grid-template-columns: 1fr; } .chapters-list { order: 1; } }
-        
         .chapters-list { background: var(--bg-card); border-radius: 8px; padding: 0.8rem; height: fit-content; border: 1px solid var(--border-light); }
         .chapter-item { padding: 0.48rem 0.65rem; border-radius: 5px; cursor: pointer; transition: all 0.18s; margin-bottom: 0.22rem; display: flex; justify-content: space-between; align-items: center; color: var(--fg-secondary); font-size: 0.85rem; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; }
         .chapter-item:hover { background: rgba(201, 162, 39, 0.08); }
         .chapter-item.active { background: rgba(201, 162, 39, 0.12); color: var(--accent-gold); font-weight: 500; }
         .chapter-count { font-size: 0.7rem; opacity: 0.7; }
         .add-chapter-btn { width: 100%; margin-top: 0.35rem; padding: 0.42rem; font-size: 0.8rem; }
-
         .notes-list { display: flex; flex-direction: column; gap: 0.55rem; }
         .note-category { display: inline-block; padding: 0.07rem 0.32rem; border-radius: 3px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.22rem; }
         .note-category.intrigue { background: var(--cat-intrigue-bg); color: var(--cat-intrigue); }
@@ -51,14 +46,12 @@
         .note-text { color: var(--fg-secondary); line-height: 1.44; font-size: 0.88rem; white-space: pre-line; }
         .note-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--border-light); }
         .note-date { font-size: 0.7rem; color: var(--fg-muted); font-style: italic; }
-
         .secret-block { position: relative; margin-top: 0.45rem; padding: 0.55rem 0.7rem; background: rgba(201, 162, 39, 0.04); border-radius: 5px; border-left: 3px solid var(--accent-gold); }
         .secret-block.has-secret { transition: filter 0.28s ease; }
         .secret-block.is-blurred { filter: blur(6px); user-select: none; cursor: pointer; }
         .secret-block.is-blurred::after { content: 'SECRET'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent-gold); color: #fff; padding: 0.18rem 0.45rem; border-radius: 3px; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em; pointer-events: none; }
         .secret-block.revealed { filter: blur(0); cursor: default; }
         .secret-block.revealed::after { display: none; }
-
         .form-container { background: var(--bg-form); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.35rem; box-shadow: 0 3px 12px var(--shadow-warm); backdrop-filter: blur(10px); transition: opacity 0.28s ease, transform 0.28s ease; overflow: hidden; } .form-container.hidden { opacity: 0; transform: translateY(-8px); height: 0; padding: 0; margin: 0; border-width: 0; }
         .form-title { font-family: 'Spectral', serif; font-size: 1rem; font-weight: 600; color: var(--fg-primary); margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border-light); }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.7rem; } .form-group { display: flex; flex-direction: column; gap: 0.22rem; } .form-group.full-width { grid-column: 1 / -1; }
@@ -69,22 +62,13 @@
         .btn-primary { background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-copper) 100%); color: #fff; box-shadow: 0 2px 8px rgba(201, 162, 39, 0.28); } .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(201, 162, 39, 0.35); }
         .btn-secondary { background: transparent; color: var(--fg-secondary); border: 1px solid var(--border-medium); } .btn-secondary:hover { background: rgba(44, 36, 24, 0.04); } [data-theme="dark"] .btn-secondary:hover { background: rgba(232, 223, 211, 0.04); }
         .btn-success { background: var(--cat-lore); color: white; }
-        
         .empty-state { text-align: center; padding: 2rem 1.3rem; color: var(--fg-muted); } .empty-icon { width: 42px; height: 42px; margin: 0 auto 0.8rem; opacity: 0.35; } .empty-title { font-family: 'Spectral', serif; font-size: 1.05rem; color: var(--fg-secondary); margin-bottom: 0.22rem; } .empty-text { font-size: 0.85rem; max-width: 230px; margin: 0 auto; }
         .toast { position: fixed; bottom: 1rem; right: 1rem; padding: 0.65rem 0.9rem; background: var(--sidebar-bg); color: var(--sidebar-fg); border-radius: 5px; border-left: 3px solid var(--accent-gold); box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28); transform: translateX(150%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; display: flex; align-items: center; gap: 0.38rem; font-size: 0.85rem; } .toast.show { transform: translateX(0); } .toast-icon { width: 13px; height: 13px; color: var(--accent-gold); }
         .mobile-menu-btn { display: none; position: fixed; top: 0.5rem; left: 0.5rem; z-index: 200; width: 32px; height: 32px; background: var(--sidebar-bg); border: 1px solid rgba(201, 162, 39, 0.28); border-radius: 5px; color: var(--accent-gold); cursor: pointer; align-items: center; justify-content: center; }
         .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 50; opacity: 0; pointer-events: none; } .mobile-overlay.active { opacity: 1; pointer-events: auto; }
         .hidden-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
         @media (max-width: 850px) { .chapters-layout { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; } .mobile-menu-btn { display: flex; }
-            .mobile-overlay { display: block; }
-            .top-bar { padding: 0.5rem 0.65rem; padding-top: 3rem; }
-            .content-header { padding: 1rem 0.85rem; } .content-body { padding: 1rem 0.85rem; }
-            .top-actions { position: fixed; top: 0.5rem; right: 0.5rem; z-index: 60; }
-        }
-        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg-secondary); } ::-webkit-scrollbar-thumb { background: var(--fg-muted); border-radius: 2px; }
+        @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .main-content { margin-left: 0; } .mobile-menu-btn { display: flex; } .mobile-overlay { display: block; } .top-bar { padding: 0.5rem 0.65rem; padding-top: 3rem; } .content-header { padding: 1rem 0.85rem; } .content-body { padding: 1rem 0.85rem; } .top-actions { position: fixed; top: 0.5rem; right: 0.5rem; z-index: 60; } }
     </style>
 </head>
 <body data-theme="light" data-page="chronologie">
@@ -97,7 +81,10 @@
         <nav class="nav-section" id="navSection"></nav>
     </aside>
     <main class="main-content" id="mainContent">
-        <div class="top-bar"><div style="flex:1"></div><div class="top-actions"><button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button><button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
+        <div class="top-bar">
+            <div class="search-container"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" class="search-input" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher"></div>
+            <div class="top-actions"><button class="icon-btn" id="secretsToggleBtn" title="Masquer/Afficher les secrets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button><button class="icon-btn" id="focusModeBtn" title="Mode Focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></button><button class="icon-btn" id="themeToggleBtn" title="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div>
+        </div>
         <section class="section active" id="chaptersSection">
             <header class="content-header"><h1 class="page-title">Chronologie <span class="count-badge" id="chapterCountBadge">0</span></h1><p class="page-subtitle">Structurez votre recit</p></header>
             <div class="content-body">
@@ -121,7 +108,27 @@
         function load() { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { state = { ...state, ...JSON.parse(saved) }; if (!state.magicTypes) state.magicTypes = []; if (!state.chapters || state.chapters.length === 0) state.chapters = [{ id: 'ch1', title: 'Chapitre 1', notes: [] }]; } catch(e) { console.error(e); } } const theme = localStorage.getItem('scriptorium_theme'); if (theme) { document.body.setAttribute('data-theme', theme); updateThemeIcon(theme); } }
         function recordHistory() { history.push(JSON.stringify(state)); if (history.length > 30) history.shift(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
         function undo() { if (history.length === 0) { showToast('Rien a annuler'); return; } state = JSON.parse(history.pop()); save(); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); editingNoteId = null; $('noteForm').reset(); $('noteFormTitle').textContent = 'Ajouter un evenement'; renderAll(); showToast('Action annulee'); }
-        function buildNavigation() { const nav = $('navSection'); if (!nav) return; const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : []; const icons = (typeof iconMap !== 'undefined') ? iconMap : {}; pageMap = Object.fromEntries(pages.map(p => [p.id, p])); const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); }); let html = ''; for (const sec in groups) { html += `<div class="nav-label">${escapeHtml(sec)}</div>`; groups[sec].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html; }
+        
+        // FALLBACK MENU RESTAURE
+        function buildNavigation() {
+            const nav = $('navSection'); if (!nav) return;
+            const defaultPages = [
+                { id: 'personnages', label: 'Personnages', file: 'personnages.html', section: 'Monde' },
+                { id: 'lieux', label: 'Lieux', file: 'lieux.html', section: 'Monde' },
+                { id: 'objets', label: 'Objets', file: 'objets.html', section: 'Monde' },
+                { id: 'encyclopedie', label: 'Encyclopédie', file: 'encyclopedie.html', section: 'Monde' },
+                { id: 'glossaire', label: 'Glossaire', file: 'glossaire.html', section: 'Monde' },
+                { id: 'magie', label: 'Magie', file: 'magie.html', section: 'Monde' },
+                { id: 'connexion', label: 'Connexion', file: 'connexion.html', section: 'Partage' },
+                { id: 'chronologie', label: 'Chronologie', file: 'chronologie.html', section: 'Histoire' }
+            ];
+            const pages = (typeof SCRIPTORIUM_PAGES !== 'undefined') ? SCRIPTORIUM_PAGES : defaultPages;
+            const icons = (typeof iconMap !== 'undefined') ? iconMap : {};
+            pageMap = Object.fromEntries(pages.map(p => [p.id, p]));
+            const groups = {}; pages.forEach(p => { if (!groups[p.section]) groups[p.section] = []; groups[p.section].push(p); });
+            let html = ''; for (const sec in groups) { html += `<div class="nav-label">${escapeHtml(sec)}</div>`; groups[sec].forEach(p => { const isActive = (p.id === pageId) ? ' active' : ''; const iconSvg = icons[p.id] || ''; html += `<button class="nav-item${isActive}" onclick="navigateTo('${p.id}')"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconSvg}</svg>${escapeHtml(p.label)}</button>`; }); } nav.innerHTML = html;
+        }
+        
         function navigateTo(id) { if (pageMap[id]) window.location.href = pageMap[id].file; } window.navigateTo = navigateTo;
         function updateThemeIcon(theme) { const icon = $('themeIcon'); icon.innerHTML = theme === 'dark' ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; }
         function toggleTheme() { const curr = document.body.getAttribute('data-theme') || 'light'; const next = curr === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('scriptorium_theme', next); updateThemeIcon(next); }
